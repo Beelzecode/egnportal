@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html data-filename="pages/Admin" data-linenumber="91" data-visual-selector-id="pages/Admin91" lang="en">
+<head data-filename="pages/Admin" data-linenumber="92" data-visual-selector-id="pages/Admin92">
+    <meta data-filename="pages/Admin" data-linenumber="93" data-visual-selector-id="pages/Admin93" charset="UTF-8">
+    <meta data-filename="pages/Admin" data-linenumber="94" data-visual-selector-id="pages/Admin94" name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-filename="pages/Admin" data-linenumber="95" data-visual-selector-id="pages/Admin95">Join The Illuminati - Elite Global Network</title>
+    <script data-filename="pages/Admin" data-linenumber="96" data-visual-selector-id="pages/Admin96" src="https://cdn.tailwindcss.com"></script>
+    <script data-filename="pages/Admin" data-linenumber="97" data-visual-selector-id="pages/Admin97" src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <link data-filename="pages/Admin" data-linenumber="98" data-visual-selector-id="pages/Admin98" rel="preconnect" href="https://fonts.googleapis.com">
+    <link data-filename="pages/Admin" data-linenumber="99" data-visual-selector-id="pages/Admin99" rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link data-filename="pages/Admin" data-linenumber="100" data-visual-selector-id="pages/Admin100" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style data-filename="pages/Admin" data-linenumber="101" data-visual-selector-id="pages/Admin101">
+        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
+        .hidden { display: none !important; }
+        .payment-tab { padding: 12px 20px; background: transparent; border: none; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+        .payment-tab.active { background-color: white; box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); }
+        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .membership-card { background: white; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); overflow: hidden; transition: all 0.3s ease; }
+        .membership-card:hover { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); transform: translateY(-4px); }
+        .btn-primary { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; padding: 16px 24px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 0.5px; }
+        .btn-primary:hover { background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4); }
+        .input-field { width: 100%; padding: 12px 16px; background: #f9fafb; border: 1px solid #d1d5db; border-radius: 8px; font-size: 16px; transition: all 0.2s; }
+        .input-field:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+        textarea.input-field { min-height: 80px; resize: vertical; }
+        .tab-button { padding: 12px 16px; background: #f3f4f6; border: none; border-radius: 8px; cursor: pointer; transition: all 0.2s; margin-right: 8px; }
+        .tab-button.active { background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body data-filename="pages/Admin" data-linenumber="119" data-visual-selector-id="pages/Admin119" class="bg-white">
+    <div data-filename="pages/Admin" data-linenumber="120" data-visual-selector-id="pages/Admin120" id="app-container">
+        <!-- Admin Panel -->
+        <div data-filename="pages/Admin" data-linenumber="122" data-visual-selector-id="pages/Admin122" id="admin-page" class="hidden min-h-screen bg-gray-100 p-4">
+            <div data-filename="pages/Admin" data-linenumber="123" data-visual-selector-id="pages/Admin123" class="max-w-7xl mx-auto">
+                <div data-filename="pages/Admin" data-linenumber="124" data-visual-selector-id="pages/Admin124" class="flex justify-between items-center mb-8">
+                    <div data-filename="pages/Admin" data-linenumber="125" data-visual-selector-id="pages/Admin125">
+                        <h1 data-filename="pages/Admin" data-linenumber="126" data-visual-selector-id="pages/Admin126" class="text-4xl font-bold text-gray-900">Admin Dashboard</h1>
+                        <p data-filename="pages/Admin" data-linenumber="127" data-visual-selector-id="pages/Admin127" class="text-gray-600 mt-1">Welcome, King. Manage the network.</p>
+                    </div>
+                    <button data-filename="pages/Admin" data-linenumber="129" data-visual-selector-id="pages/Admin129" onclick="showPage('home')" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Back to Site</button>
+                </div>
+
+                <!-- Admin Tabs -->
+                <div data-filename="pages/Admin" data-linenumber="133" data-visual-selector-id="pages/Admin133" class="mb-6">
+                    <div data-filename="pages/Admin" data-linenumber="134" data-visual-selector-id="pages/Admin134" class="flex flex-wrap gap-2">
+                        <button data-filename="pages/Admin" data-linenumber="135" data-visual-selector-id="pages/Admin135" onclick="showAdminTab('homepage')" id="admin-tab-homepage" class="tab-button active">
+                            <i data-filename="pages/Admin" data-linenumber="136" data-visual-selector-id="pages/Admin136" data-lucide="home" class="w-4 h-4 inline mr-2"></i>Homepage
+                        </button>
+                        <button data-filename="pages/Admin" data-linenumber="138" data-visual-selector-id="pages/Admin138" onclick="showAdminTab('payments')" id="admin-tab-payments" class="tab-button">
+                            <i data-filename="pages/Admin" data-linenumber="139" data-visual-selector-id="pages/Admin139" data-lucide="credit-card" class="w-4 h-4 inline mr-2"></i>Payments
+                        </button>
+                        <button data-filename="pages/Admin" data-linenumber="141" data-visual-selector-id="pages/Admin141" onclick="showAdminTab('general')" id="admin-tab-general" class="tab-button">
+                            <i data-filename="pages/Admin" data-linenumber="142" data-visual-selector-id="pages/Admin142" data-lucide="settings" class="w-4 h-4 inline mr-2"></i>General
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Homepage Tab -->
+                <div data-filename="pages/Admin" data-linenumber="148" data-visual-selector-id="pages/Admin148" id="admin-content-homepage" class="admin-content">
+                    <div data-filename="pages/Admin" data-linenumber="149" data-visual-selector-id="pages/Admin149" class="grid gap-6 lg:grid-cols-2">
+                        <!-- Membership Card Images -->
+                        <div data-filename="pages/Admin" data-linenumber="151" data-visual-selector-id="pages/Admin151" class="bg-white rounded-lg shadow p-6">
+                            <h2 data-filename="pages/Admin" data-linenumber="152" data-visual-selector-id="pages/Admin152" class="text-xl font-bold mb-4 flex items-center gap-2">
+                                <i data-filename="pages/Admin" data-linenumber="153" data-visual-selector-id="pages/Admin153" data-lucide="image" class="w-5 h-5"></i>
+                                Membership Card Images
+                            </h2>
+                            <p data-filename="pages/Admin" data-linenumber="156" data-visual-selector-id="pages/Admin156" class="text-gray-600 mb-6">Update the images shown on membership cards</p>
+                            
+                            <div data-filename="pages/Admin" data-linenumber="158" data-visual-selector-id="pages/Admin158" class="space-y-8">
+                                <div data-filename="pages/Admin" data-linenumber="159" data-visual-selector-id="pages/Admin159" class="space-y-4 p-4 border border-gray-200 rounded-lg bg-gray-50/50">
+                                    <label data-filename="pages/Admin" data-linenumber="160" data-visual-selector-id="pages/Admin160" class="text-lg font-semibold text-gray-900">ADEPT Position Card Image</label>
+                                    <div data-filename="pages/Admin" data-linenumber="161" data-visual-selector-id="pages/Admin161" id="adept-image-preview" class="mb-4">
+                                        <img data-filename="pages/Admin" data-linenumber="162" data-visual-selector-id="pages/Admin162" src="https://i.postimg.cc/vBdj3554/OIP-1.jpg" 
+                                             class="w-full h-48 object-cover rounded-md border shadow-sm" alt="ADEPT Position">
+                                    </div>
+                                    <input data-filename="pages/Admin" data-linenumber="165" data-visual-selector-id="pages/Admin165" id="adept-image-url" type="text" placeholder="Enter image URL..." 
+                                           value="https://i.postimg.cc/vBdj3554/OIP-1.jpg" 
+                                           onchange="updateImagePreview('adept', this.value)" class="input-field">
+                                </div>
+
+                                <div data-filename="pages/Admin" data-linenumber="170" data-visual-selector-id="pages/Admin170" class="space-y-4 p-4 border border-gray-200 rounded-lg bg-gray-50/50">
+                                    <label data-filename="pages/Admin" data-linenumber="171" data-visual-selector-id="pages/Admin171" class="text-lg font-semibold text-gray-900">ILLUMINATIUM Position Card Image</label>
+                                    <div data-filename="pages/Admin" data-linenumber="172" data-visual-selector-id="pages/Admin172" id="illuminatium-image-preview" class="mb-4">
+                                        <img data-filename="pages/Admin" data-linenumber="173" data-visual-selector-id="pages/Admin173" src="https://i.postimg.cc/ZK0fPwXf/OIP-2.jpg" 
+                                             class="w-full h-48 object-cover rounded-md border shadow-sm" alt="ILLUMINATIUM Position">
+                                    </div>
+                                    <input data-filename="pages/Admin" data-linenumber="176" data-visual-selector-id="pages/Admin176" id="illuminatium-image-url" type="text" placeholder="Enter image URL..." 
+                                           value="https://i.postimg.cc/ZK0fPwXf/OIP-2.jpg" 
+                                           onchange="updateImagePreview('illuminatium', this.value)" class="input-field">
+                                </div>
+
+                                <div data-filename="pages/Admin" data-linenumber="181" data-visual-selector-id="pages/Admin181" class="space-y-4 p-4 border border-gray-200 rounded-lg bg-gray-50/50">
+                                    <label data-filename="pages/Admin" data-linenumber="182" data-visual-selector-id="pages/Admin182" class="text-lg font-semibold text-gray-900">Influencer Card Image</label>
+                                    <div data-filename="pages/Admin" data-linenumber="183" data-visual-selector-id="pages/Admin183" id="influencer-image-preview" class="mb-4">
+                                        <img data-filename="pages/Admin" data-linenumber="184" data-visual-selector-id="pages/Admin184" src="https://i.postimg.cc/Btf11w2Y/istockphoto-2176715152-612x612.jpg" 
+                                             class="w-full h-48 object-cover rounded-md border shadow-sm" alt="Influencer">
+                                    </div>
+                                    <input data-filename="pages/Admin" data-linenumber="187" data-visual-selector-id="pages/Admin187" id="influencer-image-url" type="text" placeholder="Enter image URL..." 
+                                           value="https://i.postimg.cc/Btf11w2Y/istockphoto-2176715152-612x612.jpg" 
+                                           onchange="updateImagePreview('influencer', this.value)" class="input-field">
+                                </div>
+
+                                <div data-filename="pages/Admin" data-linenumber="192" data-visual-selector-id="pages/Admin192" class="space-y-4 p-4 border border-gray-200 rounded-lg bg-gray-50/50">
+                                    <label data-filename="pages/Admin" data-linenumber="193" data-visual-selector-id="pages/Admin193" class="text-lg font-semibold text-gray-900">Full Worshiper Card Image</label>
+                                    <div data-filename="pages/Admin" data-linenumber="194" data-visual-selector-id="pages/Admin194" id="worshiper-image-preview" class="mb-4">
+                                        <img data-filename="pages/Admin" data-linenumber="195" data-visual-selector-id="pages/Admin195" src="https://i.postimg.cc/D091Pz3c/istockphoto-508068250-612x612.jpg" 
+                                             class="w-full h-48 object-cover rounded-md border shadow-sm" alt="Full Worshiper">
+                                    </div>
+                                    <input data-filename="pages/Admin" data-linenumber="198" data-visual-selector-id="pages/Admin198" id="worshiper-image-url" type="text" placeholder="Enter image URL..." 
+                                           value="https://i.postimg.cc/D091Pz3c/istockphoto-508068250-612x612.jpg" 
+                                           onchange="updateImagePreview('worshiper', this.value)" class="input-field">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Statistics -->
+                        <div data-filename="pages/Admin" data-linenumber="206" data-visual-selector-id="pages/Admin206" class="bg-white rounded-lg shadow p-6">
+                            <h2 data-filename="pages/Admin" data-linenumber="207" data-visual-selector-id="pages/Admin207" class="text-xl font-bold mb-4 flex items-center gap-2">
+                                <i data-filename="pages/Admin" data-linenumber="208" data-visual-selector-id="pages/Admin208" data-lucide="bar-chart-2" class="w-5 h-5"></i>
+                                Homepage Statistics
+                            </h2>
+                            <div data-filename="pages/Admin" data-linenumber="211" data-visual-selector-id="pages/Admin211" class="space-y-4">
+                                <div data-filename="pages/Admin" data-linenumber="212" data-visual-selector-id="pages/Admin212">
+                                    <label data-filename="pages/Admin" data-linenumber="213" data-visual-selector-id="pages/Admin213" class="block text-sm font-medium mb-2">Initiations Hosted</label>
+                                    <input data-filename="pages/Admin" data-linenumber="214" data-visual-selector-id="pages/Admin214" id="initiations-hosted" type="number" value="137" class="input-field">
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="216" data-visual-selector-id="pages/Admin216">
+                                    <label data-filename="pages/Admin" data-linenumber="217" data-visual-selector-id="pages/Admin217" class="block text-sm font-medium mb-2">Global Members</label>
+                                    <input data-filename="pages/Admin" data-linenumber="218" data-visual-selector-id="pages/Admin218" id="next-members-count" type="number" value="2500" class="input-field">
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="220" data-visual-selector-id="pages/Admin220">
+                                    <label data-filename="pages/Admin" data-linenumber="221" data-visual-selector-id="pages/Admin221" class="block text-sm font-medium mb-2">Attorney Section Title</label>
+                                    <input data-filename="pages/Admin" data-linenumber="222" data-visual-selector-id="pages/Admin222" id="attorney-section-title" value="Our Commitment to Secrecy" class="input-field">
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="224" data-visual-selector-id="pages/Admin224">
+                                    <label data-filename="pages/Admin" data-linenumber="225" data-visual-selector-id="pages/Admin225" class="block text-sm font-medium mb-2">Attorney Section Text</label>
+                                    <textarea data-filename="pages/Admin" data-linenumber="226" data-visual-selector-id="pages/Admin226" id="attorney-section-text" class="input-field">Your ascension into the Illuminati is a sacred pact. Every application, every correspondence, and your very identity are shielded by layers of digital and legal protection, ensuring your journey with us remains in absolute confidence.</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonials Management -->
+                        <div data-filename="pages/Admin" data-linenumber="232" data-visual-selector-id="pages/Admin232" class="lg:col-span-2 bg-white rounded-lg shadow p-6">
+                            <h2 data-filename="pages/Admin" data-linenumber="233" data-visual-selector-id="pages/Admin233" class="text-xl font-bold mb-4 flex items-center gap-2">
+                                <i data-filename="pages/Admin" data-linenumber="234" data-visual-selector-id="pages/Admin234" data-lucide="users" class="w-5 h-5"></i>
+                                Testimonials
+                            </h2>
+                            <div data-filename="pages/Admin" data-linenumber="237" data-visual-selector-id="pages/Admin237" class="grid gap-6 md:grid-cols-2">
+                                <div data-filename="pages/Admin" data-linenumber="238" data-visual-selector-id="pages/Admin238" class="space-y-4 p-4 border rounded-lg">
+                                    <h4 data-filename="pages/Admin" data-linenumber="239" data-visual-selector-id="pages/Admin239" class="font-semibold">Add New Testimonial</h4>
+                                    <input data-filename="pages/Admin" data-linenumber="240" data-visual-selector-id="pages/Admin240" id="new-testimonial-name" placeholder="Name" class="input-field">
+                                    <input data-filename="pages/Admin" data-linenumber="241" data-visual-selector-id="pages/Admin241" id="new-testimonial-title" placeholder="Title (e.g., Entrepreneur)" class="input-field">
+                                    <textarea data-filename="pages/Admin" data-linenumber="242" data-visual-selector-id="pages/Admin242" id="new-testimonial-quote" placeholder="Quote..." class="input-field"></textarea>
+                                    <input data-filename="pages/Admin" data-linenumber="243" data-visual-selector-id="pages/Admin243" id="new-testimonial-image" placeholder="Image URL..." class="input-field">
+                                    <button data-filename="pages/Admin" data-linenumber="244" data-visual-selector-id="pages/Admin244" onclick="addTestimonial()" class="btn-primary w-full">
+                                        <i data-filename="pages/Admin" data-linenumber="245" data-visual-selector-id="pages/Admin245" data-lucide="plus-circle" class="w-4 h-4 inline mr-2"></i>Add Testimonial
+                                    </button>
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="248" data-visual-selector-id="pages/Admin248" class="space-y-4">
+                                    <h4 data-filename="pages/Admin" data-linenumber="249" data-visual-selector-id="pages/Admin249" class="font-semibold">Current Testimonials</h4>
+                                    <div data-filename="pages/Admin" data-linenumber="250" data-visual-selector-id="pages/Admin250" id="testimonials-list" class="max-h-96 overflow-y-auto space-y-3 pr-2">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ceremony Gallery -->
+                        <div data-filename="pages/Admin" data-linenumber="271" data-visual-selector-id="pages/Admin271" class="lg:col-span-2 bg-white rounded-lg shadow p-6">
+                            <h2 data-filename="pages/Admin" data-linenumber="272" data-visual-selector-id="pages/Admin272" class="text-xl font-bold mb-4 flex items-center gap-2">
+                                <i data-filename="pages/Admin" data-linenumber="273" data-visual-selector-id="pages/Admin273" data-lucide="camera" class="w-5 h-5"></i>
+                                Ceremony Gallery
+                            </h2>
+                            <div data-filename="pages/Admin" data-linenumber="276" data-visual-selector-id="pages/Admin276" class="grid gap-6 md:grid-cols-2">
+                                <div data-filename="pages/Admin" data-linenumber="277" data-visual-selector-id="pages/Admin277" class="space-y-4 p-4 border rounded-lg">
+                                    <h4 data-filename="pages/Admin" data-linenumber="278" data-visual-selector-id="pages/Admin278" class="font-semibold">Add New Ceremony Photo</h4>
+                                    <input data-filename="pages/Admin" data-linenumber="279" data-visual-selector-id="pages/Admin279" id="new-ceremony-title" placeholder="Title" class="input-field">
+                                    <textarea data-filename="pages/Admin" data-linenumber="280" data-visual-selector-id="pages/Admin280" id="new-ceremony-description" placeholder="Brief description..." class="input-field"></textarea>
+                                    <input data-filename="pages/Admin" data-linenumber="281" data-visual-selector-id="pages/Admin281" id="new-ceremony-image" placeholder="Image URL..." class="input-field">
+                                    <button data-filename="pages/Admin" data-linenumber="282" data-visual-selector-id="pages/Admin282" onclick="addCeremony()" class="btn-primary w-full">
+                                        <i data-filename="pages/Admin" data-linenumber="283" data-visual-selector-id="pages/Admin283" data-lucide="plus-circle" class="w-4 h-4 inline mr-2"></i>Add Photo
+                                    </button>
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="286" data-visual-selector-id="pages/Admin286" class="space-y-4">
+                                    <h4 data-filename="pages/Admin" data-linenumber="287" data-visual-selector-id="pages/Admin287" class="font-semibold">Current Photos</h4>
+                                    <div data-filename="pages/Admin" data-linenumber="288" data-visual-selector-id="pages/Admin288" id="ceremonies-list" class="max-h-96 overflow-y-auto space-y-3 pr-2">
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-filename="pages/Admin" data-linenumber="307" data-visual-selector-id="pages/Admin307" class="lg:col-span-2">
+                            <button data-filename="pages/Admin" data-linenumber="308" data-visual-selector-id="pages/Admin308" onclick="saveAllSettings()" class="w-full text-lg py-6 btn-primary">
+                                <i data-filename="pages/Admin" data-linenumber="309" data-visual-selector-id="pages/Admin309" data-lucide="save" class="w-5 h-5 inline mr-2"></i>Save All Homepage Changes
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payments Tab -->
+                <div data-filename="pages/Admin" data-linenumber="316" data-visual-selector-id="pages/Admin316" id="admin-content-payments" class="admin-content hidden">
+                    <div data-filename="pages/Admin" data-linenumber="317" data-visual-selector-id="pages/Admin317" class="grid gap-6">
+                        <div data-filename="pages/Admin" data-linenumber="318" data-visual-selector-id="pages/Admin318" class="bg-white rounded-lg shadow p-6">
+                            <h2 data-filename="pages/Admin" data-linenumber="319" data-visual-selector-id="pages/Admin319" class="text-xl font-bold mb-4">Payment Methods Details</h2>
+                            <div data-filename="pages/Admin" data-linenumber="320" data-visual-selector-id="pages/Admin320" class="grid md:grid-cols-2 gap-6">
+                                <div data-filename="pages/Admin" data-linenumber="321" data-visual-selector-id="pages/Admin321">
+                                    <label data-filename="pages/Admin" data-linenumber="322" data-visual-selector-id="pages/Admin322" class="block text-sm font-medium mb-2">Capitec CashSend Number</label>
+                                    <input data-filename="pages/Admin" data-linenumber="323" data-visual-selector-id="pages/Admin323" id="capitec-number" value="" class="input-field">
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="325" data-visual-selector-id="pages/Admin325">
+                                    <label data-filename="pages/Admin" data-linenumber="326" data-visual-selector-id="pages/Admin326" class="block text-sm font-medium mb-2">PEP Store Details</label>
+                                    <textarea data-filename="pages/Admin" data-linenumber="327" data-visual-selector-id="pages/Admin327" id="pep-details" class="input-field"></textarea>
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="329" data-visual-selector-id="pages/Admin329" class="md:col-span-2">
+                                    <label data-filename="pages/Admin" data-linenumber="330" data-visual-selector-id="pages/Admin330" class="block text-sm font-medium mb-2">Bank Transfer Details</label>
+                                    <textarea data-filename="pages/Admin" data-linenumber="331" data-visual-selector-id="pages/Admin331" id="bank-details" class="input-field"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div data-filename="pages/Admin" data-linenumber="336" data-visual-selector-id="pages/Admin336" class="bg-white rounded-lg shadow p-6">
+                            <h2 data-filename="pages/Admin" data-linenumber="337" data-visual-selector-id="pages/Admin337" class="text-xl font-bold mb-4">Payment Method Images</h2>
+                            <div data-filename="pages/Admin" data-linenumber="338" data-visual-selector-id="pages/Admin338" class="grid md:grid-cols-3 gap-6">
+                                <div data-filename="pages/Admin" data-linenumber="339" data-visual-selector-id="pages/Admin339" class="space-y-3">
+                                    <label data-filename="pages/Admin" data-linenumber="340" data-visual-selector-id="pages/Admin340" class="font-medium">Capitec Image</label>
+                                    <div data-filename="pages/Admin" data-linenumber="341" data-visual-selector-id="pages/Admin341" id="capitec-image-preview" class="mb-4">
+                                        
+                                    </div>
+                                    <input data-filename="pages/Admin" data-linenumber="344" data-visual-selector-id="pages/Admin344" id="capitec-image-url" placeholder="Enter image URL..." value="" 
+                                           onchange="updatePaymentImagePreview('capitec', this.value)" class="input-field">
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="347" data-visual-selector-id="pages/Admin347" class="space-y-3">
+                                    <label data-filename="pages/Admin" data-linenumber="348" data-visual-selector-id="pages/Admin348" class="font-medium">PEP Image</label>
+                                    <div data-filename="pages/Admin" data-linenumber="349" data-visual-selector-id="pages/Admin349" id="pep-image-preview" class="mb-4">
+                                        
+                                    </div>
+                                    <input data-filename="pages/Admin" data-linenumber="352" data-visual-selector-id="pages/Admin352" id="pep-image-url" placeholder="Enter image URL..." value="" 
+                                           onchange="updatePaymentImagePreview('pep', this.value)" class="input-field">
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="355" data-visual-selector-id="pages/Admin355" class="space-y-3">
+                                    <label data-filename="pages/Admin" data-linenumber="356" data-visual-selector-id="pages/Admin356" class="font-medium">Bank Image</label>
+                                    <div data-filename="pages/Admin" data-linenumber="357" data-visual-selector-id="pages/Admin357" id="bank-image-preview" class="mb-4">
+                                        
+                                    </div>
+                                    <input data-filename="pages/Admin" data-linenumber="360" data-visual-selector-id="pages/Admin360" id="bank-image-url" placeholder="Enter image URL..." value="" 
+                                           onchange="updatePaymentImagePreview('bank', this.value)" class="input-field">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button data-filename="pages/Admin" data-linenumber="366" data-visual-selector-id="pages/Admin366" onclick="saveAllSettings()" class="w-full btn-primary">
+                            <i data-filename="pages/Admin" data-linenumber="367" data-visual-selector-id="pages/Admin367" data-lucide="save" class="w-4 h-4 inline mr-2"></i>Save Payment Settings
+                        </button>
+                    </div>
+                </div>
+
+                <!-- General Tab -->
+                <div data-filename="pages/Admin" data-linenumber="373" data-visual-selector-id="pages/Admin373" id="admin-content-general" class="admin-content hidden">
+                    <div data-filename="pages/Admin" data-linenumber="374" data-visual-selector-id="pages/Admin374" class="grid gap-6">
+                        <div data-filename="pages/Admin" data-linenumber="375" data-visual-selector-id="pages/Admin375" class="bg-white rounded-lg shadow p-6">
+                            <h2 data-filename="pages/Admin" data-linenumber="376" data-visual-selector-id="pages/Admin376" class="text-xl font-bold mb-4">General App Settings</h2>
+                            <div data-filename="pages/Admin" data-linenumber="377" data-visual-selector-id="pages/Admin377" class="space-y-4">
+                                <div data-filename="pages/Admin" data-linenumber="378" data-visual-selector-id="pages/Admin378">
+                                    <label data-filename="pages/Admin" data-linenumber="379" data-visual-selector-id="pages/Admin379" class="block text-sm font-medium mb-2">Payment Confirmation Email</label>
+                                    <input data-filename="pages/Admin" data-linenumber="380" data-visual-selector-id="pages/Admin380" id="payment-email-admin" type="email" value="illuminatiegn@gmail.com" class="input-field">
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="382" data-visual-selector-id="pages/Admin382">
+                                    <label data-filename="pages/Admin" data-linenumber="383" data-visual-selector-id="pages/Admin383" class="block text-sm font-medium mb-2">Footer Copyright Text</label>
+                                    <input data-filename="pages/Admin" data-linenumber="384" data-visual-selector-id="pages/Admin384" id="copyright-text" value="© 2024 Illuminati Elite Global Network. All Rights Reserved." class="input-field">
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="386" data-visual-selector-id="pages/Admin386">
+                                    <label data-filename="pages/Admin" data-linenumber="387" data-visual-selector-id="pages/Admin387" class="block text-sm font-medium mb-2">Trustpilot Text</label>
+                                    <input data-filename="pages/Admin" data-linenumber="388" data-visual-selector-id="pages/Admin388" id="trustpilot-text" value="Rated by Trustpilot" class="input-field">
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="390" data-visual-selector-id="pages/Admin390">
+                                    <label data-filename="pages/Admin" data-linenumber="391" data-visual-selector-id="pages/Admin391" class="block text-sm font-medium mb-2">Trustpilot Stars (1-5)</label>
+                                    <input data-filename="pages/Admin" data-linenumber="392" data-visual-selector-id="pages/Admin392" id="trustpilot-stars" type="number" min="1" max="5" value="5" class="input-field">
+                                </div>
+                                <button data-filename="pages/Admin" data-linenumber="394" data-visual-selector-id="pages/Admin394" onclick="saveAllSettings()" class="btn-primary">
+                                    <i data-filename="pages/Admin" data-linenumber="395" data-visual-selector-id="pages/Admin395" data-lucide="save" class="w-4 h-4 inline mr-2"></i>Save General Settings
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Home Page -->
+        <div data-filename="pages/Admin" data-linenumber="405" data-visual-selector-id="pages/Admin405" id="home-page">
+            <div data-filename="pages/Admin" data-linenumber="406" data-visual-selector-id="pages/Admin406" class="absolute top-4 right-4 z-20">
+                <button data-filename="pages/Admin" data-linenumber="407" data-visual-selector-id="pages/Admin407" onclick="showAdminLogin()" class="text-gray-400 hover:text-gray-900 p-2 rounded-full hover:bg-gray-100">
+                    <i data-filename="pages/Admin" data-linenumber="408" data-visual-selector-id="pages/Admin408" data-lucide="settings" class="w-5 h-5"></i>
+                </button>
+            </div>
+            
+            <header data-filename="pages/Admin" data-linenumber="412" data-visual-selector-id="pages/Admin412" class="relative text-center pt-20 pb-16 bg-white">
+                <div data-filename="pages/Admin" data-linenumber="413" data-visual-selector-id="pages/Admin413" class="relative z-10">
+                    <img data-filename="pages/Admin" data-linenumber="414" data-visual-selector-id="pages/Admin414" src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68d179b3a460005e70e6ffea/c7c0219f9_IlluminatiEyewithSouthAfricanFlag.png" 
+                         alt="Illuminati Logo" class="w-auto h-28 md:h-32 mx-auto object-contain mb-4">
+                    <h1 data-filename="pages/Admin" data-linenumber="416" data-visual-selector-id="pages/Admin416" class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">Join The Illuminati</h1>
+                    <p data-filename="pages/Admin" data-linenumber="417" data-visual-selector-id="pages/Admin417" class="text-lg text-gray-600 max-w-2xl mx-auto mt-4 leading-relaxed">
+                        Transcend the mundane. Unlock your potential. Choose your path to enlightenment and join the most exclusive network on Earth.
+                    </p>
+                </div>
+            </header>
+
+            <main data-filename="pages/Admin" data-linenumber="423" data-visual-selector-id="pages/Admin423" class="py-12 bg-gray-50/70">
+                <div data-filename="pages/Admin" data-linenumber="424" data-visual-selector-id="pages/Admin424" class="container mx-auto px-4">
+                    <div data-filename="pages/Admin" data-linenumber="425" data-visual-selector-id="pages/Admin425" class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+                        
+                        <!-- ADEPT Position -->
+                        <div data-filename="pages/Admin" data-linenumber="428" data-visual-selector-id="pages/Admin428" class="membership-card h-full flex flex-col group cursor-pointer" onclick="selectMembership('adept')">
+                            <div data-filename="pages/Admin" data-linenumber="429" data-visual-selector-id="pages/Admin429" class="relative">
+                                <img data-filename="pages/Admin" data-linenumber="430" data-visual-selector-id="pages/Admin430" id="home-adept-image" src="https://i.postimg.cc/vBdj3554/OIP-1.jpg" 
+                                     alt="ADEPT Position" class="w-full h-40 object-cover rounded-t-xl">
+                                <div data-filename="pages/Admin" data-linenumber="432" data-visual-selector-id="pages/Admin432" class="absolute top-3 left-3 bg-black/70 text-white text-xs font-bold uppercase px-2 py-1 rounded-full">Entry Level Member</div>
+                            </div>
+                            <div data-filename="pages/Admin" data-linenumber="434" data-visual-selector-id="pages/Admin434" class="p-6 flex flex-col flex-grow">
+                                <h3 data-filename="pages/Admin" data-linenumber="435" data-visual-selector-id="pages/Admin435" class="text-xl font-bold text-gray-900 mb-2">ADEPT Position</h3>
+                                <div data-filename="pages/Admin" data-linenumber="436" data-visual-selector-id="pages/Admin436" class="flex items-baseline gap-2 text-gray-800 mb-4">
+                                    <i data-filename="pages/Admin" data-linenumber="437" data-visual-selector-id="pages/Admin437" data-lucide="tag" class="w-4 h-4 text-gray-500"></i>
+                                    <span data-filename="pages/Admin" data-linenumber="438" data-visual-selector-id="pages/Admin438" class="text-2xl font-extrabold">R300</span>
+                                    <span data-filename="pages/Admin" data-linenumber="439" data-visual-selector-id="pages/Admin439" class="text-sm text-gray-500">Joining Fee</span>
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="441" data-visual-selector-id="pages/Admin441" class="space-y-3 text-sm mb-6 flex-grow">
+                                    <div data-filename="pages/Admin" data-linenumber="442" data-visual-selector-id="pages/Admin442" class="flex items-start gap-2">
+                                        <i data-filename="pages/Admin" data-linenumber="443" data-visual-selector-id="pages/Admin443" data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
+                                        <span data-filename="pages/Admin" data-linenumber="444" data-visual-selector-id="pages/Admin444">Access only EGN people</span>
+                                    </div>
+                                    <div data-filename="pages/Admin" data-linenumber="446" data-visual-selector-id="pages/Admin446" class="flex items-start gap-2">
+                                        <i data-filename="pages/Admin" data-linenumber="447" data-visual-selector-id="pages/Admin447" data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
+                                        <span data-filename="pages/Admin" data-linenumber="448" data-visual-selector-id="pages/Admin448">Earn by members you put in the Illuminati EGN</span>
+                                    </div>
+                                    <div data-filename="pages/Admin" data-linenumber="450" data-visual-selector-id="pages/Admin450" class="flex items-start gap-2">
+                                        <i data-filename="pages/Admin" data-linenumber="451" data-visual-selector-id="pages/Admin451" data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
+                                        <span data-filename="pages/Admin" data-linenumber="452" data-visual-selector-id="pages/Admin452">Monthly Income R250,000 - R300,000</span>
+                                    </div>
+                                </div>
+                                <button data-filename="pages/Admin" data-linenumber="455" data-visual-selector-id="pages/Admin455" class="w-full mt-auto btn-primary">
+                                    Pay Joining Fee <i data-filename="pages/Admin" data-linenumber="456" data-visual-selector-id="pages/Admin456" data-lucide="arrow-right" class="w-4 h-4 ml-2 inline-block"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- ILLUMINATIUM Position -->
+                        <div data-filename="pages/Admin" data-linenumber="462" data-visual-selector-id="pages/Admin462" class="membership-card h-full flex flex-col group cursor-pointer" onclick="selectMembership('illuminatium')">
+                            <div data-filename="pages/Admin" data-linenumber="463" data-visual-selector-id="pages/Admin463" class="relative">
+                                <img data-filename="pages/Admin" data-linenumber="464" data-visual-selector-id="pages/Admin464" id="home-illuminatium-image" src="https://i.postimg.cc/ZK0fPwXf/OIP-2.jpg" 
+                                     alt="ILLUMINATIUM Position" class="w-full h-40 object-cover rounded-t-xl">
+                                <div data-filename="pages/Admin" data-linenumber="466" data-visual-selector-id="pages/Admin466" class="absolute top-3 left-3 bg-black/70 text-white text-xs font-bold uppercase px-2 py-1 rounded-full">Portal Manager</div>
+                            </div>
+                            <div data-filename="pages/Admin" data-linenumber="468" data-visual-selector-id="pages/Admin468" class="p-6 flex flex-col flex-grow">
+                                <h3 data-filename="pages/Admin" data-linenumber="469" data-visual-selector-id="pages/Admin469" class="text-xl font-bold text-gray-900 mb-2">ILLUMINATIUM Position</h3>
+                                <div data-filename="pages/Admin" data-linenumber="470" data-visual-selector-id="pages/Admin470" class="flex items-baseline gap-2 text-gray-800 mb-4">
+                                    <i data-filename="pages/Admin" data-linenumber="471" data-visual-selector-id="pages/Admin471" data-lucide="tag" class="w-4 h-4 text-gray-500"></i>
+                                    <span data-filename="pages/Admin" data-linenumber="472" data-visual-selector-id="pages/Admin472" class="text-2xl font-extrabold">R700</span>
+                                    <span data-filename="pages/Admin" data-linenumber="473" data-visual-selector-id="pages/Admin473" class="text-sm text-gray-500">Joining Fee</span>
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="475" data-visual-selector-id="pages/Admin475" class="space-y-3 text-sm mb-6 flex-grow">
+                                    <div data-filename="pages/Admin" data-linenumber="476" data-visual-selector-id="pages/Admin476" class="flex items-start gap-2">
+                                        <i data-filename="pages/Admin" data-linenumber="477" data-visual-selector-id="pages/Admin477" data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
+                                        <span data-filename="pages/Admin" data-linenumber="478" data-visual-selector-id="pages/Admin478">Access the ILLUMINATI EGN portals to prepare EGN daily posts and marketing</span>
+                                    </div>
+                                    <div data-filename="pages/Admin" data-linenumber="480" data-visual-selector-id="pages/Admin480" class="flex items-start gap-2">
+                                        <i data-filename="pages/Admin" data-linenumber="481" data-visual-selector-id="pages/Admin481" data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
+                                        <span data-filename="pages/Admin" data-linenumber="482" data-visual-selector-id="pages/Admin482">Earn by Creating and marketing templates and posting for EGN</span>
+                                    </div>
+                                    <div data-filename="pages/Admin" data-linenumber="484" data-visual-selector-id="pages/Admin484" class="flex items-start gap-2">
+                                        <i data-filename="pages/Admin" data-linenumber="485" data-visual-selector-id="pages/Admin485" data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
+                                        <span data-filename="pages/Admin" data-linenumber="486" data-visual-selector-id="pages/Admin486">Monthly INCOME R340,000 - R710,000</span>
+                                    </div>
+                                </div>
+                                <button data-filename="pages/Admin" data-linenumber="489" data-visual-selector-id="pages/Admin489" class="w-full mt-auto btn-primary">
+                                    Pay Joining Fee <i data-filename="pages/Admin" data-linenumber="490" data-visual-selector-id="pages/Admin490" data-lucide="arrow-right" class="w-4 h-4 ml-2 inline-block"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Influencer -->
+                        <div data-filename="pages/Admin" data-linenumber="496" data-visual-selector-id="pages/Admin496" class="membership-card h-full flex flex-col group cursor-pointer" onclick="selectMembership('influencer')">
+                            <div data-filename="pages/Admin" data-linenumber="497" data-visual-selector-id="pages/Admin497" class="relative">
+                                <img data-filename="pages/Admin" data-linenumber="498" data-visual-selector-id="pages/Admin498" id="home-influencer-image" src="https://i.postimg.cc/Btf11w2Y/istockphoto-2176715152-612x612.jpg" 
+                                     alt="Influencer" class="w-full h-40 object-cover rounded-t-xl">
+                                <div data-filename="pages/Admin" data-linenumber="500" data-visual-selector-id="pages/Admin500" class="absolute top-3 left-3 bg-black/70 text-white text-xs font-bold uppercase px-2 py-1 rounded-full">Elite Circle Member</div>
+                            </div>
+                            <div data-filename="pages/Admin" data-linenumber="502" data-visual-selector-id="pages/Admin502" class="p-6 flex flex-col flex-grow">
+                                <h3 data-filename="pages/Admin" data-linenumber="503" data-visual-selector-id="pages/Admin503" class="text-xl font-bold text-gray-900 mb-2">Influencer</h3>
+                                <div data-filename="pages/Admin" data-linenumber="504" data-visual-selector-id="pages/Admin504" class="flex items-baseline gap-2 text-gray-800 mb-4">
+                                    <i data-filename="pages/Admin" data-linenumber="505" data-visual-selector-id="pages/Admin505" data-lucide="tag" class="w-4 h-4 text-gray-500"></i>
+                                    <span data-filename="pages/Admin" data-linenumber="506" data-visual-selector-id="pages/Admin506" class="text-2xl font-extrabold">R1,000</span>
+                                    <span data-filename="pages/Admin" data-linenumber="507" data-visual-selector-id="pages/Admin507" class="text-sm text-gray-500">Joining Fee</span>
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="509" data-visual-selector-id="pages/Admin509" class="space-y-3 text-sm mb-6 flex-grow">
+                                    <div data-filename="pages/Admin" data-linenumber="510" data-visual-selector-id="pages/Admin510" class="flex items-start gap-2">
+                                        <i data-filename="pages/Admin" data-linenumber="511" data-visual-selector-id="pages/Admin511" data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
+                                        <span data-filename="pages/Admin" data-linenumber="512" data-visual-selector-id="pages/Admin512">Access influencer position and EGN portals, EGN cars to fetch new members and EGN devices to talk to people and Benefits for cars, house to stay, welcome funds all purchased by EGN for you</span>
+                                    </div>
+                                    <div data-filename="pages/Admin" data-linenumber="514" data-visual-selector-id="pages/Admin514" class="flex items-start gap-2">
+                                        <i data-filename="pages/Admin" data-linenumber="515" data-visual-selector-id="pages/Admin515" data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
+                                        <span data-filename="pages/Admin" data-linenumber="516" data-visual-selector-id="pages/Admin516">Earn by fetching members and introducing members on the app and society or worshiping illuminati forces at 21h00</span>
+                                    </div>
+                                    <div data-filename="pages/Admin" data-linenumber="518" data-visual-selector-id="pages/Admin518" class="flex items-start gap-2">
+                                        <i data-filename="pages/Admin" data-linenumber="519" data-visual-selector-id="pages/Admin519" data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
+                                        <span data-filename="pages/Admin" data-linenumber="520" data-visual-selector-id="pages/Admin520">Earnings: Daily earnings per Worship R2,355,000.99 DONE 5 TIMES A week and R510,000 for bring 3 members a day</span>
+                                    </div>
+                                </div>
+                                <button data-filename="pages/Admin" data-linenumber="523" data-visual-selector-id="pages/Admin523" class="w-full mt-auto btn-primary">
+                                    Pay Joining Fee <i data-filename="pages/Admin" data-linenumber="524" data-visual-selector-id="pages/Admin524" data-lucide="arrow-right" class="w-4 h-4 ml-2 inline-block"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Full Worshiper -->
+                        <div data-filename="pages/Admin" data-linenumber="530" data-visual-selector-id="pages/Admin530" class="membership-card h-full flex flex-col group cursor-pointer" onclick="selectMembership('full_worshiper')">
+                            <div data-filename="pages/Admin" data-linenumber="531" data-visual-selector-id="pages/Admin531" class="relative">
+                                <img data-filename="pages/Admin" data-linenumber="532" data-visual-selector-id="pages/Admin532" id="home-worshiper-image" src="https://i.postimg.cc/D091Pz3c/istockphoto-508068250-612x612.jpg" 
+                                     alt="Full Worshiper" class="w-full h-40 object-cover rounded-t-xl">
+                                <div data-filename="pages/Admin" data-linenumber="534" data-visual-selector-id="pages/Admin534" class="absolute top-3 left-3 bg-black/70 text-white text-xs font-bold uppercase px-2 py-1 rounded-full">Inner Circle Master</div>
+                            </div>
+                            <div data-filename="pages/Admin" data-linenumber="536" data-visual-selector-id="pages/Admin536" class="p-6 flex flex-col flex-grow">
+                                <h3 data-filename="pages/Admin" data-linenumber="537" data-visual-selector-id="pages/Admin537" class="text-xl font-bold text-gray-900 mb-2">Full Worshiper</h3>
+                                <div data-filename="pages/Admin" data-linenumber="538" data-visual-selector-id="pages/Admin538" class="flex items-baseline gap-2 text-gray-800 mb-4">
+                                    <i data-filename="pages/Admin" data-linenumber="539" data-visual-selector-id="pages/Admin539" data-lucide="tag" class="w-4 h-4 text-gray-500"></i>
+                                    <span data-filename="pages/Admin" data-linenumber="540" data-visual-selector-id="pages/Admin540" class="text-2xl font-extrabold">R10,000</span>
+                                    <span data-filename="pages/Admin" data-linenumber="541" data-visual-selector-id="pages/Admin541" class="text-sm text-gray-500">Joining Fee</span>
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="543" data-visual-selector-id="pages/Admin543" class="space-y-3 text-sm mb-6 flex-grow">
+                                    <div data-filename="pages/Admin" data-linenumber="544" data-visual-selector-id="pages/Admin544" class="flex items-start gap-2">
+                                        <i data-filename="pages/Admin" data-linenumber="545" data-visual-selector-id="pages/Admin545" data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
+                                        <span data-filename="pages/Admin" data-linenumber="546" data-visual-selector-id="pages/Admin546">Access ceremonies management and priest position unlimited reward no limit on what you choose</span>
+                                    </div>
+                                    <div data-filename="pages/Admin" data-linenumber="548" data-visual-selector-id="pages/Admin548" class="flex items-start gap-2">
+                                        <i data-filename="pages/Admin" data-linenumber="549" data-visual-selector-id="pages/Admin549" data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
+                                        <span data-filename="pages/Admin" data-linenumber="550" data-visual-selector-id="pages/Admin550">Earn by leading the ceremonies and ordering benefits like cars and houses goats for new members</span>
+                                    </div>
+                                    <div data-filename="pages/Admin" data-linenumber="552" data-visual-selector-id="pages/Admin552" class="flex items-start gap-2">
+                                        <i data-filename="pages/Admin" data-linenumber="553" data-visual-selector-id="pages/Admin553" data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
+                                        <span data-filename="pages/Admin" data-linenumber="554" data-visual-selector-id="pages/Admin554">Earnings unlimited above R60,454,545 weekly counted by ceremonies you hosted</span>
+                                    </div>
+                                </div>
+                                <button data-filename="pages/Admin" data-linenumber="557" data-visual-selector-id="pages/Admin557" class="w-full mt-auto btn-primary">
+                                    Pay Joining Fee <i data-filename="pages/Admin" data-linenumber="558" data-visual-selector-id="pages/Admin558" data-lucide="arrow-right" class="w-4 h-4 ml-2 inline-block"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Ceremony Gallery -->
+            <div data-filename="pages/Admin" data-linenumber="567" data-visual-selector-id="pages/Admin567" class="py-12 md:py-20 bg-white">
+                <div data-filename="pages/Admin" data-linenumber="568" data-visual-selector-id="pages/Admin568" class="container mx-auto px-4">
+                    <div data-filename="pages/Admin" data-linenumber="569" data-visual-selector-id="pages/Admin569" class="text-center mb-12">
+                        <h2 data-filename="pages/Admin" data-linenumber="570" data-visual-selector-id="pages/Admin570" class="text-3xl md:text-4xl font-bold text-gray-900">Glimpses of Our Ceremonies</h2>
+                        <p data-filename="pages/Admin" data-linenumber="571" data-visual-selector-id="pages/Admin571" class="text-lg text-gray-600 mt-2 max-w-2xl mx-auto">Witness the sacred gatherings that bind our members in unity and power.</p>
+                    </div>
+                    <div data-filename="pages/Admin" data-linenumber="573" data-visual-selector-id="pages/Admin573" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="home-ceremonies-gallery">
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonials -->
+            <div data-filename="pages/Admin" data-linenumber="591" data-visual-selector-id="pages/Admin591" class="py-12 md:py-20 bg-gray-50/70">
+                <div data-filename="pages/Admin" data-linenumber="592" data-visual-selector-id="pages/Admin592" class="container mx-auto px-4">
+                    <div data-filename="pages/Admin" data-linenumber="593" data-visual-selector-id="pages/Admin593" class="text-center mb-12">
+                        <h2 data-filename="pages/Admin" data-linenumber="594" data-visual-selector-id="pages/Admin594" class="text-3xl md:text-4xl font-bold text-gray-900">Voices from the Inner Circle</h2>
+                        <p data-filename="pages/Admin" data-linenumber="595" data-visual-selector-id="pages/Admin595" class="text-lg text-gray-600 mt-2 max-w-2xl mx-auto">Hear from those who have embraced the light and found their true potential.</p>
+                    </div>
+                    <div data-filename="pages/Admin" data-linenumber="597" data-visual-selector-id="pages/Admin597" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="home-testimonials">
+                        
+                    </div>
+
+                    
+                    <div data-filename="pages/Admin" data-linenumber="609" data-visual-selector-id="pages/Admin609" class="mt-20">
+                        <div data-filename="pages/Admin" data-linenumber="610" data-visual-selector-id="pages/Admin610" class="bg-white border-gray-100 rounded-xl shadow-lg p-8 md:p-12 md:flex items-center gap-8 text-center md:text-left">
+                            <i data-filename="pages/Admin" data-linenumber="611" data-visual-selector-id="pages/Admin611" data-lucide="shield" class="w-20 h-20 text-blue-500 flex-shrink-0 mx-auto md:mx-0 mb-6 md:mb-0"></i>
+                            <div data-filename="pages/Admin" data-linenumber="612" data-visual-selector-id="pages/Admin612">
+                                <h3 data-filename="pages/Admin" data-linenumber="613" data-visual-selector-id="pages/Admin613" class="text-2xl font-bold text-gray-900 mb-2">Our Commitment to Secrecy</h3>
+                                <p data-filename="pages/Admin" data-linenumber="614" data-visual-selector-id="pages/Admin614" class="text-gray-600 leading-relaxed">Your ascension into the Illuminati is a sacred pact. Every application, every correspondence, and your very identity are shielded by layers of digital and legal protection, ensuring your journey with us remains in absolute confidence.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer data-filename="pages/Admin" data-linenumber="623" data-visual-selector-id="pages/Admin623" class="bg-gray-50 border-t border-gray-200">
+                <div data-filename="pages/Admin" data-linenumber="624" data-visual-selector-id="pages/Admin624" class="container mx-auto px-6 py-8">
+                    <div data-filename="pages/Admin" data-linenumber="625" data-visual-selector-id="pages/Admin625" class="grid md:grid-cols-3 gap-8 text-center md:text-left">
+                        <div data-filename="pages/Admin" data-linenumber="626" data-visual-selector-id="pages/Admin626" class="flex flex-col items-center md:items-start">
+                            <img data-filename="pages/Admin" data-linenumber="627" data-visual-selector-id="pages/Admin627" src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68d179b3a460005e70e6ffea/c7c0219f9_IlluminatiEyewithSouthAfricanFlag.png" 
+                                 alt="Illuminati Logo" class="w-auto h-16 object-contain mb-4">
+                            <p data-filename="pages/Admin" data-linenumber="629" data-visual-selector-id="pages/Admin629" id="footer-copyright" class="text-sm text-gray-500 max-w-xs">© 2024 Illuminati Elite Global Network. All Rights Reserved.</p>
+                        </div>
+                        <div data-filename="pages/Admin" data-linenumber="631" data-visual-selector-id="pages/Admin631">
+                            <h4 data-filename="pages/Admin" data-linenumber="632" data-visual-selector-id="pages/Admin632" class="font-bold text-base text-gray-800 mb-3 tracking-wider uppercase">Contact & Location</h4>
+                            <div data-filename="pages/Admin" data-linenumber="633" data-visual-selector-id="pages/Admin633" class="space-y-2 text-gray-600 text-sm">
+                                <div data-filename="pages/Admin" data-linenumber="634" data-visual-selector-id="pages/Admin634" class="flex items-center justify-center md:justify-start gap-2">
+                                    <i data-filename="pages/Admin" data-linenumber="635" data-visual-selector-id="pages/Admin635" data-lucide="map-pin" class="w-4 h-4 flex-shrink-0"></i>
+                                    <span data-filename="pages/Admin" data-linenumber="636" data-visual-selector-id="pages/Admin636">Gauteng, Randburg, George AVE Street</span>
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="638" data-visual-selector-id="pages/Admin638" class="flex items-center justify-center md:justify-start gap-2">
+                                    <i data-filename="pages/Admin" data-linenumber="639" data-visual-selector-id="pages/Admin639" data-lucide="mail" class="w-4 h-4 flex-shrink-0"></i>
+                                    <span data-filename="pages/Admin" data-linenumber="640" data-visual-selector-id="pages/Admin640" id="footer-email">illuminatiegn@gmail.com</span>
+                                de>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+        <!-- Registration Form -->
+        <div data-filename="pages/Admin" data-linenumber="649" data-visual-selector-id="pages/Admin649" id="registration-page" class="hidden min-h-screen flex items-center justify-center p-4">
+            <div data-filename="pages/Admin" data-linenumber="650" data-visual-selector-id="pages/Admin650" class="max-w-2xl w-full">
+                <div data-filename="pages/Admin" data-linenumber="651" data-visual-selector-id="pages/Admin651" class="text-center mb-8">
+                    <img data-filename="pages/Admin" data-linenumber="652" data-visual-selector-id="pages/Admin652" src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68d179b3a460005e70e6ffea/c7c0219f9_IlluminatiEyewithSouthAfricanFlag.png" 
+                         alt="Logo" class="w-auto h-32 mx-auto">
+                    <h1 data-filename="pages/Admin" data-linenumber="654" data-visual-selector-id="pages/Admin654" class="text-4xl font-bold text-gray-900 mb-4">INITIATION REGISTRATION</h1>
+                    <p data-filename="pages/Admin" data-linenumber="655" data-visual-selector-id="pages/Admin655" class="text-gray-600 mb-2">Selected: <span data-filename='pages/Admin' data-linenumber='655' data-visual-selector-id='pages/Admin655' id="selected-membership" class="text-gray-900 font-semibold"></span></p>
+                    <p data-filename="pages/Admin" data-linenumber="656" data-visual-selector-id="pages/Admin656" class="text-gray-700">Fee: <span data-filename='pages/Admin' data-linenumber='656' data-visual-selector-id='pages/Admin656' id="selected-price" class="text-gray-900 font-bold"></span></p>
+                </div>
+                <div data-filename="pages/Admin" data-linenumber="658" data-visual-selector-id="pages/Admin658" class="bg-white border border-gray-200 shadow-lg rounded-lg p-8">
+                    <h2 data-filename="pages/Admin" data-linenumber="659" data-visual-selector-id="pages/Admin659" class="text-2xl font-bold text-gray-900 text-center mb-6">Provide Your Details</h2>
+                    <form data-filename="pages/Admin" data-linenumber="660" data-visual-selector-id="pages/Admin660" id="registration-form" class="space-y-6">
+                        <div data-filename="pages/Admin" data-linenumber="661" data-visual-selector-id="pages/Admin661" class="space-y-2">
+                            <label data-filename="pages/Admin" data-linenumber="662" data-visual-selector-id="pages/Admin662" class="text-gray-700 flex items-center gap-2 font-medium">
+                                <i data-filename="pages/Admin" data-linenumber="663" data-visual-selector-id="pages/Admin663" data-lucide="user" class="w-4 h-4 text-gray-600"></i>
+                                Full Name
+                            </label>
+                            <input data-filename="pages/Admin" data-linenumber="666" data-visual-selector-id="pages/Admin666" id="full_name" required placeholder="Enter your complete name" class="input-field">
+                        </div>
+                        <div data-filename="pages/Admin" data-linenumber="668" data-visual-selector-id="pages/Admin668" class="space-y-2">
+                            <label data-filename="pages/Admin" data-linenumber="669" data-visual-selector-id="pages/Admin669" class="text-gray-700 flex items-center gap-2 font-medium">
+                                <i data-filename="pages/Admin" data-linenumber="670" data-visual-selector-id="pages/Admin670" data-lucide="mail" class="w-4 h-4 text-gray-600"></i>
+                                Email Address
+                            </label>
+                            <input data-filename="pages/Admin" data-linenumber="673" data-visual-selector-id="pages/Admin673" id="email" type="email" required placeholder="your.email@domain.com" class="input-field">
+                        </div>
+                        <div data-filename="pages/Admin" data-linenumber="675" data-visual-selector-id="pages/Admin675" class="space-y-2">
+                            <label data-filename="pages/Admin" data-linenumber="676" data-visual-selector-id="pages/Admin676" class="text-gray-700 flex items-center gap-2 font-medium">
+                                <i data-filename="pages/Admin" data-linenumber="677" data-visual-selector-id="pages/Admin677" data-lucide="phone" class="w-4 h-4 text-gray-600"></i>
+                                Phone Number
+                            </label>
+                            <input data-filename="pages/Admin" data-linenumber="680" data-visual-selector-id="pages/Admin680" id="phone" required placeholder="+27 XX XXX XXXX" class="input-field">
+                        </div>
+                        <div data-filename="pages/Admin" data-linenumber="682" data-visual-selector-id="pages/Admin682" class="space-y-2">
+                            <label data-filename="pages/Admin" data-linenumber="683" data-visual-selector-id="pages/Admin683" class="text-gray-700 flex items-center gap-2 font-medium">
+                                <i data-filename="pages/Admin" data-linenumber="684" data-visual-selector-id="pages/Admin684" data-lucide="map-pin" class="w-4 h-4 text-gray-600"></i>
+                                Full Location/Address
+                            </label>
+                            <textarea data-filename="pages/Admin" data-linenumber="687" data-visual-selector-id="pages/Admin687" id="location" required placeholder="City, Province/State, Country" class="input-field"></textarea>
+                        </div>
+                        <div data-filename="pages/Admin" data-linenumber="689" data-visual-selector-id="pages/Admin689" class="flex gap-4 pt-6">
+                            <button data-filename="pages/Admin" data-linenumber="690" data-visual-selector-id="pages/Admin690" type="button" onclick="showPage('home')" class="flex-1 border-gray-300 text-gray-600 hover:bg-gray-100 hover:text-gray-900 py-3 rounded-lg border font-semibold">
+                                <i data-filename="pages/Admin" data-linenumber="691" data-visual-selector-id="pages/Admin691" data-lucide="arrow-left" class="w-4 h-4 inline mr-2"></i>Back
+                            </button>
+                            <button data-filename="pages/Admin" data-linenumber="693" data-visual-selector-id="pages/Admin693" type="submit" class="flex-1 bg-gray-900 hover:bg-gray-800 text-white font-bold py-3 rounded-lg">
+                                PROCEED TO PAYMENT
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Page -->
+        <div data-filename="pages/Admin" data-linenumber="703" data-visual-selector-id="pages/Admin703" id="payment-page" class="hidden min-h-screen flex items-center justify-center p-4">
+            <div data-filename="pages/Admin" data-linenumber="704" data-visual-selector-id="pages/Admin704" class="max-w-5xl w-full">
+                <div data-filename="pages/Admin" data-linenumber="705" data-visual-selector-id="pages/Admin705" class="text-center mb-8">
+                    <h1 data-filename="pages/Admin" data-linenumber="706" data-visual-selector-id="pages/Admin706" class="text-4xl font-bold text-gray-900 mb-4">COMPLETE YOUR PAYMENT</h1>
+                    <p data-filename="pages/Admin" data-linenumber="707" data-visual-selector-id="pages/Admin707" class="text-gray-600">Choose your preferred payment method below</p>
+                </div>
+                <div data-filename="pages/Admin" data-linenumber="709" data-visual-selector-id="pages/Admin709" class="grid lg:grid-cols-3 gap-6 mb-8">
+                    <!-- Member Summary -->
+                    <div data-filename="pages/Admin" data-linenumber="711" data-visual-selector-id="pages/Admin711" class="bg-white border border-gray-200 shadow-sm rounded-lg">
+                        <div data-filename="pages/Admin" data-linenumber="712" data-visual-selector-id="pages/Admin712" class="p-6 border-b border-gray-200">
+                            <h3 data-filename="pages/Admin" data-linenumber="713" data-visual-selector-id="pages/Admin713" class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                                <i data-filename="pages/Admin" data-linenumber="714" data-visual-selector-id="pages/Admin714" data-lucide="user" class="w-5 h-5 text-gray-700"></i>
+                                Your Details
+                            </h3>
+                        </div>
+                        <div data-filename="pages/Admin" data-linenumber="718" data-visual-selector-id="pages/Admin718" class="p-6 space-y-3">
+                            <div data-filename="pages/Admin" data-linenumber="719" data-visual-selector-id="pages/Admin719" class="flex justify-between items-center">
+                                <span data-filename="pages/Admin" data-linenumber="720" data-visual-selector-id="pages/Admin720" class="text-gray-600">Membership:</span>
+                                <span data-filename="pages/Admin" data-linenumber="721" data-visual-selector-id="pages/Admin721" id="payment-membership" class="bg-gray-900 text-white font-medium px-2 py-1 rounded text-sm"></span>
+                            </div>
+                            <div data-filename="pages/Admin" data-linenumber="723" data-visual-selector-id="pages/Admin723" class="flex justify-between items-center">
+                                <span data-filename="pages/Admin" data-linenumber="724" data-visual-selector-id="pages/Admin724" class="text-gray-600 flex items-center gap-2">
+                                    <i data-filename="pages/Admin" data-linenumber="725" data-visual-selector-id="pages/Admin725" data-lucide="banknote" class="w-4 h-4"></i>
+                                    Amount:
+                                </span>
+                                <span data-filename="pages/Admin" data-linenumber="728" data-visual-selector-id="pages/Admin728" id="payment-amount" class="text-xl font-bold text-gray-900"></span>
+                            </div>
+                            <div data-filename="pages/Admin" data-linenumber="730" data-visual-selector-id="pages/Admin730" class="border-t border-gray-200 pt-3 space-y-2">
+                                <div data-filename="pages/Admin" data-linenumber="731" data-visual-selector-id="pages/Admin731" class="flex items-center gap-2 text-gray-700 text-sm">
+                                    <i data-filename="pages/Admin" data-linenumber="732" data-visual-selector-id="pages/Admin732" data-lucide="user" class="w-4 h-4"></i>
+                                    <span data-filename="pages/Admin" data-linenumber="733" data-visual-selector-id="pages/Admin733" id="payment-name"></span>
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="735" data-visual-selector-id="pages/Admin735" class="flex items-center gap-2 text-gray-700 text-sm">
+                                    <i data-filename="pages/Admin" data-linenumber="736" data-visual-selector-id="pages/Admin736" data-lucide="mail" class="w-4 h-4"></i>
+                                    <span data-filename="pages/Admin" data-linenumber="737" data-visual-selector-id="pages/Admin737" id="payment-email"></span>
+                                </div>
+                                <div data-filename="pages/Admin" data-linenumber="739" data-visual-selector-id="pages/Admin739" class="flex items-center gap-2 text-gray-700 text-sm">
+                                    <i data-filename="pages/Admin" data-linenumber="740" data-visual-selector-id="pages/Admin740" data-lucide="phone" class="w-4 h-4"></i>
+                                    <span data-filename="pages/Admin" data-linenumber="741" data-visual-selector-id="pages/Admin741" id="payment-phone"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <div data-filename="pages/Admin" data-linenumber="748" data-visual-selector-id="pages/Admin748" class="lg:col-span-2 bg-white border border-gray-200 shadow-sm rounded-lg">
+                        <div data-filename="pages/Admin" data-linenumber="749" data-visual-selector-id="pages/Admin749" class="p-6 border-b border-gray-200">
+                            <h3 data-filename="pages/Admin" data-linenumber="750" data-visual-selector-id="pages/Admin750" class="text-lg font-bold text-gray-900 flex items-center gap-2">
+                                <i data-filename="pages/Admin" data-linenumber="751" data-visual-selector-id="pages/Admin751" data-lucide="credit-card" class="w-5 h-5 text-gray-700"></i>
+                                Payment Methods
+                            </h3>
+                        </div>
+                        <div data-filename="pages/Admin" data-linenumber="755" data-visual-selector-id="pages/Admin755" class="p-6">
+                            <div data-filename="pages/Admin" data-linenumber="756" data-visual-selector-id="pages/Admin756" class="flex p-1 bg-gray-100 rounded-lg mb-6">
+                                <button data-filename="pages/Admin" data-linenumber="757" data-visual-selector-id="pages/Admin757" onclick="switchPaymentTab('capitec')" id="tab-capitec" class="payment-tab flex-1 text-center p-3 rounded-md font-semibold flex items-center justify-center gap-2">
+                                    <i data-filename="pages/Admin" data-linenumber="758" data-visual-selector-id="pages/Admin758" data-lucide="smartphone" class="w-4 h-4"></i>Capitec CashSend
+                                </button>
+                                <button data-filename="pages/Admin" data-linenumber="760" data-visual-selector-id="pages/Admin760" onclick="switchPaymentTab('pep')" id="tab-pep" class="payment-tab flex-1 text-center p-3 rounded-md font-semibold flex items-center justify-center gap-2">
+                                    <i data-filename="pages/Admin" data-linenumber="761" data-visual-selector-id="pages/Admin761" data-lucide="store" class="w-4 h-4"></i>PEP Deposit
+                                </button>
+                                <button data-filename="pages/Admin" data-linenumber="763" data-visual-selector-id="pages/Admin763" onclick="switchPaymentTab('bank')" id="tab-bank" class="payment-tab flex-1 text-center p-3 rounded-md font-semibold flex items-center justify-center gap-2">
+                                    <i data-filename="pages/Admin" data-linenumber="764" data-visual-selector-id="pages/Admin764" data-lucide="building-2" class="w-4 h-4"></i>Bank Transfer
+                                </button>
+                            </div>
+                            <div data-filename="pages/Admin" data-linenumber="767" data-visual-selector-id="pages/Admin767" id="payment-content"></div>
+
+                            <!-- Email Contact Info -->
+                            <div data-filename="pages/Admin" data-linenumber="770" data-visual-selector-id="pages/Admin770" class="mt-6 p-4 bg-gray-50 rounded-lg border">
+                                <h4 data-filename="pages/Admin" data-linenumber="771" data-visual-selector-id="pages/Admin771" class="font-semibold text-gray-900 mb-2">Send Payment Proof To:</h4>
+                                <div data-filename="pages/Admin" data-linenumber="772" data-visual-selector-id="pages/Admin772" class="flex items-center gap-2 mb-3">
+                                    <i data-filename="pages/Admin" data-linenumber="773" data-visual-selector-id="pages/Admin773" data-lucide="mail" class="w-4 h-4 text-gray-600"></i>
+                                    <span data-filename="pages/Admin" data-linenumber="774" data-visual-selector-id="pages/Admin774" id="payment-email-display" class="text-gray-900 font-mono text-sm flex-1">illuminatiegn@gmail.com</span>
+                                    <button data-filename="pages/Admin" data-linenumber="775" data-visual-selector-id="pages/Admin775" onclick="copyPaymentEmail()" id="copy-email-btn" class="px-3 py-1 border border-gray-300 text-gray-600 hover:bg-gray-200 rounded text-sm">
+                                        <i data-filename="pages/Admin" data-linenumber="776" data-visual-selector-id="pages/Admin776" data-lucide="copy" class="w-4 h-4 inline"></i>
+                                    </button>
+                                </div>
+                                <p data-filename="pages/Admin" data-linenumber="779" data-visual-selector-id="pages/Admin779" class="text-xs text-gray-500">Your membership will be activated within 24-48 hours after verification.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div data-filename="pages/Admin" data-linenumber="785" data-visual-selector-id="pages/Admin785" class="text-center">
+                    <button data-filename="pages/Admin" data-linenumber="786" data-visual-selector-id="pages/Admin786" onclick="showPage('home')" class="border-gray-300 text-gray-600 hover:bg-gray-100 px-6 py-3 rounded-lg border font-semibold">
+                        <i data-filename="pages/Admin" data-linenumber="787" data-visual-selector-id="pages/Admin787" data-lucide="arrow-left" class="w-4 h-4 inline mr-2"></i>Back to Selection
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Admin Login Modal -->
+        <div data-filename="pages/Admin" data-linenumber="794" data-visual-selector-id="pages/Admin794" id="admin-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div data-filename="pages/Admin" data-linenumber="795" data-visual-selector-id="pages/Admin795" class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+                <h2 data-filename="pages/Admin" data-linenumber="796" data-visual-selector-id="pages/Admin796" class="text-xl font-bold mb-4">Admin Access</h2>
+                <input data-filename="pages/Admin" data-linenumber="797" data-visual-selector-id="pages/Admin797" id="admin-password" type="password" placeholder="Enter password" class="input-field mb-4">
+                <div data-filename="pages/Admin" data-linenumber="798" data-visual-selector-id="pages/Admin798" class="flex gap-2">
+                    <button data-filename="pages/Admin" data-linenumber="799" data-visual-selector-id="pages/Admin799" onclick="closeAdminLogin()" class="flex-1 py-2 border rounded hover:bg-gray-100">Cancel</button>
+                    <button data-filename="pages/Admin" data-linenumber="800" data-visual-selector-id="pages/Admin800" onclick="checkAdminPassword()" class="flex-1 py-2 bg-gray-900 text-white rounded hover:bg-gray-800">Login</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script data-filename="pages/Admin" data-linenumber="806" data-visual-selector-id="pages/Admin806">
+        lucide.createIcons();
+        
+        let AppState = {
+            currentPage: 'home',
+            selectedMembership: null,
+            memberData: null,
+            isAdmin: false,
+            adminSettings: {
+                payment_email: "illuminatiegn@gmail.com",
+                capitec_number: "083 333 4455",
+                pep_details: "",
+                bank_details: "",
+                adept_image_url: "https://i.postimg.cc/vBdj3554/OIP-1.jpg",
+                illuminatium_image_url: "https://i.postimg.cc/ZK0fPwXf/OIP-2.jpg",
+                influencer_image_url: "https://i.postimg.cc/Btf11w2Y/istockphoto-2176715152-612x612.jpg",
+                worshiper_image_url: "https://i.postimg.cc/D091Pz3c/istockphoto-508068250-612x612.jpg",
+                capitec_image_url: "",
+                pep_image_url: "",
+                bank_image_url: "",
+                copyright_text: "© 2024 Illuminati Elite Global Network. All Rights Reserved.",
+                trustpilot_text: "Rated by Trustpilot",
+                trustpilot_stars: 5,
+                initiations_hosted: 137,
+                next_members_count: 2500,
+                attorney_section_title: "Our Commitment to Secrecy",
+                attorney_section_text: "Your ascension into the Illuminati is a sacred pact. Every application, every correspondence, and your very identity are shielded by layers of digital and legal protection, ensuring your journey with us remains in absolute confidence."
+            },
+            testimonials: [] || [],
+            ceremonies: [] || []
+        };
+        
+        const memberships = {
+            adept: { title: 'ADEPT Position', price: 'R300' },
+            illuminatium: { title: 'ILLUMINATIUM Position', price: 'R700' },
+            influencer: { title: 'Influencer', price: 'R1,000' },
+            full_worshiper: { title: 'Full Worshiper', price: 'R10,000' }
+        };
+
+        function showPage(pageId) {
+            document.querySelectorAll('#app-container > div').forEach(p => p.classList.add('hidden'));
+            document.getElementById(pageId + '-page').classList.remove('hidden');
+            AppState.currentPage = pageId;
+            lucide.createIcons(); // Re-create icons for newly visible elements
+        }
+
+        function selectMembership(id) {
+            AppState.selectedMembership = memberships[id];
+            document.getElementById('selected-membership').textContent = AppState.selectedMembership.title;
+            document.getElementById('selected-price').textContent = AppState.selectedMembership.price;
+            showPage('registration');
+        }
+
+        function showAdminLogin() {
+            document.getElementById('admin-login-modal').classList.remove('hidden');
+        }
+
+        function closeAdminLogin() {
+            document.getElementById('admin-login-modal').classList.add('hidden');
+            document.getElementById('admin-password').value = '';
+        }
+
+        function checkAdminPassword() {
+            const password = document.getElementById('admin-password').value;
+            if (password === 'VNAXXTTM') {
+                AppState.isAdmin = true;
+                closeAdminLogin();
+                showPage('admin');
+                initializeAdminFields();
+                showAdminTab('homepage'); // Show default tab
+            } else {
+                alert('Invalid password');
+            }
+        }
+
+        function initializeAdminFields() {
+            document.getElementById('payment-email-admin').value = AppState.adminSettings.payment_email;
+            document.getElementById('capitec-number').value = AppState.adminSettings.capitec_number;
+            document.getElementById('pep-details').value = AppState.adminSettings.pep_details;
+            document.getElementById('bank-details').value = AppState.adminSettings.bank_details;
+            document.getElementById('copyright-text').value = AppState.adminSettings.copyright_text;
+            document.getElementById('trustpilot-text').value = AppState.adminSettings.trustpilot_text;
+            document.getElementById('trustpilot-stars').value = AppState.adminSettings.trustpilot_stars;
+            
+            document.getElementById('initiations-hosted').value = AppState.adminSettings.initiations_hosted;
+            document.getElementById('next-members-count').value = AppState.adminSettings.next_members_count;
+            document.getElementById('attorney-section-title').value = AppState.adminSettings.attorney_section_title;
+            document.getElementById('attorney-section-text').value = AppState.adminSettings.attorney_section_text;
+
+            // Initialize image URLs
+            updateImagePreview('adept', AppState.adminSettings.adept_image_url);
+            updateImagePreview('illuminatium', AppState.adminSettings.illuminatium_image_url);
+            updateImagePreview('influencer', AppState.adminSettings.influencer_image_url);
+            updateImagePreview('worshiper', AppState.adminSettings.worshiper_image_url);
+
+            updatePaymentImagePreview('capitec', AppState.adminSettings.capitec_image_url);
+            updatePaymentImagePreview('pep', AppState.adminSettings.pep_image_url);
+            updatePaymentImagePreview('bank', AppState.adminSettings.bank_image_url);
+
+            refreshTestimonials();
+            refreshCeremonies();
+        }
+
+        function showAdminTab(tabId) {
+            // Hide all admin content
+            document.querySelectorAll('.admin-content').forEach(content => content.classList.add('hidden'));
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab-button').forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected content and activate tab
+            document.getElementById('admin-content-' + tabId).classList.remove('hidden');
+            document.getElementById('admin-tab-' + tabId).classList.add('active');
+            lucide.createIcons();
+        }
+
+        function updateImagePreview(type, url) {
+            const preview = document.getElementById(type + '-image-preview');
+            if (preview) {
+                preview.innerHTML = url ? `<img data-filename="pages/Admin" data-linenumber="924" data-visual-selector-id="pages/Admin924" src="${url}" class="w-full h-48 object-cover rounded-md border shadow-sm" alt="${type}">` : '';
+            }
+            // Update the home page image
+            const homeImage = document.getElementById('home-' + type + '-image');
+            if (homeImage) homeImage.src = url || 'https://via.placeholder.com/800x400'; // Fallback
+            // Update settings
+            AppState.adminSettings[type + '_image_url'] = url;
+            lucide.createIcons();
+        }
+
+        function updatePaymentImagePreview(type, url) {
+            const preview = document.getElementById(type + '-image-preview');
+            if (preview) {
+                preview.innerHTML = url ? `<img data-filename="pages/Admin" data-linenumber="937" data-visual-selector-id="pages/Admin937" src="${url}" class="w-full h-32 object-cover rounded-md">` : '';
+            }
+            AppState.adminSettings[type + '_image_url'] = url;
+            lucide.createIcons();
+        }
+
+        function saveAllSettings() {
+            // Update settings in client-side AppState from form fields - General
+            AppState.adminSettings.payment_email = document.getElementById('payment-email-admin').value;
+            AppState.adminSettings.copyright_text = document.getElementById('copyright-text').value;
+            AppState.adminSettings.trustpilot_text = document.getElementById('trustpilot-text').value;
+            AppState.adminSettings.trustpilot_stars = Number(document.getElementById('trustpilot-stars').value);
+
+            // Update settings in client-side AppState from form fields - Payments
+            AppState.adminSettings.capitec_number = document.getElementById('capitec-number').value;
+            AppState.adminSettings.pep_details = document.getElementById('pep-details').value;
+            AppState.adminSettings.bank_details = document.getElementById('bank-details').value;
+            AppState.adminSettings.capitec_image_url = document.getElementById('capitec-image-url').value;
+            AppState.adminSettings.pep_image_url = document.getElementById('pep-image-url').value;
+            AppState.adminSettings.bank_image_url = document.getElementById('bank-image-url').value;
+
+            // Update settings in client-side AppState from form fields - Homepage images
+            AppState.adminSettings.adept_image_url = document.getElementById('adept-image-url').value;
+            AppState.adminSettings.illuminatium_image_url = document.getElementById('illuminatium-image-url').value;
+            AppState.adminSettings.influencer_image_url = document.getElementById('influencer-image-url').value;
+            AppState.adminSettings.worshiper_image_url = document.getElementById('worshiper-image-url').value;
+
+            // Update settings in client-side AppState from form fields - Homepage stats/sections
+            AppState.adminSettings.initiations_hosted = Number(document.getElementById('initiations-hosted').value);
+            AppState.adminSettings.next_members_count = Number(document.getElementById('next-members-count').value);
+            AppState.adminSettings.attorney_section_title = document.getElementById('attorney-section-title').value;
+            AppState.adminSettings.attorney_section_text = document.getElementById('attorney-section-text').value;
+            
+            // Update dynamic elements on the main page for live preview
+            document.getElementById('footer-copyright').textContent = AppState.adminSettings.copyright_text;
+            document.getElementById('footer-email').textContent = AppState.adminSettings.payment_email;
+            document.getElementById('payment-email-display').textContent = AppState.adminSettings.payment_email;
+            document.getElementById('footer-trustpilot').textContent = AppState.adminSettings.trustpilot_text;
+            const footerStars = document.getElementById('footer-stars');
+            let starsHtml = '';
+            const filledStars = Math.min(Math.max(0, AppState.adminSettings.trustpilot_stars || 0), 5);
+            for (let i = 0; i < filledStars; i++) { starsHtml += '<i data-filename="pages/Admin" data-linenumber="978" data-visual-selector-id="pages/Admin978" data-lucide="star" class="w-5 h-5 text-yellow-400 fill-current"></i>'; }
+            for (let i = filledStars; i < 5; i++) { starsHtml += '<i data-filename="pages/Admin" data-linenumber="979" data-visual-selector-id="pages/Admin979" data-lucide="star" class="w-5 h-5 text-gray-300"></i>'; }
+            footerStars.innerHTML = starsHtml;
+
+            // Re-render attorney section on homepage
+            const attorneySectionContainer = document.querySelector('.container.mx-auto.px-4 > .mt-20');
+            if (attorneySectionContainer) {
+                if (AppState.adminSettings.attorney_section_title && AppState.adminSettings.attorney_section_text) {
+                    attorneySectionContainer.innerHTML = `
+                        <div data-filename="pages/Admin" data-linenumber="987" data-visual-selector-id="pages/Admin987" class="bg-white border-gray-100 rounded-xl shadow-lg p-8 md:p-12 md:flex items-center gap-8 text-center md:text-left">
+                            <i data-filename="pages/Admin" data-linenumber="988" data-visual-selector-id="pages/Admin988" data-lucide="shield" class="w-20 h-20 text-blue-500 flex-shrink-0 mx-auto md:mx-0 mb-6 md:mb-0"></i>
+                            <div data-filename="pages/Admin" data-linenumber="989" data-visual-selector-id="pages/Admin989">
+                                <h3 data-filename="pages/Admin" data-linenumber="990" data-visual-selector-id="pages/Admin990" class="text-2xl font-bold text-gray-900 mb-2">${AppState.adminSettings.attorney_section_title}</h3>
+                                <p data-filename="pages/Admin" data-linenumber="991" data-visual-selector-id="pages/Admin991" class="text-gray-600 leading-relaxed">${AppState.adminSettings.attorney_section_text}</p>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    attorneySectionContainer.innerHTML = '';
+                }
+            }
+
+            alert('Settings saved successfully (client-side only)! Refreshing page will revert changes.');
+            lucide.createIcons();
+        }
+
+        function addTestimonial() {
+            const name = document.getElementById('new-testimonial-name').value;
+            const title = document.getElementById('new-testimonial-title').value;
+            const quote = document.getElementById('new-testimonial-quote').value;
+            const image = document.getElementById('new-testimonial-image').value;
+            
+            if (!name || !title || !quote) {
+                alert('Please fill all testimonial fields.');
+                return;
+            }
+            
+            const newTestimonial = {
+                id: Date.now(), // Client-side ID
+                name: name,
+                title: title,
+                quote: quote,
+                image_url: image || 'https://via.placeholder.com/150'
+            };
+            
+            AppState.testimonials.push(newTestimonial);
+            
+            // Clear form
+            document.getElementById('new-testimonial-name').value = '';
+            document.getElementById('new-testimonial-title').value = '';
+            document.getElementById('new-testimonial-quote').value = '';
+            document.getElementById('new-testimonial-image').value = '';
+            
+            refreshTestimonials();
+            alert('Testimonial added!');
+        }
+
+        function removeTestimonial(id) {
+            AppState.testimonials = AppState.testimonials.filter(t => t.id != id);
+            refreshTestimonials();
+            alert('Testimonial removed.');
+        }
+
+        function refreshTestimonials() {
+            const list = document.getElementById('testimonials-list');
+            if (list) {
+                list.innerHTML = AppState.testimonials.map(t => `
+                    <div data-filename="pages/Admin" data-linenumber="1045" data-visual-selector-id="pages/Admin1045" class="flex items-center justify-between bg-gray-50 p-2 rounded-md">
+                        <div data-filename="pages/Admin" data-linenumber="1046" data-visual-selector-id="pages/Admin1046" class="flex items-center gap-3">
+                            <img data-filename="pages/Admin" data-linenumber="1047" data-visual-selector-id="pages/Admin1047" src="${t.image_url}" class="w-10 h-10 rounded-full object-cover"/>
+                            <div data-filename="pages/Admin" data-linenumber="1048" data-visual-selector-id="pages/Admin1048">
+                                <p data-filename="pages/Admin" data-linenumber="1049" data-visual-selector-id="pages/Admin1049" class="font-semibold">${t.name}</p>
+                                <p data-filename="pages/Admin" data-linenumber="1050" data-visual-selector-id="pages/Admin1050" class="text-xs text-gray-500">${t.title}</p>
+                            </div>
+                        </div>
+                        <button data-filename="pages/Admin" data-linenumber="1053" data-visual-selector-id="pages/Admin1053" onclick="removeTestimonial('${t.id}')" class="text-red-500 hover:bg-red-50 p-1 rounded">
+                            <i data-filename="pages/Admin" data-linenumber="1054" data-visual-selector-id="pages/Admin1054" data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+            
+            const homeTestimonials = document.getElementById('home-testimonials');
+            if (homeTestimonials) {
+                homeTestimonials.innerHTML = AppState.testimonials.map(t => `
+                    <div data-filename="pages/Admin" data-linenumber="1063" data-visual-selector-id="pages/Admin1063" class="bg-white border border-gray-100 rounded-xl shadow-lg p-6 text-center h-full">
+                        <img data-filename="pages/Admin" data-linenumber="1064" data-visual-selector-id="pages/Admin1064" src="${t.image_url}" alt="${t.name}" class="w-24 h-24 rounded-full object-cover mx-auto mb-4 border-4 border-white shadow-md">
+                        <h3 data-filename="pages/Admin" data-linenumber="1065" data-visual-selector-id="pages/Admin1065" class="text-xl font-bold text-gray-900">${t.name}</h3>
+                        <p data-filename="pages/Admin" data-linenumber="1066" data-visual-selector-id="pages/Admin1066" class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full my-2">${t.title}</p>
+                        <blockquote data-filename="pages/Admin" data-linenumber="1067" data-visual-selector-id="pages/Admin1067" class="text-gray-600 italic mt-4 text-sm">"${t.quote}"</blockquote>
+                    </div>
+                `).join('');
+            }
+            
+            lucide.createIcons();
+        }
+
+        function addCeremony() {
+            const title = document.getElementById('new-ceremony-title').value;
+            const description = document.getElementById('new-ceremony-description').value;
+            const image = document.getElementById('new-ceremony-image').value;
+            
+            if (!title || !image) {
+                alert('Please provide a title and image for the ceremony.');
+                return;
+            }
+            
+            const newCeremony = {
+                id: Date.now(), // Client-side ID
+                title: title,
+                description: description,
+                image_url: image
+            };
+            
+            AppState.ceremonies.push(newCeremony);
+            
+            // Clear form
+            document.getElementById('new-ceremony-title').value = '';
+            document.getElementById('new-ceremony-description').value = '';
+            document.getElementById('new-ceremony-image').value = '';
+            
+            refreshCeremonies();
+            alert('Ceremony photo added!');
+        }
+
+        function removeCeremony(id) {
+            AppState.ceremonies = AppState.ceremonies.filter(c => c.id != id);
+            refreshCeremonies();
+            alert('Ceremony photo removed.');
+        }
+
+        function refreshCeremonies() {
+            const list = document.getElementById('ceremonies-list');
+            if (list) {
+                list.innerHTML = AppState.ceremonies.map(c => `
+                    <div data-filename="pages/Admin" data-linenumber="1113" data-visual-selector-id="pages/Admin1113" class="flex items-center justify-between bg-gray-50 p-2 rounded-md">
+                        <div data-filename="pages/Admin" data-linenumber="1114" data-visual-selector-id="pages/Admin1114" class="flex items-center gap-3">
+                            <img data-filename="pages/Admin" data-linenumber="1115" data-visual-selector-id="pages/Admin1115" src="${c.image_url}" class="w-16 h-10 rounded object-cover"/>
+                            <div data-filename="pages/Admin" data-linenumber="1116" data-visual-selector-id="pages/Admin1116">
+                                <p data-filename="pages/Admin" data-linenumber="1117" data-visual-selector-id="pages/Admin1117" class="font-semibold">${c.title}</p>
+                            </div>
+                        </div>
+                        <button data-filename="pages/Admin" data-linenumber="1120" data-visual-selector-id="pages/Admin1120" onclick="removeCeremony('${c.id}')" class="text-red-500 hover:bg-red-50 p-1 rounded">
+                            <i data-filename="pages/Admin" data-linenumber="1121" data-visual-selector-id="pages/Admin1121" data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+            
+            const homeGallery = document.getElementById('home-ceremonies-gallery');
+            if (homeGallery) {
+                homeGallery.innerHTML = AppState.ceremonies.map(c => `
+                    <div data-filename="pages/Admin" data-linenumber="1130" data-visual-selector-id="pages/Admin1130" class="bg-white border border-gray-100 overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 rounded-xl">
+                        <div data-filename="pages/Admin" data-linenumber="1131" data-visual-selector-id="pages/Admin1131" class="relative overflow-hidden h-64">
+                            <img data-filename="pages/Admin" data-linenumber="1132" data-visual-selector-id="pages/Admin1132" src="${c.image_url}" alt="${c.title}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                            <div data-filename="pages/Admin" data-linenumber="1133" data-visual-selector-id="pages/Admin1133" class="absolute inset-0 bg-black/20"></div>
+                        </div>
+                        <div data-filename="pages/Admin" data-linenumber="1135" data-visual-selector-id="pages/Admin1135" class="p-6 bg-white">
+                            <h3 data-filename="pages/Admin" data-linenumber="1136" data-visual-selector-id="pages/Admin1136" class="text-xl font-bold text-gray-900 mb-2">${c.title}</h3>
+                            <p data-filename="pages/Admin" data-linenumber="1137" data-visual-selector-id="pages/Admin1137" class="text-gray-600 text-sm">${c.description}</p>
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            lucide.createIcons();
+        }
+
+        function copyPaymentEmail() {
+            const email = AppState.adminSettings.payment_email;
+            navigator.clipboard.writeText(email).then(() => {
+                const btn = document.getElementById('copy-email-btn');
+                const originalHtml = btn.innerHTML;
+                btn.innerHTML = '<i data-filename="pages/Admin" data-linenumber="1151" data-visual-selector-id="pages/Admin1151" data-lucide="check" class="w-4 h-4 inline"></i> Copied!';
+                lucide.createIcons();
+                setTimeout(() => {
+                    btn.innerHTML = originalHtml;
+                    lucide.createIcons();
+                }, 2000);
+            }).catch(err => {
+                alert('Failed to copy email: ' + err);
+            });
+        }
+
+        document.getElementById('registration-form').addEventListener('submit', e => {
+            e.preventDefault();
+            const form = e.target;
+            AppState.memberData = {
+                name: form.querySelector('#full_name').value,
+                email: form.querySelector('#email').value,
+                phone: form.querySelector('#phone').value,
+                location: form.querySelector('#location').value
+            };
+            document.getElementById('payment-membership').textContent = AppState.selectedMembership.title;
+            document.getElementById('payment-amount').textContent = AppState.selectedMembership.price;
+            document.getElementById('payment-name').textContent = AppState.memberData.name;
+            document.getElementById('payment-email').textContent = AppState.memberData.email;
+            document.getElementById('payment-phone').textContent = AppState.memberData.phone;
+            showPage('payment');
+            switchPaymentTab('capitec');
+        });
+
+        function switchPaymentTab(tabId) {
+            document.querySelectorAll('.payment-tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tabId).classList.add('active');
+            
+            const content = document.getElementById('payment-content');
+            const emailBody = encodeURIComponent(`Member Details: Name: ${AppState.memberData.name}, Email: ${AppState.memberData.email}, Phone: ${AppState.memberData.phone}, Membership: ${AppState.selectedMembership.title}, Amount: ${AppState.selectedMembership.price}.`);
+            const paymentEmail = AppState.adminSettings.payment_email;
+            
+            const mailto = (method, details) => `mailto:${paymentEmail}?subject=Payment Confirmation - ${AppState.selectedMembership.title}&body=I have paid for ${AppState.selectedMembership.title} via ${method}.\n\n${details}\n\n${emailBody}`;
+            
+            if (tabId === 'capitec') {
+                content.innerHTML = `
+                    <div data-filename="pages/Admin" data-linenumber="1192" data-visual-selector-id="pages/Admin1192" class="space-y-4">
+                        ${AppState.adminSettings.capitec_image_url ? `<div data-filename="pages/Admin" data-linenumber="1193" data-visual-selector-id="pages/Admin1193" class="border rounded-lg p-4 bg-gray-50"><img data-filename='pages/Admin' data-linenumber='1193' data-visual-selector-id='pages/Admin1193' src="${AppState.adminSettings.capitec_image_url}" alt="Capitec Instructions" class="w-full max-h-48 object-contain rounded"></div>` : ''}
+                        <div data-filename="pages/Admin" data-linenumber="1194" data-visual-selector-id="pages/Admin1194" class="p-4 bg-blue-50 border-l-4 border-blue-500">
+                            <h4 data-filename="pages/Admin" data-linenumber="1195" data-visual-selector-id="pages/Admin1195" class="font-bold text-blue-900 mb-2">Capitec CashSend Instructions</h4>
+                            <ol data-filename="pages/Admin" data-linenumber="1196" data-visual-selector-id="pages/Admin1196" class="text-sm text-gray-700 space-y-1 list-decimal list-inside">
+                                <li data-filename="pages/Admin" data-linenumber="1197" data-visual-selector-id="pages/Admin1197">Use Capitec CashSend to send <strong data-filename="pages/Admin" data-linenumber="1197" data-visual-selector-id="pages/Admin1197">${AppState.selectedMembership.price}</strong></li>
+                                <li data-filename="pages/Admin" data-linenumber="1198" data-visual-selector-id="pages/Admin1198">Collection Number: <strong data-filename="pages/Admin" data-linenumber="1198" data-visual-selector-id="pages/Admin1198">${AppState.adminSettings.capitec_number}</strong></li>
+                                <li data-filename="pages/Admin" data-linenumber="1199" data-visual-selector-id="pages/Admin1199">Take a screenshot of the transaction</li>
+                                <li data-filename="pages/Admin" data-linenumber="1200" data-visual-selector-id="pages/Admin1200">Note down the PIN provided</li>
+                            </ol>
+                        </div>
+                        <div data-filename="pages/Admin" data-linenumber="1203" data-visual-selector-id="pages/Admin1203" class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                            <h4 data-filename="pages/Admin" data-linenumber="1204" data-visual-selector-id="pages/Admin1204" class="font-semibold text-gray-900 mb-2">Required Information to Send:</h4>
+                            <ul data-filename="pages/Admin" data-linenumber="1205" data-visual-selector-id="pages/Admin1205" class="text-sm text-gray-600 space-y-1">
+                                <li data-filename="pages/Admin" data-linenumber="1206" data-visual-selector-id="pages/Admin1206">• Screenshot of CashSend transaction</li>
+                                <li data-filename="pages/Admin" data-linenumber="1207" data-visual-selector-id="pages/Admin1207">• PIN for money collection</li>
+                                <li data-filename="pages/Admin" data-linenumber="1208" data-visual-selector-id="pages/Admin1208">• Collection number confirmation</li>
+                            </ul>
+                        </div>
+                        <a data-filename="pages/Admin" data-linenumber="1211" data-visual-selector-id="pages/Admin1211" href="${mailto('Capitec CashSend', 'Details to include: Screenshot, PIN, Collection number.')}" 
+                           class="block w-full text-center p-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 no-underline">
+                           <i data-filename="pages/Admin" data-linenumber="1213" data-visual-selector-id="pages/Admin1213" data-lucide="mail" class="w-4 h-4 inline mr-2"></i>Send Capitec Payment Details
+                        </a>
+                    </div>`;
+            } else if (tabId === 'pep') {
+                content.innerHTML = `
+                    <div data-filename="pages/Admin" data-linenumber="1218" data-visual-selector-id="pages/Admin1218" class="space-y-4">
+                        ${AppState.adminSettings.pep_image_url ? `<div data-filename="pages/Admin" data-linenumber="1219" data-visual-selector-id="pages/Admin1219" class="border rounded-lg p-4 bg-gray-50"><img data-filename='pages/Admin' data-linenumber='1219' data-visual-selector-id='pages/Admin1219' src="${AppState.adminSettings.pep_image_url}" alt="PEP Instructions" class="w-full max-h-48 object-contain rounded"></div>` : ''}
+                        <div data-filename="pages/Admin" data-linenumber="1220" data-visual-selector-id="pages/Admin1220" class="p-4 bg-green-50 border-l-4 border-green-500">
+                            <h4 data-filename="pages/Admin" data-linenumber="1221" data-visual-selector-id="pages/Admin1221" class="font-bold text-green-900 mb-2">PEP Store Deposit Instructions</h4>
+                            <ol data-filename="pages/Admin" data-linenumber="1222" data-visual-selector-id="pages/Admin1222" class="text-sm text-gray-700 space-y-1 list-decimal list-inside">
+                                <li data-filename="pages/Admin" data-linenumber="1223" data-visual-selector-id="pages/Admin1223">Visit any PEP store nationwide</li>
+                                <li data-filename="pages/Admin" data-linenumber="1224" data-visual-selector-id="pages/Admin1224">Make a cash deposit of <strong data-filename="pages/Admin" data-linenumber="1224" data-visual-selector-id="pages/Admin1224">${AppState.selectedMembership.price}</strong></li>
+                                <li data-filename="pages/Admin" data-linenumber="1225" data-visual-selector-id="pages/Admin1225">Request a deposit slip with all details</li>
+                                <li data-filename="pages/Admin" data-linenumber="1226" data-visual-selector-id="pages/Admin1226">Get withdrawal numbers and PIN from cashier</li>
+                            </ol>
+                            ${AppState.adminSettings.pep_details ? `<div data-filename="pages/Admin" data-linenumber="1228" data-visual-selector-id="pages/Admin1228" class="mt-3 p-2 bg-white rounded border"><p data-filename='pages/Admin' data-linenumber='1228' data-visual-selector-id='pages/Admin1228' class="text-sm text-gray-600">${AppState.adminSettings.pep_details}</p></div>` : ''}
+                        </div>
+                        <div data-filename="pages/Admin" data-linenumber="1230" data-visual-selector-id="pages/Admin1230" class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                            <h4 data-filename="pages/Admin" data-linenumber="1231" data-visual-selector-id="pages/Admin1231" class="font-semibold text-gray-900 mb-2">Required Information to Send:</h4>
+                            <ul data-filename="pages/Admin" data-linenumber="1232" data-visual-selector-id="pages/Admin1232" class="text-sm text-gray-600 space-y-1">
+                                <li data-filename="pages/Admin" data-linenumber="1233" data-visual-selector-id="pages/Admin1233">• PEP deposit slip photo</li>
+                                <li data-filename="pages/Admin" data-linenumber="1234" data-visual-selector-id="pages/Admin1234">• All withdrawal numbers</li>
+                                <li data-filename="pages/Admin" data-linenumber="1235" data-visual-selector-id="pages/Admin1235">• PIN for money collection</li>
+                                <li data-filename="pages/Admin" data-linenumber="1236" data-visual-selector-id="pages/Admin1236">• Store location where deposit was made</li>
+                            </ul>
+                        </div>
+                        <a data-filename="pages/Admin" data-linenumber="1239" data-visual-selector-id="pages/Admin1239" href="${mailto('PEP Store Deposit', 'Details to include: Photo of slip, withdrawal numbers, PIN, store location.')}" 
+                           class="block w-full text-center p-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 no-underline">
+                           <i data-filename="pages/Admin" data-linenumber="1241" data-visual-selector-id="pages/Admin1241" data-lucide="mail" class="w-4 h-4 inline mr-2"></i>Send PEP Payment Details
+                        </a>
+                    </div>`;
+            } else if (tabId === 'bank') {
+                content.innerHTML = `
+                    <div data-filename="pages/Admin" data-linenumber="1246" data-visual-selector-id="pages/Admin1246" class="space-y-4">
+                        <div data-filename="pages/Admin" data-linenumber="1247" data-visual-selector-id="pages/Admin1247" class="p-4 bg-red-50 border-l-4 border-red-400">
+                            <div data-filename="pages/Admin" data-linenumber="1248" data-visual-selector-id="pages/Admin1248" class="flex">
+                                <i data-filename="pages/Admin" data-linenumber="1249" data-visual-selector-id="pages/Admin1249" data-lucide="alert-circle" class="w-5 h-5 text-red-400 mr-2 flex-shrink-0 mt-0.5"></i>
+                                <div data-filename="pages/Admin" data-linenumber="1250" data-visual-selector-id="pages/Admin1250">
+                                    <h4 data-filename="pages/Admin" data-linenumber="1251" data-visual-selector-id="pages/Admin1251" class="font-bold text-red-800">Bank Transfer Currently Unavailable</h4>
+                                    <p data-filename="pages/Admin" data-linenumber="1252" data-visual-selector-id="pages/Admin1252" class="text-sm text-red-700 mt-1">Please use Capitec CashSend or PEP Store Deposit for instant processing.</p>
+                                </div>
+                            </div>
+                        </div>
+                        ${AppState.adminSettings.bank_image_url ? `<div data-filename="pages/Admin" data-linenumber="1256" data-visual-selector-id="pages/Admin1256" class="border rounded-lg p-4 bg-gray-50 opacity-50"><img data-filename='pages/Admin' data-linenumber='1256' data-visual-selector-id='pages/Admin1256' src="${AppState.adminSettings.bank_image_url}" alt="Bank Instructions" class="w-full max-h-48 object-contain rounded"></div>` : ''}
+                        <div data-filename="pages/Admin" data-linenumber="1257" data-visual-selector-id="pages/Admin1257" class="p-4 bg-gray-100 border-l-4 border-gray-400 opacity-50">
+                            <h4 data-filename="pages/Admin" data-linenumber="1258" data-visual-selector-id="pages/Admin1258" class="font-bold text-gray-600 mb-2">Bank Transfer (Unavailable)</h4>
+                            <p data-filename="pages/Admin" data-linenumber="1259" data-visual-selector-id="pages/Admin1259" class="text-sm text-gray-500">This payment method is temporarily unavailable.</p>
+                            ${AppState.adminSettings.bank_details ? `<div data-filename="pages/Admin" data-linenumber="1260" data-visual-selector-id="pages/Admin1260" class="mt-3 p-2 bg-white rounded border opacity-75"><p data-filename='pages/Admin' data-linenumber='1260' data-visual-selector-id='pages/Admin1260' class="text-sm text-gray-400">${AppState.adminSettings.bank_details}</p></div>` : ''}
+                        </div>
+                        <button data-filename="pages/Admin" data-linenumber="1262" data-visual-selector-id="pages/Admin1262" disabled class="w-full bg-gray-400 cursor-not-allowed p-3 rounded-lg text-white font-semibold">
+                            Bank Transfer Not Available
+                        </button>
+                    </div>`;
+            }
+            
+            lucide.createIcons();
+        }
+
+        // Initialize icons when page loads
+        setTimeout(() => {
+            lucide.createIcons();
+            refreshTestimonials();
+            refreshCeremonies();
+        }, 100);
+    </script>
+</body>
+</html>
