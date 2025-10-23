@@ -623,13 +623,11 @@
                         <div data-filename="pages/Admin" data-linenumber="755" data-visual-selector-id="pages/Admin755" class="p-6">
                             <div data-filename="pages/Admin" data-linenumber="756" data-visual-selector-id="pages/Admin756" class="flex p-1 bg-gray-100 rounded-lg mb-6">
                                 <button data-filename="pages/Admin" data-linenumber="757" data-visual-selector-id="pages/Admin757" onclick="switchPaymentTab('capitec')" id="tab-capitec" class="payment-tab flex-1 text-center p-3 rounded-md font-semibold flex items-center justify-center gap-2">
-                                    <i data-filename="pages/Admin" data-linenumber="758" data-visual-selector-id="pages/Admin758" data-lucide="smartphone" class="w-4 h-4"></i>Capitec CashSend
+                                    <i data-filename="pages/Admin" data-linenumber="758" data-visual-selector-id="pages/Admin758" data-lucide="smartphone" class="w-4 h-4"></i>Bank Transfer
                                 </button>
-                                <button data-filename="pages/Admin" data-linenumber="760" data-visual-selector-id="pages/Admin760" onclick="switchPaymentTab('pep')" id="tab-pep" class="payment-tab flex-1 text-center p-3 rounded-md font-semibold flex items-center justify-center gap-2">
-                                    <i data-filename="pages/Admin" data-linenumber="761" data-visual-selector-id="pages/Admin761" data-lucide="store" class="w-4 h-4"></i>PEP Deposit
-                                </button>
+                              
                                 <button data-filename="pages/Admin" data-linenumber="763" data-visual-selector-id="pages/Admin763" onclick="switchPaymentTab('bank')" id="tab-bank" class="payment-tab flex-1 text-center p-3 rounded-md font-semibold flex items-center justify-center gap-2">
-                                    <i data-filename="pages/Admin" data-linenumber="764" data-visual-selector-id="pages/Admin764" data-lucide="building-2" class="w-4 h-4"></i>Bank Transfer
+                                    <i data-filename="pages/Admin" data-linenumber="764" data-visual-selector-id="pages/Admin764" data-lucide="building-2" class="w-4 h-4"></i>3D PayFast EFT Payment
                                 </button>
                             </div>
                             <div data-filename="pages/Admin" data-linenumber="767" data-visual-selector-id="pages/Admin767" id="payment-content"></div>
@@ -1060,25 +1058,24 @@
                     <div data-filename="pages/Admin" data-linenumber="1192" data-visual-selector-id="pages/Admin1192" class="space-y-4">
                         ${AppState.adminSettings.capitec_image_url ? `<div data-filename="pages/Admin" data-linenumber="1193" data-visual-selector-id="pages/Admin1193" class="border rounded-lg p-4 bg-gray-50"><img data-filename='pages/Admin' data-linenumber='1193' data-visual-selector-id='pages/Admin1193' src="${AppState.adminSettings.capitec_image_url}" alt="Capitec Instructions" class="w-full max-h-48 object-contain rounded"></div>` : ''}
                         <div data-filename="pages/Admin" data-linenumber="1194" data-visual-selector-id="pages/Admin1194" class="p-4 bg-blue-50 border-l-4 border-blue-500">
-                            <h4 data-filename="pages/Admin" data-linenumber="1195" data-visual-selector-id="pages/Admin1195" class="font-bold text-blue-900 mb-2">Capitec CashSend Instructions</h4>
-                            <ol data-filename="pages/Admin" data-linenumber="1196" data-visual-selector-id="pages/Admin1196" class="text-sm text-gray-700 space-y-1 list-decimal list-inside">
-                                <li data-filename="pages/Admin" data-linenumber="1197" data-visual-selector-id="pages/Admin1197">Use Capitec CashSend to send <strong data-filename="pages/Admin" data-linenumber="1197" data-visual-selector-id="pages/Admin1197">${AppState.selectedMembership.price}</strong></li>
-                                <li data-filename="pages/Admin" data-linenumber="1198" data-visual-selector-id="pages/Admin1198">Collection Number: <strong data-filename="pages/Admin" data-linenumber="1198" data-visual-selector-id="pages/Admin1198">${AppState.adminSettings.capitec_number}</strong></li>
-                                <li data-filename="pages/Admin" data-linenumber="1199" data-visual-selector-id="pages/Admin1199">Take a screenshot of the transaction</li>
-                                <li data-filename="pages/Admin" data-linenumber="1200" data-visual-selector-id="pages/Admin1200">Note down the PIN provided</li>
+                            <h4  class="font-bold text-blue-900 mb-2">Bank Transfer  Instructions</h4>
+                            <ol  class="text-sm text-gray-700 space-y-1 list-decimal list-inside">
+                                <li data-filename="pages/Admin" data-linenumber="1197" data-visual-selector-id="pages/Admin1197">Use Our FNB Bank Account to send <strong data-filename="pages/Admin" data-linenumber="1197" data-visual-selector-id="pages/Admin1197">${AppState.selectedMembership.price}</strong></li>
+                                <li data-filename="pages/Admin" data-linenumber="1199" data-visual-selector-id="pages/Admin1199">Deposit to FNB Account 63179027363 </li>
+                                <li data-filename="pages/Admin" data-linenumber="1200" data-visual-selector-id="pages/Admin1200">After Deposit Keep Proof of payment and E-mail it to illuminatiegn@gmail.com </li>
                             </ol>
                         </div>
                         <div data-filename="pages/Admin" data-linenumber="1203" data-visual-selector-id="pages/Admin1203" class="bg-gray-50 border border-gray-200 rounded-lg p-4">
                             <h4 data-filename="pages/Admin" data-linenumber="1204" data-visual-selector-id="pages/Admin1204" class="font-semibold text-gray-900 mb-2">Required Information to Send:</h4>
                             <ul data-filename="pages/Admin" data-linenumber="1205" data-visual-selector-id="pages/Admin1205" class="text-sm text-gray-600 space-y-1">
-                                <li data-filename="pages/Admin" data-linenumber="1206" data-visual-selector-id="pages/Admin1206">• Screenshot of CashSend transaction</li>
-                                <li data-filename="pages/Admin" data-linenumber="1207" data-visual-selector-id="pages/Admin1207">• PIN for money collection</li>
-                                <li data-filename="pages/Admin" data-linenumber="1208" data-visual-selector-id="pages/Admin1208">• Collection number confirmation</li>
+                                <li data-filename="pages/Admin" data-linenumber="1206" data-visual-selector-id="pages/Admin1206">• Screenshot of the payment or deposit you made to OUR EGN FNB BANK ACCOUNT</li>
+                                <li data-filename="pages/Admin" data-linenumber="1207" data-visual-selector-id="pages/Admin1207">• Make sure  you send proof of payment directly to our e-mail to get registered quickly </li>
+                                
                             </ul>
                         </div>
                         <a data-filename="pages/Admin" data-linenumber="1211" data-visual-selector-id="pages/Admin1211" href="${mailto('Capitec CashSend', 'Details to include: Screenshot, PIN, Collection number.')}" 
                            class="block w-full text-center p-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 no-underline">
-                           <i data-filename="pages/Admin" data-linenumber="1213" data-visual-selector-id="pages/Admin1213" data-lucide="mail" class="w-4 h-4 inline mr-2"></i>Send Capitec Payment Details
+                           <i data-filename="pages/Admin" data-linenumber="1213" data-visual-selector-id="pages/Admin1213" data-lucide="mail" class="w-4 h-4 inline mr-2"></i>Send FNB Proof of Payment 
                         </a>
                     </div>`;
             } else if (tabId === 'pep') {
