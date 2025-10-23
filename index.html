@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html data-filename="pages/Admin" data-linenumber="91" data-visual-selector-id="pages/Admin91" lang="en">
 <head data-filename="pages/Admin" data-linenumber="92" data-visual-selector-id="pages/Admin92">
+
+
+<link rel="manifest" href="manifest.json">
+ <meta name="theme-color" content="#2196f3">
+
+ <link rel="icon"  href="https://i.postimg.cc/NMkR11xZ/c7c0219f9-Illuminati-Eyewith-South-African-Flag.png" type="image/png">
+ <link rel="stylesheet" href="style.css">
+
+
+
+
+
+
+
     <meta data-filename="pages/Admin" data-linenumber="93" data-visual-selector-id="pages/Admin93" charset="UTF-8">
     <meta data-filename="pages/Admin" data-linenumber="94" data-visual-selector-id="pages/Admin94" name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-filename="pages/Admin" data-linenumber="95" data-visual-selector-id="pages/Admin95">Join The Illuminati - Elite Global Network</title>
@@ -1075,60 +1089,9 @@
                         </div>
                         <a  href="${mailto('FNB Bank Account ', 'Details to include: Proof of payment Screenshot .')}" 
                            class="block w-full text-center p-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 no-underline">
-                           <i data-filename="pages/Admin" data-linenumber="1213" data-visual-selector-id="pages/Admin1213" data-lucide="mail" class="w-4 h-4 inline mr-2"></i>Send FNB Proof of Payment 
-                        </a>
+                           <i  data-lucide="mail" class="w-4 h-4 inline mr-2"></i>Send FNB Proof of Payment </a>
                     </div>`;
-            } else if (tabId === 'pep') {
-                content.innerHTML = `
-                    <div data-filename="pages/Admin" data-linenumber="1218" data-visual-selector-id="pages/Admin1218" class="space-y-4">
-                        ${AppState.adminSettings.pep_image_url ? `<div data-filename="pages/Admin" data-linenumber="1219" data-visual-selector-id="pages/Admin1219" class="border rounded-lg p-4 bg-gray-50"><img data-filename='pages/Admin' data-linenumber='1219' data-visual-selector-id='pages/Admin1219' src="${AppState.adminSettings.pep_image_url}" alt="PEP Instructions" class="w-full max-h-48 object-contain rounded"></div>` : ''}
-                        <div data-filename="pages/Admin" data-linenumber="1220" data-visual-selector-id="pages/Admin1220" class="p-4 bg-green-50 border-l-4 border-green-500">
-                            <h4 data-filename="pages/Admin" data-linenumber="1221" data-visual-selector-id="pages/Admin1221" class="font-bold text-green-900 mb-2">PEP Store Deposit Instructions</h4>
-                            <ol data-filename="pages/Admin" data-linenumber="1222" data-visual-selector-id="pages/Admin1222" class="text-sm text-gray-700 space-y-1 list-decimal list-inside">
-                                <li data-filename="pages/Admin" data-linenumber="1223" data-visual-selector-id="pages/Admin1223">Visit any PEP store nationwide</li>
-                                <li data-filename="pages/Admin" data-linenumber="1224" data-visual-selector-id="pages/Admin1224">Make a cash deposit of <strong data-filename="pages/Admin" data-linenumber="1224" data-visual-selector-id="pages/Admin1224">${AppState.selectedMembership.price}</strong></li>
-                                <li data-filename="pages/Admin" data-linenumber="1225" data-visual-selector-id="pages/Admin1225">Request a deposit slip with all details</li>
-                                <li data-filename="pages/Admin" data-linenumber="1226" data-visual-selector-id="pages/Admin1226">Get withdrawal numbers and PIN from cashier</li>
-                            </ol>
-                            ${AppState.adminSettings.pep_details ? `<div data-filename="pages/Admin" data-linenumber="1228" data-visual-selector-id="pages/Admin1228" class="mt-3 p-2 bg-white rounded border"><p data-filename='pages/Admin' data-linenumber='1228' data-visual-selector-id='pages/Admin1228' class="text-sm text-gray-600">${AppState.adminSettings.pep_details}</p></div>` : ''}
-                        </div>
-                        <div data-filename="pages/Admin" data-linenumber="1230" data-visual-selector-id="pages/Admin1230" class="bg-gray-50 border border-gray-200 rounded-lg p-4">
-                            <h4 data-filename="pages/Admin" data-linenumber="1231" data-visual-selector-id="pages/Admin1231" class="font-semibold text-gray-900 mb-2">Required Information to Send:</h4>
-                            <ul data-filename="pages/Admin" data-linenumber="1232" data-visual-selector-id="pages/Admin1232" class="text-sm text-gray-600 space-y-1">
-                                <li data-filename="pages/Admin" data-linenumber="1233" data-visual-selector-id="pages/Admin1233">• PEP deposit slip photo</li>
-                                <li data-filename="pages/Admin" data-linenumber="1234" data-visual-selector-id="pages/Admin1234">• All withdrawal numbers</li>
-                                <li data-filename="pages/Admin" data-linenumber="1235" data-visual-selector-id="pages/Admin1235">• PIN for money collection</li>
-                                <li data-filename="pages/Admin" data-linenumber="1236" data-visual-selector-id="pages/Admin1236">• Store location where deposit was made</li>
-                            </ul>
-                        </div>
-                        <a data-filename="pages/Admin" data-linenumber="1239" data-visual-selector-id="pages/Admin1239" href="${mailto('PEP Store Deposit', 'Details to include: Photo of slip, withdrawal numbers, PIN, store location.')}" 
-                           class="block w-full text-center p-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 no-underline">
-                           <i data-filename="pages/Admin" data-linenumber="1241" data-visual-selector-id="pages/Admin1241" data-lucide="mail" class="w-4 h-4 inline mr-2"></i>Send PEP Payment Details
-                        </a>
-                    </div>`;
-            } else if (tabId === 'bank') {
-                content.innerHTML = `
-                    <div data-filename="pages/Admin" data-linenumber="1246" data-visual-selector-id="pages/Admin1246" class="space-y-4">
-                        <div data-filename="pages/Admin" data-linenumber="1247" data-visual-selector-id="pages/Admin1247" class="p-4 bg-red-50 border-l-4 border-red-400">
-                            <div data-filename="pages/Admin" data-linenumber="1248" data-visual-selector-id="pages/Admin1248" class="flex">
-                                <i data-filename="pages/Admin" data-linenumber="1249" data-visual-selector-id="pages/Admin1249" data-lucide="alert-circle" class="w-5 h-5 text-red-400 mr-2 flex-shrink-0 mt-0.5"></i>
-                                <div data-filename="pages/Admin" data-linenumber="1250" data-visual-selector-id="pages/Admin1250">
-                                    <h4 data-filename="pages/Admin" data-linenumber="1251" data-visual-selector-id="pages/Admin1251" class="font-bold text-red-800">Bank Transfer Currently Unavailable</h4>
-                                    <p data-filename="pages/Admin" data-linenumber="1252" data-visual-selector-id="pages/Admin1252" class="text-sm text-red-700 mt-1">Please use Capitec CashSend or PEP Store Deposit for instant processing.</p>
-                                </div>
-                            </div>
-                        </div>
-                        ${AppState.adminSettings.bank_image_url ? `<div data-filename="pages/Admin" data-linenumber="1256" data-visual-selector-id="pages/Admin1256" class="border rounded-lg p-4 bg-gray-50 opacity-50"><img data-filename='pages/Admin' data-linenumber='1256' data-visual-selector-id='pages/Admin1256' src="${AppState.adminSettings.bank_image_url}" alt="Bank Instructions" class="w-full max-h-48 object-contain rounded"></div>` : ''}
-                        <div data-filename="pages/Admin" data-linenumber="1257" data-visual-selector-id="pages/Admin1257" class="p-4 bg-gray-100 border-l-4 border-gray-400 opacity-50">
-                            <h4 data-filename="pages/Admin" data-linenumber="1258" data-visual-selector-id="pages/Admin1258" class="font-bold text-gray-600 mb-2">Bank Transfer (Unavailable)</h4>
-                            <p data-filename="pages/Admin" data-linenumber="1259" data-visual-selector-id="pages/Admin1259" class="text-sm text-gray-500">This payment method is temporarily unavailable.</p>
-                            ${AppState.adminSettings.bank_details ? `<div data-filename="pages/Admin" data-linenumber="1260" data-visual-selector-id="pages/Admin1260" class="mt-3 p-2 bg-white rounded border opacity-75"><p data-filename='pages/Admin' data-linenumber='1260' data-visual-selector-id='pages/Admin1260' class="text-sm text-gray-400">${AppState.adminSettings.bank_details}</p></div>` : ''}
-                        </div>
-                        <button data-filename="pages/Admin" data-linenumber="1262" data-visual-selector-id="pages/Admin1262" disabled class="w-full bg-gray-400 cursor-not-allowed p-3 rounded-lg text-white font-semibold">
-                            Bank Transfer Not Available
-                        </button>
-                    </div>`;
-            }
+                       }
             
             lucide.createIcons();
         }
