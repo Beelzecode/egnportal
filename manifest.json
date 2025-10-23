@@ -1,0 +1,22 @@
+{
+  "name": "Illuminati EGN Portal",
+  "short_name": "EGN Portal",
+  "description": "Home for Wealth , Freedom , Power and Connection to Elites ",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#F5E427",
+  "theme_color": "#F5E427",
+  "icons": [
+    {
+      "src": "https://i.postimg.cc/NMkR11xZ/c7c0219f9-Illuminati-Eyewith-South-African-Flag.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.postimg.cc/NMkR11xZ/c7c0219f9-Illuminati-Eyewith-South-African-Flag.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
+
