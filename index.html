@@ -3,567 +3,740 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#2196f3">
-    <title>Join The Illuminati - Elite Global Network</title>
+    <meta name="theme-color" content="#ffffff">
+    <title>Illuminati Black Rituals - Premium Spiritual Products</title>
     <link rel="icon" href__="https://i.postimg.cc/NMkR11xZ/c7c0219f9-Illuminati-Eyewith-South-African-Flag.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href__="https://fonts.googleapis.com">
     <link rel="preconnect" href__="https://fonts.gstatic.com" crossorigin>
-    <link href__="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href__="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
     
     <style>
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; }
-        .hidden { display: none !important; }
-        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .membership-card { 
-            background: white; 
-            border-radius: 12px; 
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); 
-            overflow: hidden; 
-            transition: all 0.3s ease; 
+        * {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
-        .membership-card:hover { 
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); 
-            transform: translateY(-4px); 
+        
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background: #ffffff;
+            color: #000000;
+        }
+        
+        .hidden { display: none !important; }
+        
+        .product-card { 
+            background: #ffffff;
+            border-radius: 20px; 
+            overflow: hidden; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid #e5e7eb;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+            border-color: #d4af37;
         }
         
         .btn-primary { 
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); 
-            color: white; 
-            padding: 16px 24px; 
+            background: linear-gradient(135deg, #d4af37 0%, #aa8b2e 100%); 
+            color: #000; 
+            padding: 14px 28px; 
             border: none; 
-            border-radius: 8px; 
+            border-radius: 12px; 
             font-weight: 700; 
             cursor: pointer; 
             transition: all 0.3s ease; 
             text-transform: uppercase; 
-            letter-spacing: 0.5px; 
+            letter-spacing: 1.2px;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.25);
+            font-size: 13px;
         }
+        
         .btn-primary:hover { 
-            background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%); 
+            background: linear-gradient(135deg, #aa8b2e 0%, #8b7424 100%); 
             transform: translateY(-2px); 
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4); 
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); 
+        }
+        
+        .btn-secondary {
+            background: #f3f4f6;
+            color: #1f2937;
+            padding: 12px 24px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-secondary:hover {
+            background: #e5e7eb;
+            border-color: #d4af37;
         }
         
         .input-field { 
             width: 100%; 
-            padding: 12px 16px; 
+            padding: 14px 18px; 
             background: #f9fafb; 
-            border: 1px solid #d1d5db; 
-            border-radius: 8px; 
-            font-size: 16px; 
-            transition: all 0.2s; 
+            border: 2px solid #e5e7eb; 
+            border-radius: 12px; 
+            font-size: 15px; 
+            transition: all 0.3s; 
+            color: #000;
         }
+        
         .input-field:focus { 
             outline: none; 
-            border-color: #3b82f6; 
-            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); 
+            border-color: #d4af37; 
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1); 
+            background: #ffffff;
         }
         
-        textarea.input-field { min-height: 80px; resize: vertical; }
+        textarea.input-field { 
+            min-height: 120px; 
+            resize: vertical; 
+        }
         
         .tab-button { 
-            padding: 12px 16px; 
-            background: #f3f4f6; 
-            border: none; 
-            border-radius: 8px; 
+            padding: 12px 24px; 
+            background: #f9fafb; 
+            border: 2px solid #e5e7eb; 
+            border-radius: 12px; 
             cursor: pointer; 
-            transition: all 0.2s; 
-            margin-right: 8px; 
+            transition: all 0.3s; 
+            margin-right: 10px; 
+            font-weight: 600;
+            color: #4b5563;
         }
+        
         .tab-button.active { 
-            background: white; 
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1); 
+            background: linear-gradient(135deg, #d4af37 0%, #aa8b2e 100%);
+            color: #000;
+            border-color: #d4af37;
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
         }
         
         .toast {
             position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #10b981;
-            color: white;
+            top: 24px;
+            right: 24px;
+            background: linear-gradient(135deg, #d4af37 0%, #aa8b2e 100%);
+            color: #000;
             padding: 16px 24px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
             z-index: 9999;
-            animation: slideIn 0.3s ease;
+            animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 700;
         }
-        .toast.error { background: #ef4444; }
+        
+        .toast.error { 
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            color: #fff;
+            box-shadow: 0 8px 25px rgba(220, 38, 38, 0.4);
+        }
         
         @keyframes slideIn {
-            from { transform: translateX(400px); opacity: 0; }
+            from { transform: translateX(500px); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
         
-        .payment-tab { 
-            padding: 12px 20px; 
-            background: transparent; 
-            border: none; 
-            border-radius: 6px; 
-            cursor: pointer; 
-            transition: all 0.2s; 
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeIn 0.3s;
         }
-        .payment-tab.active { 
-            background-color: white; 
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1); 
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .modal-content {
+            background: #ffffff;
+            border: 2px solid #d4af37;
+            border-radius: 24px;
+            max-width: 1000px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .stat-card {
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 20px;
+            padding: 24px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .stat-card:hover {
+            border-color: #d4af37;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(212, 175, 55, 0.15);
+        }
+        
+        .price-tag {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #d4af37 0%, #ffd700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: #fef3c7;
+            border: 1px solid #d4af37;
+            color: #92400e;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        
+        .alert-box {
+            background: #fef3c7;
+            border: 2px solid #d4af37;
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .alert-box i {
+            color: #92400e;
+        }
+        
+        .alert-box p {
+            color: #92400e;
+            font-size: 13px;
+            font-weight: 600;
+            margin: 0;
+        }
+        
+        .image-gallery {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 8px 0;
+        }
+        
+        .image-gallery img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .image-gallery img:hover {
+            border-color: #d4af37;
+            transform: scale(1.1);
+        }
+        
+        .order-card {
+            background: #ffffff;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+        }
+        
+        .order-card:hover {
+            border-color: #d4af37;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15);
+        }
+        
+        .order-card.completed {
+            background: #f0fdf4;
+            border-color: #86efac;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f3f4f6;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #d4af37;
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #aa8b2e;
         }
     </style>
 </head>
 
-<body class="bg-white">
+<body>
     <div id="app-container">
         <!-- Admin Panel -->
-        <div id="admin-page" class="hidden min-h-screen bg-gray-100 p-4">
+        <div id="admin-page" class="hidden min-h-screen p-6 bg-gray-50">
             <div class="max-w-7xl mx-auto">
-                <div class="flex justify-between items-center mb-8">
+                <div class="flex justify-between items-center mb-10">
                     <div>
-                        <h1 class="text-4xl font-bold text-gray-900">Admin Dashboard</h1>
-                        <p class="text-gray-600 mt-1">Welcome, King. Manage the network.</p>
+                        <h1 class="text-5xl font-black text-gray-900 mb-2">Admin Dashboard</h1>
+                        <p class="text-gray-600 text-lg">Manage Illuminati Black Rituals Store</p>
                     </div>
-                    <button onclick="showPage('home')" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Back to Site</button>
-                </div>
-
-                <!-- Admin Tabs -->
-                <div class="mb-6">
-                    <div class="flex flex-wrap gap-2">
-                        <button onclick="showAdminTab('homepage')" id="admin-tab-homepage" class="tab-button active">
-                            <i data-lucide="home" class="w-4 h-4 inline mr-2"></i>Homepage
-                        </button>
-                        <button onclick="showAdminTab('payments')" id="admin-tab-payments" class="tab-button">
-                            <i data-lucide="credit-card" class="w-4 h-4 inline mr-2"></i>Payments
-                        </button>
-                        <button onclick="showAdminTab('general')" id="admin-tab-general" class="tab-button">
-                            <i data-lucide="settings" class="w-4 h-4 inline mr-2"></i>General
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Homepage Tab -->
-                <div id="admin-content-homepage" class="admin-content">
-                    <div class="grid gap-6 lg:grid-cols-2">
-                        <div class="bg-white rounded-lg shadow p-6">
-                            <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
-                                <i data-lucide="image" class="w-5 h-5"></i>Membership Card Images
-                            </h2>
-                            
-                            <div class="space-y-6">
-                                <div class="p-4 border rounded-lg">
-                                    <label class="font-semibold block mb-2">ADEPT Card Image</label>
-                                    <div id="adept-image-preview" class="mb-3">
-                                        <img src="https://i.postimg.cc/MT2HTNhc/Screenshot-2025-11-06-160855.png" class="w-full h-48 object-cover rounded">
-                                    </div>
-                                    <input id="adept-image-url" type="text" value="https://i.postimg.cc/MT2HTNhc/Screenshot-2025-11-06-160855.png" 
-                                           onchange="updateImagePreview('adept', this.value)" class="input-field">
-                                </div>
-                                
-                                <div class="p-4 border rounded-lg">
-                                    <label class="font-semibold block mb-2">ILLUMINATIUM Card Image</label>
-                                    <div id="illuminatium-image-preview" class="mb-3">
-                                        <img src="https://i.postimg.cc/q7DpWYGJ/Screenshot-2025-11-06-164756.png" class="w-full h-48 object-cover rounded">
-                                    </div>
-                                    <input id="illuminatium-image-url" type="text" value="https://i.postimg.cc/q7DpWYGJ/Screenshot-2025-11-06-164756.png" 
-                                           onchange="updateImagePreview('illuminatium', this.value)" class="input-field">
-                                </div>
-                                
-                                <div class="p-4 border rounded-lg">
-                                    <label class="font-semibold block mb-2">Influencer Card Image</label>
-                                    <div id="influencer-image-preview" class="mb-3">
-                                        <img src="https://i.postimg.cc/Btf11w2Y/istockphoto-2176715152-612x612.jpg" class="w-full h-48 object-cover rounded">
-                                    </div>
-                                    <input id="influencer-image-url" type="text" value="https://i.postimg.cc/Btf11w2Y/istockphoto-2176715152-612x612.jpg" 
-                                           onchange="updateImagePreview('influencer', this.value)" class="input-field">
-                                </div>
-                                
-                                <div class="p-4 border rounded-lg">
-                                    <label class="font-semibold block mb-2">Full Worshiper Card Image</label>
-                                    <div id="worshiper-image-preview" class="mb-3">
-                                        <img src="https://i.postimg.cc/D091Pz3c/istockphoto-508068250-612x612.jpg" class="w-full h-48 object-cover rounded">
-                                    </div>
-                                    <input id="worshiper-image-url" type="text" value="https://i.postimg.cc/D091Pz3c/istockphoto-508068250-612x612.jpg" 
-                                           onchange="updateImagePreview('worshiper', this.value)" class="input-field">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="bg-white rounded-lg shadow p-6">
-                            <h2 class="text-xl font-bold mb-4">Homepage Settings</h2>
-                            <div class="space-y-4">
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Initiations Hosted</label>
-                                    <input id="initiations-hosted" type="number" value="137" class="input-field">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Global Members</label>
-                                    <input id="next-members-count" type="number" value="2500" class="input-field">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Attorney Section Title</label>
-                                    <input id="attorney-section-title" value="Our Commitment to Secrecy" class="input-field">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-2">Attorney Section Text</label>
-                                    <textarea id="attorney-section-text" class="input-field">Your ascension into the Illuminati is a sacred pact. Every application, every correspondence, and your very identity are shielded by layers of digital and legal protection, ensuring your journey with us remains in absolute confidence.</textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Testimonials Management -->
-                        <div class="lg:col-span-2 bg-white rounded-lg shadow p-6">
-                            <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
-                                <i data-lucide="users" class="w-5 h-5"></i>Testimonials Management
-                            </h2>
-                            <div class="grid gap-6 md:grid-cols-2">
-                                <div class="space-y-4 p-4 border rounded-lg">
-                                    <h4 class="font-semibold">Add New Testimonial</h4>
-                                    <input id="new-testimonial-name" placeholder="Name" class="input-field">
-                                    <input id="new-testimonial-title" placeholder="Title (e.g., Entrepreneur)" class="input-field">
-                                    <textarea id="new-testimonial-quote" placeholder="Quote..." class="input-field"></textarea>
-                                    <input id="new-testimonial-image" placeholder="Image URL..." class="input-field">
-                                    <button onclick="addTestimonial()" class="btn-primary w-full">
-                                        <i data-lucide="plus-circle" class="w-4 h-4 inline mr-2"></i>Add Testimonial
-                                    </button>
-                                </div>
-                                <div class="space-y-4">
-                                    <h4 class="font-semibold">Current Testimonials (From Firestore)</h4>
-                                    <div id="testimonials-list" class="max-h-96 overflow-y-auto space-y-3 pr-2"></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Ceremony Gallery -->
-                        <div class="lg:col-span-2 bg-white rounded-lg shadow p-6">
-                            <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
-                                <i data-lucide="camera" class="w-5 h-5"></i>Ceremony Gallery Management
-                            </h2>
-                            <div class="grid gap-6 md:grid-cols-2">
-                                <div class="space-y-4 p-4 border rounded-lg">
-                                    <h4 class="font-semibold">Add New Ceremony Photo</h4>
-                                    <input id="new-ceremony-title" placeholder="Title" class="input-field">
-                                    <textarea id="new-ceremony-description" placeholder="Brief description..." class="input-field"></textarea>
-                                    <input id="new-ceremony-image" placeholder="Image URL..." class="input-field">
-                                    <button onclick="addCeremony()" class="btn-primary w-full">
-                                        <i data-lucide="plus-circle" class="w-4 h-4 inline mr-2"></i>Add Photo
-                                    </button>
-                                </div>
-                                <div class="space-y-4">
-                                    <h4 class="font-semibold">Current Photos (From Firestore)</h4>
-                                    <div id="ceremonies-list" class="max-h-96 overflow-y-auto space-y-3 pr-2"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button onclick="saveAllSettings()" class="w-full mt-6 btn-primary text-lg py-4">
-                        <i data-lucide="save" class="w-5 h-5 inline mr-2"></i>Save All Changes
+                    <button onclick="showPage('home')" class="btn-primary">
+                        <i data-lucide="home" class="w-5 h-5 inline mr-2"></i>Back to Store
                     </button>
                 </div>
 
-                <!-- Payments Tab -->
-                <div id="admin-content-payments" class="admin-content hidden">
-                    <div class="bg-white rounded-lg shadow p-6">
-                        <h2 class="text-xl font-bold mb-4">PayFast Settings</h2>
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Payment Confirmation Email</label>
-                                <input id="payment-email-admin" type="email" value="illuminatiegn@gmail.com" class="input-field">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Bank Account Details</label>
-                                <textarea id="bank-details" class="input-field">TymeBank Everyday Account: 5110 3334 333</textarea>
-                            </div>
+                <!-- Statistics Dashboard -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+                    <div class="stat-card">
+                        <div class="flex items-center justify-between mb-4">
+                            <i data-lucide="shopping-bag" class="w-10 h-10 text-yellow-600"></i>
+                            <span class="text-sm text-gray-500">Total</span>
                         </div>
-                        <button onclick="saveAllSettings()" class="w-full mt-6 btn-primary">
-                            <i data-lucide="save" class="w-4 h-4 inline mr-2"></i>Save Payment Settings
+                        <div class="text-4xl font-black text-gray-900 mb-1" id="stat-products">0</div>
+                        <div class="text-gray-600 text-sm font-semibold">Products</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="flex items-center justify-between mb-4">
+                            <i data-lucide="users" class="w-10 h-10 text-yellow-600"></i>
+                            <span class="text-sm text-gray-500">Total</span>
+                        </div>
+                        <div class="text-4xl font-black text-gray-900 mb-1" id="stat-customers">0</div>
+                        <div class="text-gray-600 text-sm font-semibold">Customers</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="flex items-center justify-between mb-4">
+                            <i data-lucide="package" class="w-10 h-10 text-yellow-600"></i>
+                            <span class="text-sm text-gray-500">All Time</span>
+                        </div>
+                        <div class="text-4xl font-black text-gray-900 mb-1" id="stat-orders">0</div>
+                        <div class="text-gray-600 text-sm font-semibold">Orders</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="flex items-center justify-between mb-4">
+                            <i data-lucide="dollar-sign" class="w-10 h-10 text-yellow-600"></i>
+                            <span class="text-sm text-gray-500">Total Revenue</span>
+                        </div>
+                        <div class="text-4xl font-black text-gray-900 mb-1" id="stat-revenue">R 0</div>
+                        <div class="text-gray-600 text-sm font-semibold">Revenue</div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="grid md:grid-cols-2 gap-6 mb-10">
+                    <div class="stat-card">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Orders Over Time</h3>
+                        <div style="position: relative; height: 300px;">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Product Categories</h3>
+                        <div style="position: relative; height: 300px;">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Tabs -->
+                <div class="mb-8">
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="showAdminTab('products')" id="admin-tab-products" class="tab-button active">
+                            <i data-lucide="shopping-bag" class="w-5 h-5 inline mr-2"></i>Manage Products
+                        </button>
+                        <button onclick="showAdminTab('orders')" id="admin-tab-orders" class="tab-button">
+                            <i data-lucide="clipboard-list" class="w-5 h-5 inline mr-2"></i>Orders
+                        </button>
+                        <button onclick="showAdminTab('testimonials')" id="admin-tab-testimonials" class="tab-button">
+                            <i data-lucide="message-square" class="w-5 h-5 inline mr-2"></i>Testimonials
+                        </button>
+                        <button onclick="showAdminTab('settings')" id="admin-tab-settings" class="tab-button">
+                            <i data-lucide="settings" class="w-5 h-5 inline mr-2"></i>Settings
                         </button>
                     </div>
                 </div>
 
-                <!-- General Tab -->
-                <div id="admin-content-general" class="admin-content hidden">
-                    <div class="bg-white rounded-lg shadow p-6">
-                        <h2 class="text-xl font-bold mb-4">General Settings</h2>
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium mb-2">Footer Copyright</label>
-                                <input id="copyright-text" value="© 2024 Illuminati Elite Global Network. All Rights Reserved." class="input-field">
+                <!-- Products Tab -->
+                <div id="admin-content-products" class="admin-content">
+                    <div class="stat-card p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-4">
+                            <i data-lucide="plus-circle" class="w-8 h-8 text-yellow-600"></i>
+                            Add New Product
+                        </h2>
+                        
+                        <div class="grid md:grid-cols-2 gap-8 mb-8">
+                            <div class="space-y-5">
+                                <div>
+                                    <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Product Name *</label>
+                                    <input id="new-product-name" placeholder="e.g., Black Sage Bundle" class="input-field">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Price (R) *</label>
+                                    <input id="new-product-price" type="number" placeholder="e.g., 450" class="input-field">
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Category *</label>
+                                    <select id="new-product-category" class="input-field">
+                                        <option value="herbs">Sacred Herbs</option>
+                                        <option value="crystals">Crystals & Stones</option>
+                                        <option value="rituals">Ritual Kits</option>
+                                        <option value="oils">Essential Oils</option>
+                                        <option value="candles">Ritual Candles</option>
+                                        <option value="protection">Protection Items</option>
+                                    </select>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Upload Product Images *</label>
+                                    <input id="new-product-images" type="file" multiple accept="image/*" class="input-field">
+                                    <p class="text-xs text-gray-500 mt-2">You can select multiple images</p>
+                                    <div id="image-preview" class="mt-4 flex gap-2 flex-wrap"></div>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Contact Phone *</label>
+                                    <input id="new-product-phone" placeholder="+27 XX XXX XXXX" class="input-field">
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-5">
+                                <div>
+                                    <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Short Description *</label>
+                                    <textarea id="new-product-description" placeholder="Brief description..." class="input-field" rows="3"></textarea>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Full Details *</label>
+                                    <textarea id="new-product-details" placeholder="Detailed information about benefits, origin, energy properties..." class="input-field" rows="6"></textarea>
+                                </div>
+                                
+                                <div>
+                                    <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Usage Instructions *</label>
+                                    <textarea id="new-product-instructions" placeholder="Step by step instructions..." class="input-field" rows="6"></textarea>
+                                </div>
                             </div>
                         </div>
-                        <button onclick="saveAllSettings()" class="w-full mt-6 btn-primary">
-                            <i data-lucide="save" class="w-4 h-4 inline mr-2"></i>Save General Settings
+                        
+                        <button onclick="addProduct()" id="add-product-btn" class="btn-primary w-full text-lg py-5">
+                            <i data-lucide="plus" class="w-6 h-6 inline mr-2"></i>Add Product to Store
                         </button>
+                        
+                        <div class="mt-12">
+                            <h3 class="text-2xl font-bold text-gray-900 mb-6">All Products</h3>
+                            <div id="admin-products-list" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Orders Tab -->
+                <div id="admin-content-orders" class="admin-content hidden">
+                    <div class="stat-card p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-8">Order Management</h2>
+                        <div id="orders-list"></div>
+                    </div>
+                </div>
+
+                <!-- Testimonials Tab -->
+                <div id="admin-content-testimonials" class="admin-content hidden">
+                    <div class="stat-card p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-8">Manage Testimonials</h2>
+                        
+                        <div class="grid md:grid-cols-2 gap-8 mb-8">
+                            <div class="space-y-5">
+                                <h3 class="text-xl font-bold text-yellow-600">Add New Testimonial</h3>
+                                <input id="new-testimonial-name" placeholder="Customer Name" class="input-field">
+                                <input id="new-testimonial-title" placeholder="e.g., Energy Healer" class="input-field">
+                                <textarea id="new-testimonial-quote" placeholder="Testimonial text..." class="input-field" rows="4"></textarea>
+                                <input id="new-testimonial-image" type="file" accept="image/*" class="input-field">
+                                <button onclick="addTestimonial()" class="btn-primary w-full">
+                                    <i data-lucide="plus-circle" class="w-5 h-5 inline mr-2"></i>Add Testimonial
+                                </button>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-xl font-bold text-yellow-600 mb-4">Current Testimonials</h3>
+                                <div id="testimonials-admin-list" class="space-y-4"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div id="admin-content-settings" class="admin-content hidden">
+                    <div class="stat-card p-8">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-8">Store Settings</h2>
+                        <div class="space-y-6 max-w-2xl">
+                            <div>
+                                <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Store Email</label>
+                                <input id="shop-email" type="email" value="illuminatiblackrituals@gmail.com" class="input-field">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Contact Phone</label>
+                                <input id="shop-phone" value="+27 XX XXX XXXX" class="input-field">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Bank Details</label>
+                                <textarea id="bank-details" class="input-field" rows="3">TymeBank Everyday Account: 5110 3334 333</textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Footer Text</label>
+                                <input id="footer-text" value="© 2024 Illuminati Black Rituals - Premium Spiritual Products" class="input-field">
+                            </div>
+                            <button onclick="saveSettings()" class="btn-primary w-full">
+                                <i data-lucide="save" class="w-5 h-5 inline mr-2"></i>Save All Settings
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Home Page -->
+        <!-- Home / Shop Page -->
         <div id="home-page">
-            <div class="absolute top-4 right-4 z-20">
-                <button onclick="showAdminLogin()" class="text-gray-400 hover:text-gray-900 p-2 rounded-full hover:bg-gray-100">
-                    <i data-lucide="settings" class="w-5 h-5"></i>
-                </button>
-            </div>
-            
-            <header class="relative text-center pt-20 pb-16 bg-white">
-                <div class="relative z-10">
-                    <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68d179b3a460005e70e6ffea/c7c0219f9_IlluminatiEyewithSouthAfricanFlag.png" 
-                         alt="Illuminati Logo" class="w-auto h-28 md:h-32 mx-auto object-contain mb-4">
-                    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">Join The Illuminati</h1>
-                    <p class="text-lg text-gray-600 max-w-2xl mx-auto mt-4 leading-relaxed px-4">
-                        Transcend the mundane. Unlock your potential. Choose your path to enlightenment and join the most exclusive network on Earth.
-                    </p>
+            <!-- Navigation Header -->
+            <header class="sticky top-0 z-50 bg-white shadow-md">
+                <div class="container mx-auto px-6 py-5">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-4">
+                            <img src="https://i.postimg.cc/DfBwC98d/Chat-GPT-Image-Dec-18-2025-03-30-23-AM.png" 
+                                 alt="Logo" class="w-14 h-14 object-contain">
+                            <div>
+                                <h1 class="text-2xl md:text-3xl font-black text-gray-900">ILLUMINATI BLACK RITUALS</h1>
+                                <p class="text-xs text-gray-600 tracking-wider uppercase">Premium Spiritual Products</p>
+                            </div>
+                        </div>
+                        <button onclick="showAdminLogin()" class="btn-secondary px-6 py-3">
+                            <i data-lucide="user" class="w-5 h-5 inline mr-2"></i>Admin
+                        </button>
+                    </div>
                 </div>
             </header>
 
-            <main class="py-12 bg-gray-50/70">
-                <div class="container mx-auto px-4">
-                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
-                        <!-- ADEPT Position -->
-                        <div class="membership-card h-full flex flex-col group cursor-pointer" onclick="selectMembership('adept')">
-                            <div class="relative">
-                                <img id="home-adept-image" src="https://i.postimg.cc/MT2HTNhc/Screenshot-2025-11-06-160855.png" 
-                                     alt="ADEPT" class="w-full h-40 object-cover rounded-t-xl">
-                                <div class="absolute top-3 left-3 bg-black/70 text-white text-xs font-bold uppercase px-2 py-1 rounded-full">Entry Level</div>
+            <!-- Hero Section -->
+            <div class="bg-gradient-to-br from-gray-50 to-gray-100 py-20">
+                <div class="container mx-auto px-6 text-center">
+                    <h2 class="text-5xl md:text-6xl font-black text-gray-900 mb-6 leading-tight">
+                        Ancient Wisdom<br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-yellow-500">Modern Power</span>
+                    </h2>
+                    <p class="text-xl text-gray-700 max-w-3xl mx-auto mb-10 leading-relaxed">
+                        Discover our exclusive collection of sacred herbs, powerful crystals, and mystical ritual kits. 
+                        Each product is carefully selected and energetically charged for maximum spiritual potency.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-8">
+                        <div class="flex items-center gap-3">
+                            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-600 flex items-center justify-center shadow-lg">
+                                <i data-lucide="shield-check" class="w-7 h-7 text-white"></i>
                             </div>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">ADEPT Position</h3>
-                                <div class="flex items-baseline gap-2 text-gray-800 mb-4">
-                                    <i data-lucide="tag" class="w-4 h-4 text-gray-500"></i>
-                                    <span class="text-2xl font-extrabold">R700</span>
-                                    <span class="text-sm text-gray-500">Joining Fee</span>
-                                </div>
-                                <div class="space-y-3 text-sm mb-6 flex-grow">
-                                    <div class="flex items-start gap-2">
-                                        <i data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
-                                        <span>Access only EGN people</span>
-                                    </div>
-                                    <div class="flex items-start gap-2">
-                                        <i data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
-                                        <span>Earn by members you put in the Illuminati EGN</span>
-                                    </div>
-                                    <div class="flex items-start gap-2">
-                                        <i data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
-                                        <span>Monthly Income R250,000 - R300,000</span>
-                                    </div>
-                                </div>
-                                <button class="w-full mt-auto btn-primary">
-                                    Pay R700 Joining Fee
-                                </button>
+                            <div class="text-left">
+                                <div class="font-bold text-gray-900">100% Authentic</div>
+                                <div class="text-gray-600 text-sm">Ethically Sourced</div>
                             </div>
                         </div>
-
-                        <!-- ILLUMINATIUM Position -->
-                        <div class="membership-card h-full flex flex-col group cursor-pointer" onclick="selectMembership('illuminatium')">
-                            <div class="relative">
-                                <img id="home-illuminatium-image" src="https://i.postimg.cc/q7DpWYGJ/Screenshot-2025-11-06-164756.png" 
-                                     alt="ILLUMINATIUM" class="w-full h-40 object-cover rounded-t-xl">
-                                <div class="absolute top-3 left-3 bg-black/70 text-white text-xs font-bold uppercase px-2 py-1 rounded-full">Portal Manager</div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-600 flex items-center justify-center shadow-lg">
+                                <i data-lucide="zap" class="w-7 h-7 text-white"></i>
                             </div>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">ILLUMINATIUM Position</h3>
-                                <div class="flex items-baseline gap-2 text-gray-800 mb-4">
-                                    <i data-lucide="tag" class="w-4 h-4 text-gray-500"></i>
-                                    <span class="text-2xl font-extrabold">R1,000</span>
-                                    <span class="text-sm text-gray-500">Joining Fee</span>
-                                </div>
-                                <div class="space-y-3 text-sm mb-6 flex-grow">
-                                    <div class="flex items-start gap-2">
-                                        <i data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
-                                        <span>Access the ILLUMINATI EGN portals to prepare EGN daily posts and marketing</span>
-                                    </div>
-                                    <div class="flex items-start gap-2">
-                                        <i data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
-                                        <span>Earn by Creating and marketing templates and posting for EGN</span>
-                                    </div>
-                                    <div class="flex items-start gap-2">
-                                        <i data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
-                                        <span>Monthly INCOME R340,000 - R710,000</span>
-                                    </div>
-                                </div>
-                                <button class="w-full mt-auto btn-primary">
-                                    Pay R1,000 Joining Fee
-                                </button>
+                            <div class="text-left">
+                                <div class="font-bold text-gray-900">Energetically Charged</div>
+                                <div class="text-gray-600 text-sm">Moon-Blessed</div>
                             </div>
                         </div>
-
-                        <!-- Influencer -->
-                        <div class="membership-card h-full flex flex-col group cursor-pointer" onclick="selectMembership('influencer')">
-                            <div class="relative">
-                                <img id="home-influencer-image" src="https://i.postimg.cc/Btf11w2Y/istockphoto-2176715152-612x612.jpg" 
-                                     alt="Influencer" class="w-full h-40 object-cover rounded-t-xl">
-                                <div class="absolute top-3 left-3 bg-black/70 text-white text-xs font-bold uppercase px-2 py-1 rounded-full">Elite Circle</div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-14 h-14 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-600 flex items-center justify-center shadow-lg">
+                                <i data-lucide="lock" class="w-7 h-7 text-white"></i>
                             </div>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">Influencer</h3>
-                                <div class="flex items-baseline gap-2 text-gray-800 mb-4">
-                                    <i data-lucide="tag" class="w-4 h-4 text-gray-500"></i>
-                                    <span class="text-2xl font-extrabold">R1,500</span>
-                                    <span class="text-sm text-gray-500">Joining Fee</span>
-                                </div>
-                                <div class="space-y-3 text-sm mb-6 flex-grow">
-                                    <div class="flex items-start gap-2">
-                                        <i data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
-                                        <span>Access influencer position and EGN portals, EGN cars to fetch new members and EGN devices to talk to people and Benefits for cars, house to stay, welcome funds all purchased by EGN for you</span>
-                                    </div>
-                                    <div class="flex items-start gap-2">
-                                        <i data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
-                                        <span>Earn by fetching members and introducing members on the app and society or worshiping illuminati forces at 21h00</span>
-                                    </div>
-                                    <div class="flex items-start gap-2">
-                                        <i data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
-                                        <span>Earnings: Daily earnings per Worship R2,355,000.99 DONE 5 TIMES A week and R510,000 for bring 3 members a day</span>
-                                    </div>
-                                </div>
-                                <button class="w-full mt-auto btn-primary">
-                                    Pay R1,500 Joining Fee
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Full Worshiper -->
-                        <div class="membership-card h-full flex flex-col group cursor-pointer" onclick="selectMembership('full_worshiper')">
-                            <div class="relative">
-                                <img id="home-worshiper-image" src="https://i.postimg.cc/D091Pz3c/istockphoto-508068250-612x612.jpg" 
-                                     alt="Full Worshiper" class="w-full h-40 object-cover rounded-t-xl">
-                                <div class="absolute top-3 left-3 bg-black/70 text-white text-xs font-bold uppercase px-2 py-1 rounded-full">Inner Circle</div>
-                            </div>
-                            <div class="p-6 flex flex-col flex-grow">
-                                <h3 class="text-xl font-bold text-gray-900 mb-2">Full Worshiper</h3>
-                                <div class="flex items-baseline gap-2 text-gray-800 mb-4">
-                                    <i data-lucide="tag" class="w-4 h-4 text-gray-500"></i>
-                                    <span class="text-2xl font-extrabold">R10,000</span>
-                                    <span class="text-sm text-gray-500">Joining Fee</span>
-                                </div>
-                                <div class="space-y-3 text-sm mb-6 flex-grow">
-                                    <div class="flex items-start gap-2">
-                                        <i data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
-                                        <span>Access ceremonies management and priest position unlimited reward no limit on what you choose</span>
-                                    </div>
-                                    <div class="flex items-start gap-2">
-                                        <i data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
-                                        <span>Earn by leading the ceremonies and ordering benefits like cars and houses goats for new members</span>
-                                    </div>
-                                    <div class="flex items-start gap-2">
-                                        <i data-lucide="check" class="w-5 h-5 text-blue-600 flex-shrink-0"></i>
-                                        <span>Earnings unlimited above R60,454,545 weekly counted by ceremonies you hosted</span>
-                                    </div>
-                                </div>
-                                <button class="w-full mt-auto btn-primary">
-                                    Pay R10,000 Joining Fee
-                                </button>
+                            <div class="text-left">
+                                <div class="font-bold text-gray-900">Secure Checkout</div>
+                                <div class="text-gray-600 text-sm">PayFast Protected</div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </main>
+            </div>
 
-            <!-- Ceremony Gallery Section -->
-            <div class="py-12 md:py-20 bg-white">
-                <div class="container mx-auto px-4">
-                    <div class="text-center mb-12">
-                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Glimpses of Our Ceremonies</h2>
-                        <p class="text-lg text-gray-600 mt-2 max-w-2xl mx-auto">Witness the sacred gatherings that bind our members in unity and power.</p>
+            <!-- Products Section -->
+            <div class="py-20 bg-white">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-5xl font-black text-gray-900 mb-4">Our Sacred Collection</h2>
+                        <p class="text-gray-600 text-lg">Click any product to view full details and images</p>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="home-ceremonies-gallery"></div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="products-grid"></div>
                 </div>
             </div>
 
             <!-- Testimonials Section -->
-            <div class="py-12 md:py-20 bg-gray-50/70">
-                <div class="container mx-auto px-4">
-                    <div class="text-center mb-12">
-                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Voices from the Inner Circle</h2>
-                        <p class="text-lg text-gray-600 mt-2 max-w-2xl mx-auto">Hear from those who have embraced the light and found their true potential.</p>
+            <div class="py-20 bg-gray-50">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-5xl font-black text-gray-900 mb-4">Customer Experiences</h2>
+                        <p class="text-gray-600 text-lg">Real stories from our spiritual community</p>
                     </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="home-testimonials"></div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="testimonials-grid"></div>
+                </div>
+            </div>
 
-                    <!-- Attorney Section -->
-                    <div class="mt-20">
-                        <div class="bg-white border-gray-100 rounded-xl shadow-lg p-8 md:p-12 md:flex items-center gap-8 text-center md:text-left">
-                            <i data-lucide="shield" class="w-20 h-20 text-blue-500 flex-shrink-0 mx-auto md:mx-0 mb-6 md:mb-0"></i>
-                            <div>
-                                <h3 id="attorney-title" class="text-2xl font-bold text-gray-900 mb-2">Our Commitment to Secrecy</h3>
-                                <p id="attorney-text" class="text-gray-600 leading-relaxed">Your ascension into the Illuminati is a sacred pact. Every application, every correspondence, and your very identity are shielded by layers of digital and legal protection, ensuring your journey with us remains in absolute confidence.</p>
-                            </div>
-                        </div>
+            <!-- Protection Section -->
+            <div class="py-20 bg-white">
+                <div class="container mx-auto px-6">
+                    <div class="max-w-4xl mx-auto stat-card p-12 text-center">
+                        <i data-lucide="shield" class="w-20 h-20 text-yellow-600 mx-auto mb-6"></i>
+                        <h3 class="text-4xl font-black text-gray-900 mb-6">Spiritual Protection Guarantee</h3>
+                        <p class="text-gray-700 leading-relaxed text-lg mb-6">
+                            Every product in our collection is ethically sourced, energetically cleansed, and blessed under the full moon. 
+                            We protect your spiritual journey with ancient wards and modern security. Your privacy is sacred to us.
+                        </p>
+                        <p class="text-gray-600 text-sm">
+                            All transactions are secured through encrypted PayFast payment gateway. 
+                            Your personal information is protected with bank-level security.
+                        </p>
                     </div>
                 </div>
             </div>
 
-            <footer class="bg-gray-50 border-t border-gray-200">
-                <div class="container mx-auto px-6 py-8">
-                    <div class="text-center">
-                        <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68d179b3a460005e70e6ffea/c7c0219f9_IlluminatiEyewithSouthAfricanFlag.png" 
-                             alt="Logo" class="w-auto h-16 object-contain mx-auto mb-4">
-                        <p id="footer-copyright" class="text-sm text-gray-500">© 2024 Illuminati Elite Global Network. All Rights Reserved.</p>
-                        <div class="flex items-center justify-center gap-2 mt-2">
-                            <i data-lucide="mail" class="w-4 h-4 text-gray-600"></i>
-                            <span id="footer-email" class="text-gray-600">illuminatiegn@gmail.com</span>
+            <!-- Footer -->
+            <footer class="bg-gray-900 text-white py-12">
+                <div class="container mx-auto px-6">
+                    <div class="grid md:grid-cols-3 gap-12 mb-8">
+                        <div>
+                            <h4 class="text-xl font-black mb-4">ILLUMINATI BLACK RITUALS</h4>
+                            <p class="text-gray-400 text-sm leading-relaxed">
+                                Your trusted source for authentic spiritual products. 
+                                Serving the community with integrity and power.
+                            </p>
                         </div>
-                        <div class="flex items-center justify-center gap-2 mt-2">
-                            <i data-lucide="map-pin" class="w-4 h-4 text-gray-600"></i>
-                            <span class="text-gray-600">Gauteng, Randburg, George AVE Street</span>
+                        <div>
+                            <h4 class="text-lg font-bold mb-4">Contact Us</h4>
+                            <div class="space-y-3 text-gray-400 text-sm">
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="mail" class="w-5 h-5 text-yellow-500"></i>
+                                    <span id="footer-email">illuminatiblackrituals@gmail.com</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="phone" class="w-5 h-5 text-yellow-500"></i>
+                                    <span id="footer-phone">+27 XX XXX XXXX</span>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <i data-lucide="map-pin" class="w-5 h-5 text-yellow-500"></i>
+                                    <span>Gauteng, Randburg, George AVE Street</span>
+                                </div>
+                            </div>
                         </div>
+                        <div>
+                            <h4 class="text-lg font-bold mb-4">Quick Links</h4>
+                            <div class="space-y-2 text-gray-400 text-sm">
+                                <div class="hover:text-yellow-500 cursor-pointer transition">About Us</div>
+                                <div class="hover:text-yellow-500 cursor-pointer transition">Shipping Info</div>
+                                <div class="hover:text-yellow-500 cursor-pointer transition">Privacy Policy</div>
+                                <div class="hover:text-yellow-500 cursor-pointer transition">Terms & Conditions</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="border-t border-gray-800 pt-8 text-center">
+                        <p id="footer-copyright" class="text-gray-500 text-sm">© 2024 Illuminati Black Rituals - Premium Spiritual Products</p>
                     </div>
                 </div>
             </footer>
         </div>
 
-        <!-- Registration Form -->
-        <div id="registration-page" class="hidden min-h-screen flex items-center justify-center p-4 bg-gray-50">
-            <div class="max-w-2xl w-full">
-                <div class="text-center mb-8">
-                    <img src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68d179b3a460005e70e6ffea/c7c0219f9_IlluminatiEyewithSouthAfricanFlag.png" 
-                         alt="Logo" class="w-auto h-32 mx-auto mb-4">
-                    <h1 class="text-4xl font-bold text-gray-900 mb-4">INITIATION REGISTRATION</h1>
-                    <p class="text-gray-600 mb-2">Selected: <span id="selected-membership" class="text-gray-900 font-semibold"></span></p>
-                    <p class="text-gray-700">Fee: <span id="selected-price" class="text-gray-900 font-bold"></span></p>
+        <!-- Product Detail Modal -->
+        <div id="product-modal" class="modal hidden" onclick="if(event.target === this) closeProductModal()">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <div id="product-modal-content"></div>
+            </div>
+        </div>
+
+        <!-- Checkout Page -->
+        <div id="checkout-page" class="hidden min-h-screen py-12 px-6 bg-gray-50">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h1 class="text-5xl font-black text-gray-900 mb-4">Secure Checkout</h1>
+                    <p class="text-gray-600 text-lg">Complete your spiritual purchase</p>
                 </div>
                 
-                <div class="bg-white border border-gray-200 shadow-lg rounded-lg p-8">
-                    <h2 class="text-2xl font-bold text-gray-900 text-center mb-6">Provide Your Details</h2>
-                    <form id="registration-form" class="space-y-6">
-                        <div class="space-y-2">
-                            <label class="text-gray-700 flex items-center gap-2 font-medium">
-                                <i data-lucide="user" class="w-4 h-4 text-gray-600"></i>Full Name
-                            </label>
-                            <input id="full_name" required placeholder="Enter your complete name" class="input-field">
+                <div class="stat-card p-10 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Product Details</h2>
+                    <div id="checkout-product-info" class="mb-8"></div>
+                    
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Your Information</h2>
+                    <form id="checkout-form" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Full Name *</label>
+                                <input id="checkout-name" required placeholder="Your full name" class="input-field">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Email *</label>
+                                <input id="checkout-email" type="email" required placeholder="your@email.com" class="input-field">
+                            </div>
+                        </div>
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Phone Number *</label>
+                                <input id="checkout-phone" required placeholder="+27 XX XXX XXXX" class="input-field">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">City *</label>
+                                <input id="checkout-city" required placeholder="City name" class="input-field">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Delivery Address *</label>
+                            <textarea id="checkout-address" required placeholder="Full delivery address..." class="input-field" rows="3"></textarea>
                         </div>
                         
-                        <div class="space-y-2">
-                            <label class="text-gray-700 flex items-center gap-2 font-medium">
-                                <i data-lucide="mail" class="w-4 h-4 text-gray-600"></i>Email Address
-                            </label>
-                            <input id="email" type="email" required placeholder="your.email@domain.com" class="input-field">
-                        </div>
-                        
-                        <div class="space-y-2">
-                            <label class="text-gray-700 flex items-center gap-2 font-medium">
-                                <i data-lucide="phone" class="w-4 h-4 text-gray-600"></i>Phone Number
-                            </label>
-                            <input id="phone" required placeholder="+27 XX XXX XXXX" class="input-field">
-                        </div>
-                        
-                        <div class="space-y-2">
-                            <label class="text-gray-700 flex items-center gap-2 font-medium">
-                                <i data-lucide="map-pin" class="w-4 h-4 text-gray-600"></i>Full Location/Address
-                            </label>
-                            <textarea id="location" required placeholder="City, Province/State, Country" class="input-field"></textarea>
-                        </div>
-                        
-                        <div class="flex gap-4 pt-6">
-                            <button type="button" onclick="showPage('home')" class="flex-1 border-gray-300 text-gray-600 hover:bg-gray-100 py-3 rounded-lg border font-semibold">
-                                <i data-lucide="arrow-left" class="w-4 h-4 inline mr-2"></i>Back
+                        <div class="flex gap-6 pt-6">
+                            <button type="button" onclick="showPage('home')" class="flex-1 btn-secondary py-4 text-lg">
+                                <i data-lucide="arrow-left" class="w-5 h-5 inline mr-2"></i>Back to Shop
                             </button>
-                            <button type="submit" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-lg">
-                                PAY NOW VIA PAYFAST
+                            <button type="submit" class="flex-1 btn-primary py-4 text-lg">
+                                <i data-lucide="lock" class="w-5 h-5 inline mr-2"></i>Pay Now via PayFast
                             </button>
                         </div>
                     </form>
@@ -572,26 +745,31 @@
         </div>
 
         <!-- Admin Login Modal -->
-        <div id="admin-login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-                <h2 class="text-xl font-bold mb-4">Admin Access</h2>
-                <input id="admin-password" type="password" placeholder="Enter password" class="input-field mb-4">
-                <div class="flex gap-2">
-                    <button onclick="closeAdminLogin()" class="flex-1 py-2 border rounded hover:bg-gray-100">Cancel</button>
-                    <button onclick="checkAdminPassword()" class="flex-1 py-2 bg-gray-900 text-white rounded hover:bg-gray-800">Login</button>
+        <div id="admin-login-modal" class="modal hidden" onclick="if(event.target === this) closeAdminLogin()">
+            <div class="bg-white rounded-2xl p-10 max-w-md w-full mx-4 shadow-2xl" onclick="event.stopPropagation()">
+                <h2 class="text-3xl font-black text-gray-900 mb-6">Admin Access</h2>
+                <input id="admin-password" type="password" placeholder="Enter admin password" class="input-field mb-6">
+                <div class="flex gap-4">
+                    <button onclick="closeAdminLogin()" class="flex-1 btn-secondary py-4">Cancel</button>
+                    <button onclick="checkAdminPassword()" class="flex-1 btn-primary py-4">Login</button>
                 </div>
             </div>
         </div>
 
         <!-- Success Modal -->
-        <div id="success-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4 text-center">
-                <div class="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <i data-lucide="check-circle" class="w-12 h-12 text-green-600"></i>
+        <div id="success-modal" class="modal hidden">
+            <div class="bg-white rounded-2xl p-12 max-w-lg w-full mx-4 text-center shadow-2xl">
+                <div class="w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center bg-gradient-to-br from-yellow-500 to-yellow-600">
+                    <i data-lucide="check-circle" class="w-14 h-14 text-white"></i>
                 </div>
-                <h2 class="text-2xl font-bold mb-2">Payment Successful!</h2>
-                <p class="text-gray-600 mb-6">Your membership will be activated within 24-48 hours. Check your email for confirmation.</p>
-                <button onclick="closeSuccessModal()" class="btn-primary w-full">Continue</button>
+                <h2 class="text-4xl font-black text-gray-900 mb-4">Payment Successful!</h2>
+                <p class="text-gray-600 mb-8 text-lg">
+                    Your order will be processed within 24 hours. 
+                    Check your email for confirmation and tracking details.
+                </p>
+                <button onclick="closeSuccessModal()" class="btn-primary w-full py-4 text-lg">
+                    Continue Shopping
+                </button>
             </div>
         </div>
     </div>
@@ -610,6 +788,7 @@
         
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
+        const storage = firebase.storage();
         
         // ===== PAYFAST CONFIGURATION =====
         const PAYFAST_MERCHANT_ID = '32909125';
@@ -618,84 +797,130 @@
         const PAYFAST_RETURN_URL = 'https://zapk1.github.io/egnportal/?payment=success';
         const PAYFAST_CANCEL_URL = 'https://zapk1.github.io/egnportal/?payment=cancelled';
         
-        // ===== DEFAULT DATA (5 TESTIMONIALS, 5 CEREMONIES) =====
-        const DEFAULT_TESTIMONIALS = [
+        // ===== DEFAULT PRODUCTS =====
+        const DEFAULT_PRODUCTS = [
             {
                 id: 'default-1',
-                name: 'Marcus van der Berg',
-                title: 'Tech Entrepreneur',
-                quote: 'Joining the Illuminati transformed my business. The connections and wisdom I gained are invaluable.',
-                image_url: 'https://i.postimg.cc/MTFcVYND/businessman-1.jpg',
+                name: 'Black Sage Cleansing Bundle',
+                price: 450,
+                category: 'herbs',
+                description: 'Premium black sage from California, hand-tied and blessed under the new moon.',
+                details: 'Black sage (Salvia mellifera) is one of the most powerful cleansing herbs available. Unlike white sage, black sage is specifically used for protection rituals and removing negative entities. Our bundles are ethically harvested during the new moon phase and blessed by experienced practitioners. Each bundle is approximately 4-5 inches long and contains pure, organic black sage leaves. The smoke produced has a deep, earthy aroma that creates an impenetrable spiritual shield around your space. Use this for deep spiritual cleansing, removing curses, and establishing protective barriers. Perfect for protection work, banishing rituals, and spiritual defense.',
+                instructions: 'Light the tip of the bundle with a candle or lighter. Allow it to burn for 10-15 seconds, then gently blow out the flame. The bundle should produce a steady stream of smoke. Walk through your space in a counterclockwise direction to remove negative energy. Focus on corners, doorways, and windows. Visualize all darkness being absorbed and transmuted by the smoke. When finished, place the bundle in a heat-proof dish and allow it to extinguish naturally. Store in a cool, dry place between uses. For maximum protection, perform this ritual during the waning moon phase.',
+                images: [
+                    'https://images.unsplash.com/photo-1600084868764-52e4e08c3c9a?w=800&q=80',
+                    'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80',
+                    'https://images.unsplash.com/photo-1611689037241-d8b4819d06b8?w=800&q=80'
+                ],
+                phone: '+27 82 456 7890',
                 isDefault: true
             },
             {
                 id: 'default-2',
-                name: 'Thandi Mthembu',
-                title: 'Investment Banker',
-                quote: 'The network opened doors I never knew existed. My wealth and influence have grown exponentially.',
-                image_url: 'https://i.postimg.cc/QxTJ8KgZ/businesswoman-1.jpg',
+                name: 'Obsidian Protection Stone',
+                price: 680,
+                category: 'crystals',
+                description: 'Pure black obsidian crystal charged for maximum psychic protection.',
+                details: 'Black obsidian is a volcanic glass formed from rapidly cooled lava, making it one of the most powerful grounding and protection stones in existence. This particular specimen weighs approximately 150-200 grams and has been carefully selected for its deep, pure black color and smooth surface. It has been charged under three consecutive full moons and blessed with protection incantations. Obsidian forms a shield against negative energy, psychic attacks, and emotional vampires. It also helps release past traumas and brings hidden truths to light. This stone is especially powerful for empaths and those who work in high-stress environments. Known as the "Stone of Truth," it cuts through deception and illusion.',
+                instructions: 'To activate your obsidian: First, cleanse it by placing it under running water for 3 minutes while visualizing all previous energies being washed away. Pat dry with a clean cloth. Hold the stone in your left hand (receiving hand) and state your intention clearly: "I command this stone to protect me from all negative forces, seen and unseen." Keep the obsidian on your person during the day - in your pocket, purse, or as jewelry. At night, place it under your pillow or on your nightstand. Cleanse weekly by passing through sage smoke or leaving in moonlight for 4 hours. Recharge monthly during the full moon by leaving outside overnight.',
+                images: [
+                    'https://images.unsplash.com/photo-1584990347449-3d46bfef847c?w=800&q=80',
+                    'https://images.unsplash.com/photo-1610992015732-2449b76344bc?w=800&q=80',
+                    'https://images.unsplash.com/photo-1611689037241-d8b4819d06b8?w=800&q=80'
+                ],
+                phone: '+27 82 456 7891',
                 isDefault: true
             },
             {
                 id: 'default-3',
-                name: 'David Nkosi',
-                title: 'Real Estate Mogul',
-                quote: 'The ancient knowledge and modern strategies combined have made me unstoppable in my industry.',
-                image_url: 'https://i.postimg.cc/nhZvgLpY/businessman-2.jpg',
+                name: 'Full Moon Ritual Kit',
+                price: 890,
+                category: 'rituals',
+                description: 'Complete kit for powerful full moon manifestation ceremonies.',
+                details: 'This comprehensive ritual kit contains everything you need to perform a full moon manifestation ceremony. Included: 1 silver ritual candle (burns for 8 hours), 1 bundle of white sage, 1 piece of clear quartz (amplifies intentions), 1 piece of moonstone (connects to lunar energy), 1 small cauldron for burning intentions, parchment paper for writing wishes, charcoal disc for burning herbs, 10ml moon water (collected during previous full moon), and a detailed 12-step ritual guide written by our high priestess. The full moon is the most powerful time for manifestation, abundance spells, and releasing what no longer serves you. This kit has been assembled during the waxing moon phase and each item has been individually blessed and charged.',
+                instructions: 'Perform this ritual outdoors under the full moon if possible. If indoors, ensure you can see the moon through a window. Begin at moonrise. Follow the 12-step guide included: 1) Create sacred space 2) Cast circle of protection 3) Light candle 4) Burn sage and cleanse 5) Hold crystals and connect to moon 6) Write 3 intentions on parchment 7) Speak intentions aloud 8) Burn intentions in cauldron 9) Meditate for 11 minutes 10) Give thanks to the moon 11) Close circle 12) Leave offerings. Allow candle to burn completely if safe. Store crystals together wrapped in silk cloth. Repeat monthly for continuous manifestation.',
+                images: [
+                    'https://images.unsplash.com/photo-1518531933037-91b2f5f229cc?w=800&q=80',
+                    'https://images.unsplash.com/photo-1602874801006-e616d8849f7c?w=800&q=80',
+                    'https://images.unsplash.com/photo-1543843899-5c2c8ba8d33c?w=800&q=80'
+                ],
+                phone: '+27 82 456 7892',
                 isDefault: true
             },
             {
                 id: 'default-4',
-                name: 'Sarah Johnson',
-                title: 'Fashion Designer',
-                quote: 'Being part of the Inner Circle gave me access to global markets and elite clientele beyond imagination.',
-                image_url: 'https://i.postimg.cc/Kz8pG7Yf/businesswoman-2.jpg',
+                name: 'Dragon Blood Protection Oil',
+                price: 550,
+                category: 'oils',
+                description: 'Handcrafted oil blend with genuine dragon blood resin for ultimate protection.',
+                details: 'This powerful protection oil is made with authentic dragon blood resin (Dracaena draco), frankincense, myrrh, cinnamon bark, and blessed olive oil as the carrier. Dragon blood has been used for centuries in protection magic and is considered one of the most potent ingredients for spiritual defense. Our oil is handcrafted in small batches during the waning moon (best time for banishing negativity) and each bottle is infused with a black tourmaline chip for additional protection. The oil has a deep red color and warm, spicy aroma. It creates an impenetrable energetic shield and can be used for anointing, spell work, and daily protection. Each 15ml bottle comes with a dropper for easy application. Known to deflect curses, hexes, and negative intentions sent your way.',
+                instructions: 'Shake bottle gently before each use. For personal protection: Apply 1-2 drops to pulse points (wrists, behind ears, over heart) while stating "I am protected from all harm, my shield is impenetrable." For home protection: Anoint all entry points - doorways, windows, and vents. Draw a protective pentagram above each one with the oil. For ritual use: Anoint black or red candles before protection spells. Add 3-5 drops to floor wash for deep spiritual cleansing. For mirror magic: Anoint the four corners of any mirror to create a protective shield. Reapply daily for maximum protection. Store in cool, dark place. Avoid contact with eyes. For external use only.',
+                images: [
+                    'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=800&q=80',
+                    'https://images.unsplash.com/photo-1611689037241-d8b4819d06b8?w=800&q=80',
+                    'https://images.unsplash.com/photo-1615529182904-14819c35db37?w=800&q=80'
+                ],
+                phone: '+27 82 456 7893',
                 isDefault: true
             },
             {
                 id: 'default-5',
-                name: 'Ahmed Patel',
-                title: 'Media Executive',
-                quote: 'The Illuminati network is real power. My influence spans continents now.',
-                image_url: 'https://i.postimg.cc/yx3DjH8Q/businessman-3.jpg',
+                name: 'Ancestral Communication Candle',
+                price: 420,
+                category: 'candles',
+                description: 'Purple ritual candle specifically created for connecting with ancestors.',
+                details: 'This 9-inch purple pillar candle has been specially formulated to facilitate communication with ancestors and spirit guides. Made from pure soy wax infused with mugwort (enhances psychic abilities), wormwood (opens spiritual portals), lavender (calls peaceful spirits), and crushed amethyst powder (strengthens connection to spiritual realm). The candle is hand-poured during the dark moon phase when the veil between worlds is thinnest. It has been consecrated with ancestral prayers and anointed with spirit oil. Purple is the color of the crown chakra and higher consciousness, making it perfect for spiritual communication. Burn time is approximately 40 hours. Each candle is unique and may have slight variations in color intensity due to natural ingredients.',
+                instructions: 'Best performed on Sundays or during dark moon. Create ancestor altar with photos of deceased loved ones, their favorite foods/drinks, fresh flowers, and a glass of water. Light this candle and place it in the center of the altar. Sit quietly and speak to your ancestors - tell them about your life, ask for guidance, request protection. Pay attention to any signs: flickering flame (they are present), strong steady flame (message of strength), smoke direction (where attention is needed), candle crying (emotional message). You may receive messages through dreams, intuition, or synchronicities in following days. Let candle burn for at least 1 hour per session. Never blow out - use candle snuffer. Relight for multiple sessions until completely consumed.',
+                images: [
+                    'https://images.unsplash.com/photo-1602874801006-e616d8849f7c?w=800&q=80',
+                    'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=800&q=80',
+                    'https://images.unsplash.com/photo-1543843899-5c2c8ba8d33c?w=800&q=80'
+                ],
+                phone: '+27 82 456 7894',
                 isDefault: true
             }
         ];
 
-        const DEFAULT_CEREMONIES = [
+        // ===== DEFAULT TESTIMONIALS =====
+        const DEFAULT_TESTIMONIALS = [
             {
-                id: 'ceremony-1',
-                title: 'The Grand Initiation',
-                description: 'New members taking their sacred oath under the watchful eye',
-                image_url: 'https://i.postimg.cc/ZK8xW9Qd/ceremony-1.jpg',
+                id: 'test-1',
+                name: 'Nomsa Dlamini',
+                title: 'Energy Healer',
+                quote: 'The black sage bundle from Illuminati Black Rituals completely transformed my practice. The energy is authentic and powerful. I have been purchasing from them for over a year and the quality never disappoints.',
+                image_url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80',
                 isDefault: true
             },
             {
-                id: 'ceremony-2',
-                title: 'Annual Summit 2024',
-                description: 'Global leaders gathering for the annual enlightenment summit',
-                image_url: 'https://i.postimg.cc/QMnX7KjP/ceremony-2.jpg',
+                id: 'test-2',
+                name: 'Thabo Maleka',
+                title: 'Traditional Healer',
+                quote: 'As a sangoma, I need genuine spiritual tools. Illuminati Black Rituals provides authentic products that carry real power. The obsidian stone helped me create the strongest protection ward I have ever cast.',
+                image_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80',
                 isDefault: true
             },
             {
-                id: 'ceremony-3',
-                title: 'The Sacred Circle',
-                description: 'Inner circle members performing the ancient ritual of wisdom',
-                image_url: 'https://i.postimg.cc/yx9hT6mK/ceremony-3.jpg',
+                id: 'test-3',
+                name: 'Sarah van Rensburg',
+                title: 'Spiritual Coach',
+                quote: 'The full moon ritual kit is absolutely incredible! I have performed the ceremony three times and manifested everything I asked for. The instructions are clear and the materials are high quality.',
+                image_url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80',
                 isDefault: true
             },
             {
-                id: 'ceremony-4',
-                title: 'Wealth Manifestation Ceremony',
-                description: 'Members channeling prosperity and abundance energies',
-                image_url: 'https://i.postimg.cc/DzNr4vWq/ceremony-4.jpg',
+                id: 'test-4',
+                name: 'Marcus Johnson',
+                title: 'Yoga Instructor',
+                quote: 'I use the dragon blood oil before every class to protect the space. Students always comment on how safe and peaceful the energy feels. This oil is the real deal.',
+                image_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80',
                 isDefault: true
             },
             {
-                id: 'ceremony-5',
-                title: 'Elite Network Gathering',
-                description: 'Global elite members connecting and sharing knowledge',
-                image_url: 'https://i.postimg.cc/yNQp1xZv/ceremony-5.jpg',
+                id: 'test-5',
+                name: 'Zanele Khumalo',
+                title: 'Meditation Teacher',
+                quote: 'The ancestral communication candle helped me finally connect with my grandmother who passed. I felt her presence so strongly. Thank you Illuminati Black Rituals for creating such powerful tools.',
+                image_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80',
                 isDefault: true
             }
         ];
@@ -703,38 +928,163 @@
         // ===== APPLICATION STATE =====
         let AppState = {
             currentPage: 'home',
-            selectedMembership: null,
-            selectedMembershipKey: null,
-            memberData: null,
-            isAdmin: false,
-            adminSettings: {
-                payment_email: "illuminatiegn@gmail.com",
-                bank_details: "TymeBank Everyday Account: 5110 3334 333",
-                adept_image_url: "https://i.postimg.cc/MT2HTNhc/Screenshot-2025-11-06-160855.png",
-                illuminatium_image_url: "https://i.postimg.cc/q7DpWYGJ/Screenshot-2025-11-06-164756.png",
-                influencer_image_url: "https://i.postimg.cc/Btf11w2Y/istockphoto-2176715152-612x612.jpg",
-                worshiper_image_url: "https://i.postimg.cc/D091Pz3c/istockphoto-508068250-612x612.jpg",
-                copyright_text: "© 2024 Illuminati Elite Global Network. All Rights Reserved.",
-                initiations_hosted: 137,
-                next_members_count: 2500,
-                attorney_section_title: "Our Commitment to Secrecy",
-                attorney_section_text: "Your ascension into the Illuminati is a sacred pact. Every application, every correspondence, and your very identity are shielded by layers of digital and legal protection, ensuring your journey with us remains in absolute confidence."
-            },
+            selectedProduct: null,
+            customerData: null,
+            products: [],
             testimonials: [],
-            ceremonies: []
+            orders: [],
+            settings: {
+                shop_email: "illuminatiblackrituals@gmail.com",
+                shop_phone: "+27 XX XXX XXXX",
+                bank_details: "TymeBank Everyday Account: 5110 3334 333",
+                footer_text: "© 2024 Illuminati Black Rituals - Premium Spiritual Products"
+            },
+            stats: {
+                products: 0,
+                customers: 0,
+                orders: 0,
+                revenue: 0
+            }
         };
         
-        const memberships = {
-            adept: { title: 'ADEPT Position', price: 'R700', amount: 700 },
-            illuminatium: { title: 'ILLUMINATIUM Position', price: 'R1,000', amount: 1000 },
-            influencer: { title: 'Influencer', price: 'R1,500', amount: 1500 },
-            full_worshiper: { title: 'Full Worshiper', price: 'R10,000', amount: 10000 }
-        };
-
+        // ===== INIT CHARTS =====
+        let salesChart, categoryChart;
+        
+        function initCharts() {
+            const salesCtx = document.getElementById('salesChart');
+            const categoryCtx = document.getElementById('categoryChart');
+            
+            if (salesChart) salesChart.destroy();
+            if (categoryChart) categoryChart.destroy();
+            
+            if (salesCtx) {
+                const monthlyData = calculateMonthlyOrders();
+                salesChart = new Chart(salesCtx, {
+                    type: 'line',
+                    data: {
+                        labels: monthlyData.labels,
+                        datasets: [{
+                            label: 'Orders',
+                            data: monthlyData.data,
+                            borderColor: '#d4af37',
+                            backgroundColor: 'rgba(212, 175, 55, 0.1)',
+                            tension: 0.4,
+                            fill: true,
+                            borderWidth: 3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { labels: { color: '#000', font: { weight: 'bold' } } }
+                        },
+                        scales: {
+                            y: { ticks: { color: '#666' }, grid: { color: '#e5e7eb' } },
+                            x: { ticks: { color: '#666' }, grid: { color: '#e5e7eb' } }
+                        }
+                    }
+                });
+            }
+            
+            if (categoryCtx) {
+                const categoryData = calculateCategoryData();
+                categoryChart = new Chart(categoryCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: categoryData.labels,
+                        datasets: [{
+                            data: categoryData.data,
+                            backgroundColor: ['#d4af37', '#aa8b2e', '#8b7424', '#ffd700', '#b8860b', '#daa520']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { labels: { color: '#000', font: { weight: 'bold' } } }
+                        }
+                    }
+                });
+            }
+        }
+        
+        function calculateMonthlyOrders() {
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+            const data = [0, 0, 0, 0, 0, 0];
+            
+            AppState.orders.forEach(order => {
+                if (order.timestamp) {
+                    const date = order.timestamp.toDate ? order.timestamp.toDate() : new Date(order.timestamp);
+                    const month = date.getMonth();
+                    if (month < 6) data[month]++;
+                }
+            });
+            
+            return { labels: months, data: data };
+        }
+        
+        function calculateCategoryData() {
+            const categories = {};
+            AppState.products.forEach(p => {
+                categories[p.category] = (categories[p.category] || 0) + 1;
+            });
+            return {
+                labels: Object.keys(categories),
+                data: Object.values(categories)
+            };
+        }
+        
+        // ===== FIREBASE STORAGE UPLOAD =====
+        async function uploadImagesToStorage(files) {
+            const uploadPromises = Array.from(files).map(async (file) => {
+                const timestamp = Date.now();
+                const filename = `products/${timestamp}_${file.name}`;
+                const storageRef = storage.ref(filename);
+                
+                await storageRef.put(file);
+                const url = await storageRef.getDownloadURL();
+                return url;
+            });
+            
+            return await Promise.all(uploadPromises);
+        }
+        
+        async function uploadSingleImage(file) {
+            const timestamp = Date.now();
+            const filename = `testimonials/${timestamp}_${file.name}`;
+            const storageRef = storage.ref(filename);
+            
+            await storageRef.put(file);
+            return await storageRef.getDownloadURL();
+        }
+        
         // ===== FIREBASE FUNCTIONS =====
+        async function loadProductsFromFirebase() {
+            try {
+                const snapshot = await db.collection('products').orderBy('created_at', 'desc').get();
+                const firebaseProducts = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data(),
+                    isDefault: false
+                }));
+                
+                AppState.products = [...DEFAULT_PRODUCTS, ...firebaseProducts];
+                AppState.stats.products = AppState.products.length;
+                updateStats();
+                displayProducts();
+                displayAdminProducts();
+            } catch (error) {
+                console.error('Error loading products:', error);
+                AppState.products = DEFAULT_PRODUCTS;
+                AppState.stats.products = DEFAULT_PRODUCTS.length;
+                displayProducts();
+            }
+        }
+
         async function loadTestimonialsFromFirebase() {
             try {
-                const snapshot = await db.collection('testimonials').get();
+                const snapshot = await db.collection('testimonials').orderBy('created_at', 'desc').get();
                 const firebaseTestimonials = snapshot.docs.map(doc => ({
                     id: doc.id,
                     ...doc.data(),
@@ -742,29 +1092,132 @@
                 }));
                 
                 AppState.testimonials = [...DEFAULT_TESTIMONIALS, ...firebaseTestimonials];
-                refreshTestimonialsDisplay();
+                displayTestimonials();
+                displayAdminTestimonials();
             } catch (error) {
                 console.error('Error loading testimonials:', error);
                 AppState.testimonials = DEFAULT_TESTIMONIALS;
-                refreshTestimonialsDisplay();
+                displayTestimonials();
+            }
+        }
+        
+        async function loadOrdersFromFirebase() {
+            try {
+                const snapshot = await db.collection('orders').orderBy('timestamp', 'desc').get();
+                AppState.orders = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                
+                // Calculate real stats
+                const uniqueCustomers = new Set(AppState.orders.map(o => o.email_address)).size;
+                const totalRevenue = AppState.orders
+                    .filter(o => o.status === 'completed' || o.status === 'paid')
+                    .reduce((sum, o) => sum + parseFloat(o.amount || 0), 0);
+                
+                AppState.stats.customers = uniqueCustomers;
+                AppState.stats.orders = AppState.orders.length;
+                AppState.stats.revenue = totalRevenue;
+                
+                updateStats();
+                displayOrders();
+                
+                if (salesChart || categoryChart) {
+                    initCharts();
+                }
+            } catch (error) {
+                console.error('Error loading orders:', error);
             }
         }
 
-        async function loadCeremoniesFromFirebase() {
+        async function addProduct() {
+            const name = document.getElementById('new-product-name').value.trim();
+            const price = parseFloat(document.getElementById('new-product-price').value);
+            const category = document.getElementById('new-product-category').value;
+            const description = document.getElementById('new-product-description').value.trim();
+            const details = document.getElementById('new-product-details').value.trim();
+            const instructions = document.getElementById('new-product-instructions').value.trim();
+            const imageFiles = document.getElementById('new-product-images').files;
+            const phone = document.getElementById('new-product-phone').value.trim();
+            
+            if (!name || !price || !description || !details || !instructions || !phone) {
+                showToast('Please fill all required fields', 'error');
+                return;
+            }
+            
+            if (imageFiles.length === 0) {
+                showToast('Please upload at least one image', 'error');
+                return;
+            }
+            
+            const btn = document.getElementById('add-product-btn');
+            btn.disabled = true;
+            btn.innerHTML = '<i data-lucide="loader" class="w-5 h-5 inline mr-2 animate-spin"></i>Uploading Images...';
+            lucide.createIcons();
+            
             try {
-                const snapshot = await db.collection('ceremonies').get();
-                const firebaseCeremonies = snapshot.docs.map(doc => ({
-                    id: doc.id,
-                    ...doc.data(),
-                    isDefault: false
-                }));
+                const imageUrls = await uploadImagesToStorage(imageFiles);
                 
-                AppState.ceremonies = [...DEFAULT_CEREMONIES, ...firebaseCeremonies];
-                refreshCeremoniesDisplay();
+                const productData = {
+                    name, price, category, description, details, instructions, phone,
+                    images: imageUrls,
+                    created_at: firebase.firestore.FieldValue.serverTimestamp()
+                };
+                
+                await db.collection('products').add(productData);
+                
+                document.getElementById('new-product-name').value = '';
+                document.getElementById('new-product-price').value = '';
+                document.getElementById('new-product-description').value = '';
+                document.getElementById('new-product-details').value = '';
+                document.getElementById('new-product-instructions').value = '';
+                document.getElementById('new-product-images').value = '';
+                document.getElementById('new-product-phone').value = '';
+                document.getElementById('image-preview').innerHTML = '';
+                
+                showToast('✅ Product added successfully!');
+                await loadProductsFromFirebase();
             } catch (error) {
-                console.error('Error loading ceremonies:', error);
-                AppState.ceremonies = DEFAULT_CEREMONIES;
-                refreshCeremoniesDisplay();
+                console.error('Error adding product:', error);
+                showToast('❌ Failed to add product', 'error');
+            }
+            
+            btn.disabled = false;
+            btn.innerHTML = '<i data-lucide="plus" class="w-6 h-6 inline mr-2"></i>Add Product to Store';
+            lucide.createIcons();
+        }
+        
+        document.getElementById('new-product-images').addEventListener('change', function(e) {
+            const preview = document.getElementById('image-preview');
+            preview.innerHTML = '';
+            
+            Array.from(e.target.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    img.className = 'w-20 h-20 object-cover rounded-lg border-2 border-gray-300';
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        async function deleteProduct(id, isDefault) {
+            if (isDefault) {
+                showToast('❌ Cannot delete default products', 'error');
+                return;
+            }
+            
+            if (!confirm('Delete this product permanently?')) return;
+            
+            try {
+                await db.collection('products').doc(id).delete();
+                showToast('✅ Product deleted!');
+                await loadProductsFromFirebase();
+            } catch (error) {
+                console.error('Error deleting product:', error);
+                showToast('❌ Failed to delete', 'error');
             }
         }
 
@@ -772,307 +1225,367 @@
             const name = document.getElementById('new-testimonial-name').value.trim();
             const title = document.getElementById('new-testimonial-title').value.trim();
             const quote = document.getElementById('new-testimonial-quote').value.trim();
-            const image = document.getElementById('new-testimonial-image').value.trim();
+            const imageFile = document.getElementById('new-testimonial-image').files[0];
             
             if (!name || !title || !quote) {
-                showToast('Please fill all testimonial fields', 'error');
+                showToast('Please fill all fields', 'error');
                 return;
             }
             
-            const testimonialData = {
-                name: name,
-                title: title,
-                quote: quote,
-                image_url: image || 'https://via.placeholder.com/150',
-                created_at: firebase.firestore.FieldValue.serverTimestamp()
-            };
-            
             try {
+                let imageUrl = 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80';
+                
+                if (imageFile) {
+                    imageUrl = await uploadSingleImage(imageFile);
+                }
+                
+                const testimonialData = {
+                    name, title, quote, image_url: imageUrl,
+                    created_at: firebase.firestore.FieldValue.serverTimestamp()
+                };
+                
                 await db.collection('testimonials').add(testimonialData);
                 
-                // Clear form
                 document.getElementById('new-testimonial-name').value = '';
                 document.getElementById('new-testimonial-title').value = '';
                 document.getElementById('new-testimonial-quote').value = '';
                 document.getElementById('new-testimonial-image').value = '';
                 
-                showToast('✅ Testimonial added successfully!', 'success');
+                showToast('✅ Testimonial added!');
                 await loadTestimonialsFromFirebase();
             } catch (error) {
                 console.error('Error adding testimonial:', error);
-                showToast('❌ Failed to add testimonial', 'error');
+                showToast('❌ Failed to add', 'error');
             }
         }
 
-        async function removeTestimonial(id, isDefault) {
+        async function deleteTestimonial(id, isDefault) {
             if (isDefault) {
                 showToast('❌ Cannot delete default testimonials', 'error');
                 return;
             }
             
-            if (!confirm('Are you sure you want to delete this testimonial?')) return;
+            if (!confirm('Delete this testimonial?')) return;
             
             try {
                 await db.collection('testimonials').doc(id).delete();
-                showToast('✅ Testimonial deleted!', 'success');
+                showToast('✅ Testimonial deleted!');
                 await loadTestimonialsFromFirebase();
             } catch (error) {
-                console.error('Error removing testimonial:', error);
-                showToast('❌ Failed to delete testimonial', 'error');
+                console.error('Error deleting:', error);
+                showToast('❌ Failed to delete', 'error');
+            }
+        }
+        
+        async function markOrderCompleted(orderId) {
+            try {
+                await db.collection('orders').doc(orderId).update({
+                    status: 'completed',
+                    completed_at: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                showToast('✅ Order marked as completed!');
+                await loadOrdersFromFirebase();
+            } catch (error) {
+                console.error('Error updating order:', error);
+                showToast('❌ Failed to update order', 'error');
             }
         }
 
-        async function addCeremony() {
-            const title = document.getElementById('new-ceremony-title').value.trim();
-            const description = document.getElementById('new-ceremony-description').value.trim();
-            const image = document.getElementById('new-ceremony-image').value.trim();
+        function displayProducts() {
+            const grid = document.getElementById('products-grid');
+            if (!grid) return;
             
-            if (!title || !image) {
-                showToast('Please provide title and image URL', 'error');
+            grid.innerHTML = AppState.products.map(product => {
+                const mainImage = product.images ? product.images[0] : product.image_url;
+                return `
+                    <div class="product-card">
+                        <div class="relative h-72 overflow-hidden" onclick='showProductDetails(${JSON.stringify(product).replace(/'/g, "&#39;")})'>
+                            <img src="${mainImage}" alt="${product.name}" 
+                                 class="w-full h-full object-cover transition-transform duration-500">
+                            <span class="badge absolute top-4 left-4">${product.category}</span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-900 mb-2 leading-tight" onclick='showProductDetails(${JSON.stringify(product).replace(/'/g, "&#39;")})'>${product.name}</h3>
+                            <p class="text-gray-600 text-sm mb-4 leading-relaxed line-clamp-2">${product.description}</p>
+                            
+                            <div class="alert-box">
+                                <i data-lucide="info" class="w-5 h-5 flex-shrink-0"></i>
+                                <p class="text-xs">Pay to get full instructions & ritual items. Call after payment.</p>
+                            </div>
+                            
+                            <div class="flex items-center justify-between mt-4">
+                                <span class="price-tag">R${product.price}</span>
+                            </div>
+                            
+                            <button onclick='directBuy(${JSON.stringify(product).replace(/'/g, "&#39;")})' class="btn-primary w-full mt-4">
+                                <i data-lucide="shopping-cart" class="w-4 h-4 inline mr-2"></i>Buy Now
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            lucide.createIcons();
+        }
+
+        function showProductDetails(product) {
+            AppState.selectedProduct = product;
+            const modal = document.getElementById('product-modal');
+            const content = document.getElementById('product-modal-content');
+            
+            const images = product.images || [product.image_url];
+            
+            content.innerHTML = `
+                <div class="p-8">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <img src="${images[0]}" id="main-product-image" alt="${product.name}" 
+                                 class="w-full h-96 object-cover rounded-2xl mb-4">
+                            ${images.length > 1 ? `
+                                <div class="image-gallery">
+                                    ${images.map((img, idx) => `
+                                        <img src="${img}" onclick="document.getElementById('main-product-image').src='${img}'" 
+                                             alt="View ${idx + 1}" class="w-20 h-20 object-cover rounded-lg border-2 border-gray-300 hover:border-yellow-500 cursor-pointer transition">
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                            
+                            <div class="flex gap-4 mt-6">
+                                <button onclick="directBuy(${JSON.stringify(product).replace(/'/g, "&#39;")})" class="btn-primary flex-1 py-4">
+                                    <i data-lucide="shopping-cart" class="w-5 h-5 inline mr-2"></i>Buy Now - R${product.price}
+                                </button>
+                                <button onclick="closeProductModal()" class="btn-secondary px-8">
+                                    <i data-lucide="x" class="w-5 h-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="overflow-y-auto max-h-[600px] pr-4">
+                            <span class="badge mb-4">${product.category}</span>
+                            <h2 class="text-4xl font-black text-gray-900 mb-4">${product.name}</h2>
+                            <div class="price-tag mb-6">R${product.price}</div>
+                            
+                            ${product.phone ? `
+                            <div class="mb-6 p-4 rounded-xl bg-yellow-50 border-2 border-yellow-500">
+                                <div class="flex items-center gap-3 text-gray-900">
+                                    <i data-lucide="phone" class="w-5 h-5 text-yellow-600"></i>
+                                    <span class="font-bold">Contact: ${product.phone}</span>
+                                </div>
+                            </div>
+                            ` : ''}
+                            
+                            <div class="alert-box mb-6">
+                                <i data-lucide="lock" class="w-6 h-6"></i>
+                                <div>
+                                    <p class="font-bold mb-1">Full Instructions After Payment</p>
+                                    <p class="text-xs">Complete your purchase to receive detailed ritual instructions and product support via call.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <div>
+                                    <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                        <i data-lucide="info" class="w-5 h-5 text-yellow-600"></i>
+                                        Product Description
+                                    </h3>
+                                    <p class="text-gray-700 leading-relaxed">${product.details || product.description}</p>
+                                </div>
+                                
+                                <div>
+                                    <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                                        <i data-lucide="book-open" class="w-5 h-5 text-yellow-600"></i>
+                                        Basic Usage Guide
+                                    </h3>
+                                    <p class="text-gray-700 leading-relaxed">${product.instructions}</p>
+                                    <div class="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                                        <p class="text-sm text-gray-700">
+                                            <i data-lucide="alert-circle" class="w-4 h-4 inline mr-1 text-yellow-600"></i>
+                                            <strong>Note:</strong> Full step-by-step ritual instructions and personalized guidance will be provided after purchase via phone consultation.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        function displayAdminProducts() {
+            const list = document.getElementById('admin-products-list');
+            if (!list) return;
+            
+            list.innerHTML = AppState.products.length === 0 
+                ? '<p class="text-gray-500 col-span-full text-center py-12 text-lg">No products yet.</p>'
+                : AppState.products.map(p => {
+                    const mainImage = p.images ? p.images[0] : p.image_url;
+                    return `
+                        <div class="stat-card p-6">
+                            <img src="${mainImage}" class="w-full h-48 object-cover rounded-xl mb-4">
+                            ${p.images && p.images.length > 1 ? `<p class="text-xs text-gray-500 mb-2">${p.images.length} images</p>` : ''}
+                            <h4 class="font-bold text-gray-900 text-lg mb-2">${p.name}</h4>
+                            <p class="text-yellow-600 font-bold text-xl mb-2">R${p.price}</p>
+                            <span class="badge text-xs">${p.category}</span>
+                            ${!p.isDefault ? `
+                                <button onclick="deleteProduct('${p.id}', false)" class="w-full mt-4 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold transition">
+                                    <i data-lucide="trash-2" class="w-4 h-4 inline mr-2"></i>Delete
+                                </button>
+                            ` : '<p class="text-xs text-gray-500 mt-4 text-center">Default Product</p>'}
+                        </div>
+                    `;
+                }).join('');
+            
+            lucide.createIcons();
+        }
+        
+        function displayOrders() {
+            const list = document.getElementById('orders-list');
+            if (!list) return;
+            
+            if (AppState.orders.length === 0) {
+                list.innerHTML = '<p class="text-gray-500 text-center py-12 text-lg">No orders yet.</p>';
                 return;
             }
             
-            const ceremonyData = {
-                title: title,
-                description: description || '',
-                image_url: image,
-                created_at: firebase.firestore.FieldValue.serverTimestamp()
-            };
-            
-            try {
-                await db.collection('ceremonies').add(ceremonyData);
+            list.innerHTML = AppState.orders.map(order => {
+                const isCompleted = order.status === 'completed';
+                const date = order.timestamp ? (order.timestamp.toDate ? order.timestamp.toDate() : new Date(order.timestamp)) : new Date();
                 
-                // Clear form
-                document.getElementById('new-ceremony-title').value = '';
-                document.getElementById('new-ceremony-description').value = '';
-                document.getElementById('new-ceremony-image').value = '';
-                
-                showToast('✅ Ceremony photo added successfully!', 'success');
-                await loadCeremoniesFromFirebase();
-            } catch (error) {
-                console.error('Error adding ceremony:', error);
-                showToast('❌ Failed to add ceremony photo', 'error');
-            }
-        }
-
-        async function removeCeremony(id, isDefault) {
-            if (isDefault) {
-                showToast('❌ Cannot delete default ceremonies', 'error');
-                return;
-            }
-            
-            if (!confirm('Are you sure you want to delete this ceremony photo?')) return;
-            
-            try {
-                await db.collection('ceremonies').doc(id).delete();
-                showToast('✅ Ceremony photo deleted!', 'success');
-                await loadCeremoniesFromFirebase();
-            } catch (error) {
-                console.error('Error removing ceremony:', error);
-                showToast('❌ Failed to delete ceremony photo', 'error');
-            }
-        }
-
-        function refreshTestimonialsDisplay() {
-            // Admin list
-            const list = document.getElementById('testimonials-list');
-            if (list) {
-                const firebaseOnly = AppState.testimonials.filter(t => !t.isDefault);
-                list.innerHTML = firebaseOnly.length === 0 
-                    ? '<p class="text-gray-500 text-sm">No custom testimonials yet. Add one above!</p>'
-                    : firebaseOnly.map(t => `
-                        <div class="flex items-center justify-between bg-gray-50 p-3 rounded-md border">
-                            <div class="flex items-center gap-3">
-                                <img src="${t.image_url}" class="w-10 h-10 rounded-full object-cover"/>
-                                <div>
-                                    <p class="font-semibold text-sm">${t.name}</p>
-                                    <p class="text-xs text-gray-500">${t.title}</p>
-                                </div>
+                return `
+                    <div class="order-card ${isCompleted ? 'completed' : ''}">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h4 class="text-lg font-bold text-gray-900 mb-1">${order.item_name || 'Product'}</h4>
+                                <p class="text-sm text-gray-600">Order ID: ${order.m_payment_id || order.id}</p>
+                                <p class="text-xs text-gray-500">${date.toLocaleString()}</p>
                             </div>
-                            <button onclick="removeTestimonial('${t.id}', ${t.isDefault})" class="text-red-500 hover:bg-red-50 p-2 rounded">
-                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                            </button>
+                            <div class="text-right">
+                                <div class="text-2xl font-bold text-yellow-600">R${parseFloat(order.amount || 0).toFixed(2)}</div>
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-bold ${
+                                    isCompleted ? 'bg-green-100 text-green-800' : 
+                                    order.status === 'paid' ? 'bg-blue-100 text-blue-800' : 
+                                    'bg-yellow-100 text-yellow-800'
+                                }">
+                                    ${isCompleted ? 'COMPLETED' : order.status === 'paid' ? 'PAID' : 'PENDING'}
+                                </span>
+                            </div>
                         </div>
-                    `).join('');
-            }
-            
-            // Homepage display (all testimonials)
-            const homeTestimonials = document.getElementById('home-testimonials');
-            if (homeTestimonials) {
-                homeTestimonials.innerHTML = AppState.testimonials.map(t => `
-                    <div class="bg-white border border-gray-100 rounded-xl shadow-lg p-6 text-center h-full">
-                        <img src="${t.image_url}" alt="${t.name}" class="w-24 h-24 rounded-full object-cover mx-auto mb-4 border-4 border-white shadow-md">
-                        <h3 class="text-xl font-bold text-gray-900">${t.name}</h3>
-                        <p class="inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full my-2">${t.title}</p>
-                        <blockquote class="text-gray-600 italic mt-4 text-sm">"${t.quote}"</blockquote>
+                        
+                        <div class="grid md:grid-cols-2 gap-4 mb-4 text-sm">
+                            <div>
+                                <p class="text-gray-600 mb-1"><strong>Customer:</strong> ${order.name_first} ${order.name_last}</p>
+                                <p class="text-gray-600 mb-1"><strong>Email:</strong> ${order.email_address}</p>
+                                <p class="text-gray-600"><strong>Phone:</strong> ${order.cell_number}</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-600 mb-1"><strong>Product ID:</strong> ${order.custom_str1 || 'N/A'}</p>
+                                <p class="text-gray-600"><strong>Address:</strong> ${order.custom_str2 || 'N/A'}</p>
+                            </div>
+                        </div>
+                        
+                        ${!isCompleted ? `
+                            <button onclick="markOrderCompleted('${order.id}')" class="btn-primary w-full py-3">
+                                <i data-lucide="check-square" class="w-4 h-4 inline mr-2"></i>Mark as Completed
+                            </button>
+                        ` : `
+                            <div class="bg-green-50 border-2 border-green-500 rounded-xl p-4 text-center">
+                                <i data-lucide="check-circle" class="w-6 h-6 inline mr-2 text-green-600"></i>
+                                <span class="font-bold text-green-800">Order Fulfilled</span>
+                            </div>
+                        `}
                     </div>
-                `).join('');
-            }
+                `;
+            }).join('');
             
             lucide.createIcons();
         }
 
-        function refreshCeremoniesDisplay() {
-            // Admin list
-            const list = document.getElementById('ceremonies-list');
-            if (list) {
-                const firebaseOnly = AppState.ceremonies.filter(c => !c.isDefault);
-                list.innerHTML = firebaseOnly.length === 0
-                    ? '<p class="text-gray-500 text-sm">No custom ceremony photos yet. Add one above!</p>'
-                    : firebaseOnly.map(c => `
-                        <div class="flex items-center justify-between bg-gray-50 p-3 rounded-md border">
-                            <div class="flex items-center gap-3">
-                                <img src="${c.image_url}" class="w-16 h-10 rounded object-cover"/>
-                                <div>
-                                    <p class="font-semibold text-sm">${c.title}</p>
-                                    <p class="text-xs text-gray-500">${c.description}</p>
-                                </div>
-                            </div>
-                            <button onclick="removeCeremony('${c.id}', ${c.isDefault})" class="text-red-500 hover:bg-red-50 p-2 rounded">
-                                <i data-lucide="trash-2" class="w-4 h-4"></i>
-                            </button>
-                        </div>
-                    `).join('');
-            }
+        function displayTestimonials() {
+            const grid = document.getElementById('testimonials-grid');
+            if (!grid) return;
             
-            // Homepage gallery (all ceremonies)
-            const homeGallery = document.getElementById('home-ceremonies-gallery');
-            if (homeGallery) {
-                homeGallery.innerHTML = AppState.ceremonies.map(c => `
-                    <div class="bg-white border border-gray-100 overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 rounded-xl">
-                        <div class="relative overflow-hidden h-64">
-                            <img src="${c.image_url}" alt="${c.title}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                            <div class="absolute inset-0 bg-black/20"></div>
-                        </div>
-                        <div class="p-6 bg-white">
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">${c.title}</h3>
-                            <p class="text-gray-600 text-sm">${c.description}</p>
+            grid.innerHTML = AppState.testimonials.map(t => `
+                <div class="stat-card p-8">
+                    <div class="flex items-center gap-4 mb-6">
+                        <img src="${t.image_url}" alt="${t.name}" 
+                             class="w-16 h-16 rounded-full object-cover border-2 border-yellow-500">
+                        <div>
+                            <div class="font-bold text-gray-900 text-lg">${t.name}</div>
+                            <div class="text-yellow-600 text-sm font-semibold">${t.title}</div>
                         </div>
                     </div>
+                    <p class="text-gray-700 italic leading-relaxed">"${t.quote}"</p>
+                </div>
+            `).join('');
+        }
+
+        function displayAdminTestimonials() {
+            const list = document.getElementById('testimonials-admin-list');
+            if (!list) return;
+            
+            const firebaseOnly = AppState.testimonials.filter(t => !t.isDefault);
+            list.innerHTML = firebaseOnly.length === 0 
+                ? '<p class="text-gray-500 text-center py-8">No custom testimonials yet.</p>'
+                : firebaseOnly.map(t => `
+                    <div class="stat-card p-4 flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <img src="${t.image_url}" class="w-12 h-12 rounded-full object-cover">
+                            <div>
+                                <div class="font-bold text-gray-900">${t.name}</div>
+                                <div class="text-gray-600 text-sm">${t.title}</div>
+                            </div>
+                        </div>
+                        <button onclick="deleteTestimonial('${t.id}', false)" class="btn-secondary px-4 py-2">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
                 `).join('');
-            }
             
             lucide.createIcons();
         }
 
-        // ===== UTILITY FUNCTIONS =====
-        function showToast(message, type = 'success') {
-            const toast = document.createElement('div');
-            toast.className = 'toast' + (type === 'error' ? ' error' : '');
-            toast.textContent = message;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.remove(), 3000);
-        }
-
-        function showPage(pageId) {
-            document.querySelectorAll('#app-container > div').forEach(p => p.classList.add('hidden'));
-            document.getElementById(pageId + '-page').classList.remove('hidden');
-            AppState.currentPage = pageId;
-            lucide.createIcons();
-        }
-
-        function selectMembership(id) {
-            AppState.selectedMembership = memberships[id];
-            AppState.selectedMembershipKey = id;
-            document.getElementById('selected-membership').textContent = AppState.selectedMembership.title;
-            document.getElementById('selected-price').textContent = AppState.selectedMembership.price;
-            showPage('registration');
-        }
-
-        function showAdminLogin() {
-            document.getElementById('admin-login-modal').classList.remove('hidden');
-        }
-
-        function closeAdminLogin() {
-            document.getElementById('admin-login-modal').classList.add('hidden');
-            document.getElementById('admin-password').value = '';
-        }
-
-        async function checkAdminPassword() {
-            const password = document.getElementById('admin-password').value;
-            if (password === 'VNAXXTTM') {
-                AppState.isAdmin = true;
-                closeAdminLogin();
-                showPage('admin');
-                initializeAdminFields();
-                showAdminTab('homepage');
-                await loadTestimonialsFromFirebase();
-                await loadCeremoniesFromFirebase();
-            } else {
-                showToast('❌ Invalid password', 'error');
-            }
-        }
-
-        function showAdminTab(tabId) {
-            document.querySelectorAll('.admin-content').forEach(content => content.classList.add('hidden'));
-            document.querySelectorAll('.tab-button').forEach(tab => tab.classList.remove('active'));
-            document.getElementById('admin-content-' + tabId).classList.remove('hidden');
-            document.getElementById('admin-tab-' + tabId).classList.add('active');
-            lucide.createIcons();
-        }
-
-        function initializeAdminFields() {
-            document.getElementById('payment-email-admin').value = AppState.adminSettings.payment_email;
-            document.getElementById('bank-details').value = AppState.adminSettings.bank_details;
-            document.getElementById('copyright-text').value = AppState.adminSettings.copyright_text;
-            document.getElementById('initiations-hosted').value = AppState.adminSettings.initiations_hosted;
-            document.getElementById('next-members-count').value = AppState.adminSettings.next_members_count;
-            document.getElementById('attorney-section-title').value = AppState.adminSettings.attorney_section_title;
-            document.getElementById('attorney-section-text').value = AppState.adminSettings.attorney_section_text;
+        function directBuy(product) {
+            AppState.selectedProduct = product;
+            closeProductModal();
             
-            updateImagePreview('adept', AppState.adminSettings.adept_image_url);
-            updateImagePreview('illuminatium', AppState.adminSettings.illuminatium_image_url);
-            updateImagePreview('influencer', AppState.adminSettings.influencer_image_url);
-            updateImagePreview('worshiper', AppState.adminSettings.worshiper_image_url);
+            const info = document.getElementById('checkout-product-info');
+            const mainImage = product.images ? product.images[0] : product.image_url;
+            info.innerHTML = `
+                <div class="flex gap-6 p-6 rounded-2xl bg-yellow-50 border-2 border-yellow-500">
+                    <img src="${mainImage}" class="w-32 h-32 object-cover rounded-xl">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-900 text-2xl mb-2">${product.name}</h3>
+                        <p class="text-gray-600 mb-3">${product.description}</p>
+                        <div class="price-tag">R${product.price}</div>
+                    </div>
+                </div>
+            `;
+            
+            showPage('checkout');
         }
 
-        function updateImagePreview(type, url) {
-            const preview = document.getElementById(type + '-image-preview');
-            if (preview) {
-                preview.innerHTML = url ? `<img src="${url}" class="w-full h-48 object-cover rounded">` : '';
-            }
-            const homeImage = document.getElementById('home-' + type + '-image');
-            if (homeImage) homeImage.src = url || 'https://via.placeholder.com/800x400';
-            AppState.adminSettings[type + '_image_url'] = url;
-            lucide.createIcons();
+        function updateStats() {
+            document.getElementById('stat-products').textContent = AppState.stats.products;
+            document.getElementById('stat-customers').textContent = AppState.stats.customers;
+            document.getElementById('stat-orders').textContent = AppState.stats.orders;
+            document.getElementById('stat-revenue').textContent = 'R ' + AppState.stats.revenue.toLocaleString();
         }
 
-        function saveAllSettings() {
-            AppState.adminSettings.payment_email = document.getElementById('payment-email-admin').value;
-            AppState.adminSettings.copyright_text = document.getElementById('copyright-text').value;
-            AppState.adminSettings.bank_details = document.getElementById('bank-details').value;
-            AppState.adminSettings.adept_image_url = document.getElementById('adept-image-url').value;
-            AppState.adminSettings.illuminatium_image_url = document.getElementById('illuminatium-image-url').value;
-            AppState.adminSettings.influencer_image_url = document.getElementById('influencer-image-url').value;
-            AppState.adminSettings.worshiper_image_url = document.getElementById('worshiper-image-url').value;
-            AppState.adminSettings.initiations_hosted = Number(document.getElementById('initiations-hosted').value);
-            AppState.adminSettings.next_members_count = Number(document.getElementById('next-members-count').value);
-            AppState.adminSettings.attorney_section_title = document.getElementById('attorney-section-title').value;
-            AppState.adminSettings.attorney_section_text = document.getElementById('attorney-section-text').value;
+        // ===== PAYFAST PAYMENT =====
+        async function initiatePayFast(product, customerData) {
+            const amount = product.price;
+            const merchantPaymentId = 'BR-' + Date.now();
             
-            // Update live elements
-            document.getElementById('footer-copyright').textContent = AppState.adminSettings.copyright_text;
-            document.getElementById('footer-email').textContent = AppState.adminSettings.payment_email;
-            document.getElementById('attorney-title').textContent = AppState.adminSettings.attorney_section_title;
-            document.getElementById('attorney-text').textContent = AppState.adminSettings.attorney_section_text;
-            
-            // Save to localStorage for persistence
-            localStorage.setItem('egn_admin_settings', JSON.stringify(AppState.adminSettings));
-            
-            showToast('✅ Settings saved successfully!', 'success');
-            lucide.createIcons();
-        }
-
-        // ===== PAYFAST PAYMENT INTEGRATION =====
-        function initiatePayFast(membershipKey, memberData) {
-            const membership = memberships[membershipKey];
-            const amount = membership.amount;
-            const merchantPaymentId = 'EGN-' + Date.now();
-            
-            const nameParts = memberData.name.trim().split(' ');
+            const nameParts = customerData.name.trim().split(' ');
             const firstName = nameParts[0];
             const lastName = nameParts.slice(1).join(' ') || firstName;
-            const cleanPhone = memberData.phone.replace(/[\s\-\(\)]/g, '');
+            const cleanPhone = customerData.phone.replace(/[\s\-\(\)]/g, '');
             
             const paymentData = {
                 'merchant_id': PAYFAST_MERCHANT_ID,
@@ -1082,25 +1595,28 @@
                 'notify_url': 'https://zapk1.github.io/egnportal/payfast-notify',
                 'name_first': firstName,
                 'name_last': lastName,
-                'email_address': memberData.email,
+                'email_address': customerData.email,
                 'cell_number': cleanPhone,
                 'm_payment_id': merchantPaymentId,
                 'amount': amount.toFixed(2),
-                'item_name': membership.title,
-                'item_description': 'Illuminati EGN ' + membership.title + ' Membership',
-                'custom_str1': membershipKey,
-                'custom_str2': memberData.location,
-                'custom_str3': memberData.name
+                'item_name': product.name,
+                'item_description': product.description,
+                'custom_str1': product.id,
+                'custom_str2': customerData.address,
+                'custom_str3': customerData.city
             };
             
-            // Save payment attempt to Firestore
-            db.collection('payment_attempts').add({
-                ...paymentData,
-                timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                status: 'pending'
-            }).catch(err => console.error('Failed to log payment:', err));
+            try {
+                await db.collection('orders').add({
+                    ...paymentData,
+                    product_name: product.name,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                    status: 'pending'
+                });
+            } catch (err) {
+                console.error('Failed to log order:', err);
+            }
             
-            // Create and submit PayFast form
             const form = document.createElement('form');
             form.method = 'POST';
             form.action = PAYFAST_URL;
@@ -1116,46 +1632,93 @@
             document.body.appendChild(form);
             showToast('🔄 Redirecting to PayFast secure payment...', 'success');
             
-            setTimeout(() => {
-                form.submit();
-            }, 1000);
+            setTimeout(() => form.submit(), 1500);
         }
 
-        // ===== FORM SUBMISSION =====
-        document.getElementById('registration-form').addEventListener('submit', async (e) => {
+        document.getElementById('checkout-form').addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            AppState.memberData = {
-                name: document.getElementById('full_name').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                phone: document.getElementById('phone').value.trim(),
-                location: document.getElementById('location').value.trim()
+            AppState.customerData = {
+                name: document.getElementById('checkout-name').value.trim(),
+                email: document.getElementById('checkout-email').value.trim(),
+                phone: document.getElementById('checkout-phone').value.trim(),
+                city: document.getElementById('checkout-city').value.trim(),
+                address: document.getElementById('checkout-address').value.trim()
             };
             
-            if (!AppState.memberData.name || !AppState.memberData.email || !AppState.memberData.phone || !AppState.memberData.location) {
-                showToast('❌ Please fill all fields', 'error');
-                return;
-            }
-            
-            // Save registration to Firestore
-            try {
-                await db.collection('registrations').add({
-                    ...AppState.memberData,
-                    membership: AppState.selectedMembership.title,
-                    amount: AppState.selectedMembership.price,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                    status: 'payment_pending'
-                });
-            } catch (error) {
-                console.error('Error saving registration:', error);
-            }
-            
-            if (confirm(`💳 Proceed to pay ${AppState.selectedMembership.price} via PayFast for ${AppState.selectedMembership.title}?\n\nYou will be redirected to a secure payment gateway.`)) {
-                initiatePayFast(AppState.selectedMembershipKey, AppState.memberData);
+            if (confirm(`💳 Proceed to secure payment of R${AppState.selectedProduct.price} for ${AppState.selectedProduct.name}?\n\nYou will be redirected to PayFast.`)) {
+                initiatePayFast(AppState.selectedProduct, AppState.customerData);
             }
         });
 
-        // ===== PAYMENT STATUS CHECK =====
+        // ===== UTILITY FUNCTIONS =====
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = 'toast' + (type === 'error' ? ' error' : '');
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 4000);
+        }
+
+        function showPage(pageId) {
+            document.querySelectorAll('#app-container > div').forEach(p => p.classList.add('hidden'));
+            document.getElementById(pageId + '-page').classList.remove('hidden');
+            AppState.currentPage = pageId;
+            
+            if (pageId === 'admin') {
+                setTimeout(() => initCharts(), 100);
+            }
+            
+            lucide.createIcons();
+        }
+
+        function showAdminLogin() {
+            document.getElementById('admin-login-modal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeAdminLogin() {
+            document.getElementById('admin-login-modal').classList.add('hidden');
+            document.getElementById('admin-password').value = '';
+        }
+
+        async function checkAdminPassword() {
+            const password = document.getElementById('admin-password').value;
+            if (password === 'VNAXXTTM') {
+                closeAdminLogin();
+                showPage('admin');
+                showAdminTab('products');
+                await loadProductsFromFirebase();
+                await loadTestimonialsFromFirebase();
+                await loadOrdersFromFirebase();
+                initCharts();
+            } else {
+                showToast('❌ Invalid password', 'error');
+            }
+        }
+
+        function showAdminTab(tabId) {
+            document.querySelectorAll('.admin-content').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
+            document.getElementById('admin-content-' + tabId).classList.remove('hidden');
+            document.getElementById('admin-tab-' + tabId).classList.add('active');
+            lucide.createIcons();
+        }
+
+        function saveSettings() {
+            AppState.settings.shop_email = document.getElementById('shop-email').value;
+            AppState.settings.shop_phone = document.getElementById('shop-phone').value;
+            AppState.settings.bank_details = document.getElementById('bank-details').value;
+            AppState.settings.footer_text = document.getElementById('footer-text').value;
+            
+            document.getElementById('footer-copyright').textContent = AppState.settings.footer_text;
+            document.getElementById('footer-email').textContent = AppState.settings.shop_email;
+            document.getElementById('footer-phone').textContent = AppState.settings.shop_phone;
+            
+            localStorage.setItem('shop_settings', JSON.stringify(AppState.settings));
+            showToast('✅ Settings saved successfully!');
+        }
+
         window.addEventListener('load', async function() {
             const urlParams = new URLSearchParams(window.location.search);
             const paymentStatus = urlParams.get('payment');
@@ -1163,42 +1726,22 @@
             if (paymentStatus === 'success') {
                 document.getElementById('success-modal').classList.remove('hidden');
                 window.history.replaceState({}, document.title, window.location.pathname);
-                
-                // Log successful payment
-                try {
-                    await db.collection('successful_payments').add({
-                        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                        status: 'completed'
-                    });
-                } catch (error) {
-                    console.error('Failed to log success:', error);
-                }
             } else if (paymentStatus === 'cancelled') {
-                showToast('❌ Payment cancelled. You can try again anytime.', 'error');
+                showToast('❌ Payment cancelled', 'error');
                 window.history.replaceState({}, document.title, window.location.pathname);
-                showPage('home');
             }
             
-            // Load saved settings
-            const savedSettings = localStorage.getItem('egn_admin_settings');
+            const savedSettings = localStorage.getItem('shop_settings');
             if (savedSettings) {
-                AppState.adminSettings = {...AppState.adminSettings, ...JSON.parse(savedSettings)};
-                document.getElementById('footer-copyright').textContent = AppState.adminSettings.copyright_text;
-                document.getElementById('footer-email').textContent = AppState.adminSettings.payment_email;
-                document.getElementById('attorney-title').textContent = AppState.adminSettings.attorney_section_title;
-                document.getElementById('attorney-text').textContent = AppState.adminSettings.attorney_section_text;
-                
-                // Update images
-                document.getElementById('home-adept-image').src = AppState.adminSettings.adept_image_url;
-                document.getElementById('home-illuminatium-image').src = AppState.adminSettings.illuminatium_image_url;
-                document.getElementById('home-influencer-image').src = AppState.adminSettings.influencer_image_url;
-                document.getElementById('home-worshiper-image').src = AppState.adminSettings.worshiper_image_url;
+                AppState.settings = {...AppState.settings, ...JSON.parse(savedSettings)};
+                document.getElementById('footer-copyright').textContent = AppState.settings.footer_text;
+                document.getElementById('footer-email').textContent = AppState.settings.shop_email;
+                document.getElementById('footer-phone').textContent = AppState.settings.shop_phone;
             }
             
-            // Load testimonials and ceremonies
+            await loadProductsFromFirebase();
             await loadTestimonialsFromFirebase();
-            await loadCeremoniesFromFirebase();
-            
+            await loadOrdersFromFirebase();
             lucide.createIcons();
         });
 
@@ -1207,7 +1750,6 @@
             showPage('home');
         }
         
-        // Initialize Lucide icons
         lucide.createIcons();
     </script>
 </body>
