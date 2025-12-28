@@ -1,6 +1,6 @@
 {
-  "name": "Illuminati EGN Portal",
-  "short_name": "EGN Portal",
+  "name": "Illuminati BR",
+  "short_name": "BR Portal",
   "description": "Home for Wealth , Freedom , Power and Connection to Elites ",
   "start_url": "./index.html",
   "display": "standalone",
@@ -8,12 +8,12 @@
   "theme_color": "#94FFFF",
   "icons": [
     {
-      "src": "https://i.postimg.cc/NMkR11xZ/c7c0219f9-Illuminati-Eyewith-South-African-Flag.png",
+      "src": "https://i.postimg.cc/rwmPjzWr/IMG-2949.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://i.postimg.cc/NMkR11xZ/c7c0219f9-Illuminati-Eyewith-South-African-Flag.png",
+      "src": "https://i.postimg.cc/rwmPjzWr/IMG-2949.png",
       "sizes": "512x512",
       "type": "image/png"
     }
