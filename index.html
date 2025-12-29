@@ -9,8 +9,12 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link rel="preconnect" href__="https://fonts.googleapis.com">
-    <link rel="preconnect" href__="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=Ady7oSqLjAlGYqeeGGp2DC2iaw0_VlpT-UalhX8mviFylCUQn1I4jPKNqKNvG2QueVnzaK0j3UyvXPzU&currency=USD"></script>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href__="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
     <!-- Firebase SDKs -->
@@ -164,6 +168,7 @@
             justify-content: center;
             padding: 20px;
             animation: fadeIn 0.3s;
+            overflow-y: auto;
         }
         
         @keyframes fadeIn {
@@ -177,7 +182,7 @@
             border-radius: 24px;
             max-width: 1000px;
             width: 100%;
-            max-height: 90vh;
+            max-height: 85vh;
             overflow-y: auto;
             animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
@@ -288,6 +293,53 @@
             border-color: #86efac;
         }
         
+        #paypal-button-container {
+            margin-top: 20px;
+        }
+        
+        .ritual-option {
+            background: #fff;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .ritual-option:hover {
+            border-color: #d4af37;
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(212, 175, 55, 0.2);
+        }
+        
+        .ritual-option.selected {
+            border-color: #d4af37;
+            background: #fef3c7;
+        }
+
+        .message-bubble {
+            padding: 12px 16px;
+            border-radius: 18px;
+            margin-bottom: 8px;
+            max-width: 70%;
+            word-wrap: break-word;
+        }
+
+        .message-bubble.sent {
+            background: linear-gradient(135deg, #d4af37 0%, #aa8b2e 100%);
+            color: #000;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-bubble.received {
+            background: #f3f4f6;
+            color: #000;
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+        }
+        
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -318,9 +370,14 @@
                         <h1 class="text-5xl font-black text-gray-900 mb-2">Admin Dashboard</h1>
                         <p class="text-gray-600 text-lg">Manage Illuminati Black Rituals Store</p>
                     </div>
-                    <button onclick="showPage('home')" class="btn-primary">
-                        <i data-lucide="home" class="w-5 h-5 inline mr-2"></i>Back to Store
-                    </button>
+                    <div class="flex gap-4">
+                        <button onclick="showPage('messages')" class="btn-secondary">
+                            <i data-lucide="message-circle" class="w-5 h-5 inline mr-2"></i>Messages
+                        </button>
+                        <button onclick="showPage('home')" class="btn-primary">
+                            <i data-lucide="home" class="w-5 h-5 inline mr-2"></i>Back to Store
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Statistics Dashboard -->
@@ -357,7 +414,7 @@
                             <i data-lucide="dollar-sign" class="w-10 h-10 text-yellow-600"></i>
                             <span class="text-sm text-gray-500">Total Revenue</span>
                         </div>
-                        <div class="text-4xl font-black text-gray-900 mb-1" id="stat-revenue">R 0</div>
+                        <div class="text-4xl font-black text-gray-900 mb-1" id="stat-revenue">R0</div>
                         <div class="text-gray-600 text-sm font-semibold">Revenue</div>
                     </div>
                 </div>
@@ -413,8 +470,8 @@
                                 </div>
                                 
                                 <div>
-                                    <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Price (R) *</label>
-                                    <input id="new-product-price" type="number" placeholder="e.g., 450" class="input-field">
+                                    <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Price (ZAR) *</label>
+                                    <input id="new-product-price" type="number" placeholder="e.g., 6500" class="input-field">
                                 </div>
                                 
                                 <div>
@@ -515,11 +572,7 @@
                             </div>
                             <div>
                                 <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Contact Phone</label>
-                                <input id="shop-phone" value="+27 XX XXX XXXX" class="input-field">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Bank Details</label>
-                                <textarea id="bank-details" class="input-field" rows="3">TymeBank Everyday Account: 5110 3334 333</textarea>
+                                <input id="shop-phone" value="27810792898" class="input-field">
                             </div>
                             <div>
                                 <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Footer Text</label>
@@ -528,6 +581,53 @@
                             <button onclick="saveSettings()" class="btn-primary w-full">
                                 <i data-lucide="save" class="w-5 h-5 inline mr-2"></i>Save All Settings
                             </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Messages Page -->
+        <div id="messages-page" class="hidden min-h-screen p-6 bg-gray-50">
+            <div class="max-w-6xl mx-auto">
+                <div class="flex justify-between items-center mb-10">
+                    <div>
+                        <h1 class="text-5xl font-black text-gray-900 mb-2">Customer Messages</h1>
+                        <p class="text-gray-600 text-lg">View and respond to customer inquiries</p>
+                    </div>
+                    <button onclick="showPage('admin')" class="btn-primary">
+                        <i data-lucide="arrow-left" class="w-5 h-5 inline mr-2"></i>Back to Admin
+                    </button>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Conversations List -->
+                    <div class="stat-card p-6">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6">Conversations</h3>
+                        <div id="conversations-list" class="space-y-3"></div>
+                    </div>
+
+                    <!-- Chat Area -->
+                    <div class="md:col-span-2 stat-card p-6">
+                        <div id="no-chat-selected" class="text-center py-20">
+                            <i data-lucide="message-circle" class="w-20 h-20 text-gray-300 mx-auto mb-4"></i>
+                            <p class="text-gray-500 text-lg">Select a conversation to view messages</p>
+                        </div>
+
+                        <div id="chat-area" class="hidden">
+                            <div class="mb-6 pb-4 border-b-2 border-gray-200">
+                                <h3 class="text-xl font-bold text-gray-900" id="chat-customer-name">Customer</h3>
+                                <p class="text-sm text-gray-600" id="chat-customer-email"></p>
+                            </div>
+
+                            <div id="messages-container" class="h-96 overflow-y-auto mb-6 space-y-3"></div>
+
+                            <div class="flex gap-3">
+                                <input id="admin-message-input" placeholder="Type your response..." class="input-field" onkeypress="if(event.key==='Enter') sendAdminMessage()">
+                                <button onclick="sendAdminMessage()" class="btn-primary px-6">
+                                    <i data-lucide="send" class="w-5 h-5"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -548,9 +648,14 @@
                                 <p class="text-xs text-gray-600 tracking-wider uppercase">Premium Spiritual Products</p>
                             </div>
                         </div>
-                        <button onclick="showAdminLogin()" class="btn-secondary px-6 py-3">
-                            <i data-lucide="user" class="w-5 h-5 inline mr-2"></i>Admin
-                        </button>
+                        <div class="flex gap-4">
+                            <button onclick="openContactModal()" class="btn-secondary px-6 py-3">
+                                <i data-lucide="message-circle" class="w-5 h-5 inline mr-2"></i>Message Us
+                            </button>
+                            <button onclick="showAdminLogin()" class="btn-secondary px-6 py-3">
+                                <i data-lucide="user" class="w-5 h-5 inline mr-2"></i>Admin
+                            </button>
+                        </div>
                     </div>
                 </div>
             </header>
@@ -591,7 +696,7 @@
                             </div>
                             <div class="text-left">
                                 <div class="font-bold text-gray-900">Secure Checkout</div>
-                                <div class="text-gray-600 text-sm">PayFast Protected</div>
+                                <div class="text-gray-600 text-sm">PayPal Protected</div>
                             </div>
                         </div>
                     </div>
@@ -603,15 +708,51 @@
                 <div class="container mx-auto px-6">
                     <div class="text-center mb-16">
                         <h2 class="text-5xl font-black text-gray-900 mb-4">Our Sacred Collection</h2>
-                        <p class="text-gray-600 text-lg">Click any product to view full details and images</p>
+                        <p class="text-gray-600 text-lg">Click any product to view full details and purchase</p>
                     </div>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8" id="products-grid"></div>
                 </div>
             </div>
 
-            <!-- Testimonials Section -->
+            <!-- Registration & Ritual Payments -->
             <div class="py-20 bg-gray-50">
+                <div class="container mx-auto px-6">
+                    <div class="text-center mb-16">
+                        <h2 class="text-5xl font-black text-gray-900 mb-4">Registration & Ritual Payments</h2>
+                        <p class="text-gray-600 text-lg">Become a full member or pay for your custom ritual</p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                        <div class="stat-card p-10 text-center cursor-pointer hover:shadow-2xl transition" onclick="openRegistrationModal()">
+                            <div class="w-20 h-20 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-600 flex items-center justify-center mx-auto mb-6">
+                                <i data-lucide="user-plus" class="w-10 h-10 text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-black text-gray-900 mb-4">Member Registration</h3>
+                            <p class="text-gray-600 mb-6">Join our exclusive community and unlock full access to our spiritual services</p>
+                            <div class="price-tag">Custom Amount</div>
+                            <button onclick="openRegistrationModal()" class="btn-primary w-full mt-6">
+                                <i data-lucide="credit-card" class="w-5 h-5 inline mr-2"></i>Pay Registration Fee
+                            </button>
+                        </div>
+                        
+                        <div class="stat-card p-10 text-center cursor-pointer hover:shadow-2xl transition" onclick="openRitualPaymentModal()">
+                            <div class="w-20 h-20 rounded-full bg-gradient-to-br from-yellow-500 to-yellow-600 flex items-center justify-center mx-auto mb-6">
+                                <i data-lucide="flame" class="w-10 h-10 text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-black text-gray-900 mb-4">Ritual Payment</h3>
+                            <p class="text-gray-600 mb-6">Select your ritual and make payment to begin your spiritual journey</p>
+                            <div class="price-tag">Select Ritual</div>
+                            <button onclick="openRitualPaymentModal()" class="btn-primary w-full mt-6">
+                                <i data-lucide="sparkles" class="w-5 h-5 inline mr-2"></i>Choose & Pay for Ritual
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimonials Section -->
+            <div class="py-20 bg-white">
                 <div class="container mx-auto px-6">
                     <div class="text-center mb-16">
                         <h2 class="text-5xl font-black text-gray-900 mb-4">Customer Experiences</h2>
@@ -623,7 +764,7 @@
             </div>
 
             <!-- Protection Section -->
-            <div class="py-20 bg-white">
+            <div class="py-20 bg-gray-50">
                 <div class="container mx-auto px-6">
                     <div class="max-w-4xl mx-auto stat-card p-12 text-center">
                         <i data-lucide="shield" class="w-20 h-20 text-yellow-600 mx-auto mb-6"></i>
@@ -633,7 +774,7 @@
                             We protect your spiritual journey with ancient wards and modern security. Your privacy is sacred to us.
                         </p>
                         <p class="text-gray-600 text-sm">
-                            All transactions are secured through encrypted PayFast payment gateway. 
+                            All transactions are secured through PayPal's encrypted payment gateway. 
                             Your personal information is protected with bank-level security.
                         </p>
                     </div>
@@ -660,7 +801,7 @@
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <i data-lucide="phone" class="w-5 h-5 text-yellow-500"></i>
-                                    <span id="footer-phone">+27 XX XXX XXXX</span>
+                                    <span id="footer-phone">27810792898</span>
                                 </div>
                                 <div class="flex items-center gap-3">
                                     <i data-lucide="map-pin" class="w-5 h-5 text-yellow-500"></i>
@@ -692,54 +833,163 @@
             </div>
         </div>
 
-        <!-- Checkout Page -->
-        <div id="checkout-page" class="hidden min-h-screen py-12 px-6 bg-gray-50">
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-12">
-                    <h1 class="text-5xl font-black text-gray-900 mb-4">Secure Checkout</h1>
-                    <p class="text-gray-600 text-lg">Complete your spiritual purchase</p>
+        <!-- PayPal Checkout Modal -->
+        <div id="paypal-modal" class="modal hidden" onclick="if(event.target === this) closePayPalModal()">
+            <div class="bg-white rounded-2xl p-10 max-w-2xl w-full mx-4 shadow-2xl max-h-[85vh] overflow-y-auto" onclick="event.stopPropagation()">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-3xl font-black text-gray-900">Secure Checkout</h2>
+                    <button onclick="closePayPalModal()" class="text-gray-400 hover:text-gray-600 transition">
+                        <i data-lucide="x" class="w-8 h-8"></i>
+                    </button>
                 </div>
                 
-                <div class="stat-card p-10 mb-8">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Product Details</h2>
-                    <div id="checkout-product-info" class="mb-8"></div>
-                    
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Your Information</h2>
-                    <form id="checkout-form" class="space-y-6">
+                <div id="paypal-order-summary" class="mb-8"></div>
+                
+                <div class="space-y-6 mb-8">
+                    <h3 class="text-xl font-bold text-gray-900">Your Information</h3>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Full Name *</label>
+                            <input id="paypal-name" required placeholder="Your full name" class="input-field">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Email *</label>
+                            <input id="paypal-email" type="email" required placeholder="your@email.com" class="input-field">
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Phone Number *</label>
+                            <input id="paypal-phone" required placeholder="+27 XX XXX XXXX" class="input-field">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">City *</label>
+                            <input id="paypal-city" required placeholder="City name" class="input-field">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Delivery Address *</label>
+                        <textarea id="paypal-address" required placeholder="Full delivery address..." class="input-field" rows="3"></textarea>
+                    </div>
+                </div>
+                
+                <div id="paypal-button-container"></div>
+            </div>
+        </div>
+
+        <!-- Registration Payment Modal -->
+        <div id="registration-modal" class="modal hidden" onclick="if(event.target === this) closeRegistrationModal()">
+            <div class="bg-white rounded-2xl p-10 max-w-2xl w-full mx-4 shadow-2xl max-h-[85vh] overflow-y-auto" onclick="event.stopPropagation()">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-3xl font-black text-gray-900">Member Registration Payment</h2>
+                    <button onclick="closeRegistrationModal()" class="text-gray-400 hover:text-gray-600 transition">
+                        <i data-lucide="x" class="w-8 h-8"></i>
+                    </button>
+                </div>
+                
+                <div class="space-y-6 mb-8">
+                    <div>
+                        <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Full Name *</label>
+                        <input id="reg-name" required placeholder="Your full name" class="input-field">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Email *</label>
+                        <input id="reg-email" type="email" required placeholder="your@email.com" class="input-field">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Phone Number *</label>
+                        <input id="reg-phone" required placeholder="+27 XX XXX XXXX" class="input-field">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Registration Amount (ZAR) *</label>
+                        <input id="reg-amount" type="number" required placeholder="Enter amount in Rands" class="input-field">
+                        <p class="text-xs text-gray-500 mt-2">Minimum R180 (converted to USD at checkout)</p>
+                        <div id="reg-conversion" class="mt-2 text-sm font-bold text-yellow-600"></div>
+                    </div>
+                </div>
+                
+                <div id="registration-paypal-button"></div>
+            </div>
+        </div>
+
+        <!-- Ritual Payment Modal -->
+        <div id="ritual-modal" class="modal hidden" onclick="if(event.target === this) closeRitualModal()">
+            <div class="bg-white rounded-2xl p-10 max-w-4xl w-full mx-4 shadow-2xl max-h-[85vh] overflow-y-auto" onclick="event.stopPropagation()">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-3xl font-black text-gray-900">Select Your Ritual</h2>
+                    <button onclick="closeRitualModal()" class="text-gray-400 hover:text-gray-600 transition">
+                        <i data-lucide="x" class="w-8 h-8"></i>
+                    </button>
+                </div>
+                
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold text-gray-900 mb-6">Available Ritual Products</h3>
+                    <div id="ritual-products-grid" class="grid md:grid-cols-3 gap-6"></div>
+                </div>
+                
+                <div id="ritual-payment-section" class="hidden">
+                    <div class="border-t-2 border-gray-200 pt-8 space-y-6">
+                        <h3 class="text-xl font-bold text-gray-900">Payment Information</h3>
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Full Name *</label>
-                                <input id="checkout-name" required placeholder="Your full name" class="input-field">
+                                <input id="ritual-name" required placeholder="Your full name" class="input-field">
                             </div>
                             <div>
                                 <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Email *</label>
-                                <input id="checkout-email" type="email" required placeholder="your@email.com" class="input-field">
+                                <input id="ritual-email" type="email" required placeholder="your@email.com" class="input-field">
                             </div>
                         </div>
                         <div class="grid md:grid-cols-2 gap-6">
                             <div>
                                 <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Phone Number *</label>
-                                <input id="checkout-phone" required placeholder="+27 XX XXX XXXX" class="input-field">
+                                <input id="ritual-phone" required placeholder="+27 XX XXX XXXX" class="input-field">
                             </div>
                             <div>
-                                <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">City *</label>
-                                <input id="checkout-city" required placeholder="City name" class="input-field">
+                                <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Payment Amount (ZAR) *</label>
+                                <input id="ritual-amount" type="number" required placeholder="Enter amount to pay" class="input-field">
+                                <p class="text-xs text-gray-500 mt-2">Full price: R<span id="ritual-full-price">0</span></p>
+                                <div id="ritual-conversion" class="mt-2 text-sm font-bold text-yellow-600"></div>
                             </div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Delivery Address *</label>
-                            <textarea id="checkout-address" required placeholder="Full delivery address..." class="input-field" rows="3"></textarea>
-                        </div>
                         
-                        <div class="flex gap-6 pt-6">
-                            <button type="button" onclick="showPage('home')" class="flex-1 btn-secondary py-4 text-lg">
-                                <i data-lucide="arrow-left" class="w-5 h-5 inline mr-2"></i>Back to Shop
-                            </button>
-                            <button type="submit" class="flex-1 btn-primary py-4 text-lg">
-                                <i data-lucide="lock" class="w-5 h-5 inline mr-2"></i>Pay Now via PayFast
-                            </button>
-                        </div>
-                    </form>
+                        <div id="ritual-paypal-button"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact/Message Modal -->
+        <div id="contact-modal" class="modal hidden" onclick="if(event.target === this) closeContactModal()">
+            <div class="bg-white rounded-2xl p-10 max-w-2xl w-full mx-4 shadow-2xl max-h-[85vh] overflow-y-auto" onclick="event.stopPropagation()">
+                <div class="flex justify-between items-center mb-8">
+                    <h2 class="text-3xl font-black text-gray-900">Send Us a Message</h2>
+                    <button onclick="closeContactModal()" class="text-gray-400 hover:text-gray-600 transition">
+                        <i data-lucide="x" class="w-8 h-8"></i>
+                    </button>
+                </div>
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Your Name *</label>
+                        <input id="contact-name" required placeholder="Your full name" class="input-field">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Email *</label>
+                        <input id="contact-email" type="email" required placeholder="your@email.com" class="input-field">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Phone Number *</label>
+                        <input id="contact-phone" required placeholder="+27 XX XXX XXXX" class="input-field">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-bold mb-3 text-gray-700 uppercase tracking-wide">Your Message *</label>
+                        <textarea id="contact-message" required placeholder="Write your message here..." class="input-field" rows="6"></textarea>
+                    </div>
+                    
+                    <button onclick="sendContactMessage()" class="btn-primary w-full py-4">
+                        <i data-lucide="send" class="w-5 h-5 inline mr-2"></i>Send Message
+                    </button>
                 </div>
             </div>
         </div>
@@ -790,39 +1040,36 @@
         const db = firebase.firestore();
         const storage = firebase.storage();
         
-        // ===== PAYFAST CONFIGURATION =====
-        const PAYFAST_MERCHANT_ID = '32909125';
-        const PAYFAST_MERCHANT_KEY = 'zap68mi7ptd9l';
-        const PAYFAST_URL = 'https://www.payfast.co.za/eng/process';
-        const PAYFAST_RETURN_URL = 'https://zapk1.github.io/blackrituals/?payment=success';
-        const PAYFAST_CANCEL_URL = 'https://zapk1.github.io/blackrituals/?payment=cancelled';
+        // ===== CURRENCY CONVERSION =====
+        const ZAR_TO_USD = 0.055; // 1 ZAR = 0.055 USD
         
-        // ===== DEFAULT PRODUCTS =====
+        function zarToUsd(zar) {
+            return (zar * ZAR_TO_USD).toFixed(2);
+        }
+        
+        // ===== DEFAULT PRODUCTS (IN ZAR) =====
         const DEFAULT_PRODUCTS = [
             {
                 id: 'default-1',
-                name: 'Illuminati PROTECTION  Ritual Ring',
+                name: 'Illuminati PROTECTION Ritual Ring',
                 price: 6500,
                 category: 'Protection Items',
-                description: 'This is protection ring that can save you from Accidents , Gunshots  Danger and any bad situation set against you as the owner of the Illuminati BR protection ring .',
-                details: 'Once you wear the ring after  being fully built spirituall built by instuction you get introduced to the world of fully protection against weapons , fights , enemies , and accidents , think like  anything aiming to  harm you it will never succceed that is purpose of the Ring from ILLUMINATI BR .',
-                instructions: 'For usage or instructions pay required amount for the ritual , we will  call you and tell  about  the ring delivery and how to built it  spiritually . We only give instructions after  payments call  27810792898 for  more information .',
-                images: [
-                    'https://i.postimg.cc/rpxrWCfB/images-(14).jpg'],
+                description: 'This is protection ring that can save you from Accidents, Gunshots Danger and any bad situation set against you as the owner of the Illuminati BR protection ring.',
+                details: 'Once you wear the ring after being fully built spiritually by instruction you get introduced to the world of fully protection against weapons, fights, enemies, and accidents.',
+                instructions: 'For usage or instructions pay required amount for the ritual, we will call you and tell about the ring delivery and how to built it spiritually. We only give instructions after payments call 27810792898 for more information.',
+                images: ['https://i.postimg.cc/rpxrWCfB/images-(14).jpg'],
                 phone: '27810792898',
                 isDefault: true
             },
             {
                 id: 'default-2',
                 name: 'Fame & Confidence ILLUMINATI BR Ritual Necklace',
-                price: 5600,
+                price: 5,
                 category: 'Ritual Kits',
-                description: 'This is an ILLUMINATI BR Necklace built with Powerful black rituals mixed with human voice desires and invitation from ILLUMINATI WICCAN gods to grant fame and confidence to any perso who wears the necklace increasing you chances to get richh or better with desires of life because the Ritual listen to whhat you desire the most and  deliver .',
-                details: 'This necklace is built with Black Rituals that makes people to instantly like your work or anything you do is like people will see your work and love and you will  be  favoured whereever you go , it does matter if youre an artist , businessman , creator  , self employed the Ritual Ring Works for anybody .',
-                instructions: 'For usage or instructions pay required amount for the ritual , we will  call you and tell  about  the ring delivery and how to built it  spiritually . We only give instructions after  payments call  27810792898 for  more information .',
-                images: [
-                    'https://i.postimg.cc/d1XjvmVr/s-l1200-(1).jpg'
-                ],
+                description: 'This is an ILLUMINATI BR Necklace built with Powerful black rituals mixed with human voice desires and invitation from ILLUMINATI WICCAN gods to grant fame and confidence.',
+                details: 'This necklace is built with Black Rituals that makes people to instantly like your work or anything you do. People will see your work and love it and you will be favoured wherever you go.',
+                instructions: 'For usage or instructions pay required amount for the ritual, we will call you and tell about the necklace delivery and how to built it spiritually. We only give instructions after payments call 27810792898 for more information.',
+                images: ['https://i.postimg.cc/d1XjvmVr/s-l1200-(1).jpg'],
                 phone: '27810792898',
                 isDefault: true
             },
@@ -831,13 +1078,11 @@
                 name: 'Personal WEALTH SUCCESS Ritual',
                 price: 15000,
                 category: 'rituals',
-                description: 'This  is  the Ritual that can chsange your life and your situation mostly good for attracting wealth , commonly used around South Africa by most succesful people , this ritual includes double lack candles money ritual that will be performed to request  the wealth and money attraction boost from the cult members as the ritual . ',
-                details: 'This ritual does not take any thing related to human sacrifices or the family related issues it only requires your voice , and dounle black  candles that will be delivered to you during the ritual performance this is more importantly for poor people to  get better  chance to be better .',
-                instructions: 'For usage or instructions pay required amount for the ritual , we will  call you and tell  about  the ring delivery and how to built it  spiritually . We only give instructions after  payments call  27810792898 for  more information',
-                images: [
-                    'https://i.postimg.cc/BQzJxjw4/images-(20).jpg'
-                ],
-                 phone: '27810792898',
+                description: 'This is the Ritual that can change your life and your situation mostly good for attracting wealth, commonly used around South Africa by most successful people.',
+                details: 'This ritual does not take anything related to human sacrifices or family related issues. It only requires your voice and double black candles that will be delivered to you during the ritual performance.',
+                instructions: 'For usage or instructions pay required amount for the ritual, we will call you and tell about the ritual delivery. We only give instructions after payments call 27810792898 for more information.',
+                images: ['https://i.postimg.cc/BQzJxjw4/images-(20).jpg'],
+                phone: '27810792898',
                 isDefault: true
             },
             {
@@ -845,12 +1090,10 @@
                 name: 'Coin of Luck ILLUMINATI BR Ritual',
                 price: 5500,
                 category: 'Ritual Kits',
-                description: 'This is a FULLY Ritual built Coin to attract the good energy and remove bad energy on any person who carries the ILLUMINATED Coin from Black Rituals whoever caries the coin lives pure luck on anything incuding business , job , gamling or anything that look  hard to  the world .',
-                details: 'This coin turns you to be  a  everyones favourite it makes all  chances to be on your side with the pure LUCK BUILT by Black Rituals .',
-                instructions: 'For usage or instructions pay required amount for the ritual , we will  call you and tell  about  the ring delivery and how to built it  spiritually . We only give instructions after  payments call  27810792898 for  more information .',
-             images: [
-                    'https://i.postimg.cc/fyVZSZZN/images-(4).jpg'
-                ],
+                description: 'This is a FULLY Ritual built Coin to attract good energy and remove bad energy on any person who carries the ILLUMINATED Coin from Black Rituals.',
+                details: 'This coin turns you to be everyones favourite. It makes all chances to be on your side with pure LUCK BUILT by Black Rituals.',
+                instructions: 'For usage or instructions pay required amount for the ritual, we will call you and tell about the coin delivery and how to built it spiritually. We only give instructions after payments call 27810792898 for more information.',
+                images: ['https://i.postimg.cc/fyVZSZZN/images-(4).jpg'],
                 phone: '27810792898',
                 isDefault: true
             }
@@ -862,7 +1105,7 @@
                 id: 'test-1',
                 name: 'Nomsa Dlamini',
                 title: 'Energy Healer',
-                quote: 'The black sage bundle from Illuminati Black Rituals completely transformed my practice. The energy is authentic and powerful. I have been purchasing from them for over a year and the quality never disappoints.',
+                quote: 'The black sage bundle from Illuminati Black Rituals completely transformed my practice. The energy is authentic and powerful.',
                 image_url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&q=80',
                 isDefault: true
             },
@@ -870,7 +1113,7 @@
                 id: 'test-2',
                 name: 'Thabo Maleka',
                 title: 'Traditional Healer',
-                quote: 'As a sangoma, I need genuine spiritual tools. Illuminati Black Rituals provides authentic products that carry real power. The obsidian stone helped me create the strongest protection ward I have ever cast.',
+                quote: 'As a sangoma, I need genuine spiritual tools. Illuminati Black Rituals provides authentic products that carry real power.',
                 image_url: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80',
                 isDefault: true
             },
@@ -878,7 +1121,7 @@
                 id: 'test-3',
                 name: 'Sarah van Rensburg',
                 title: 'Spiritual Coach',
-                quote: 'The full moon ritual kit is absolutely incredible! I have performed the ceremony three times and manifested everything I asked for. The instructions are clear and the materials are high quality.',
+                quote: 'The full moon ritual kit is absolutely incredible! I have performed the ceremony three times and manifested everything I asked for.',
                 image_url: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80',
                 isDefault: true
             },
@@ -886,7 +1129,7 @@
                 id: 'test-4',
                 name: 'Marcus Johnson',
                 title: 'Yoga Instructor',
-                quote: 'I use the dragon blood oil before every class to protect the space. Students always comment on how safe and peaceful the energy feels. This oil is the real deal.',
+                quote: 'I use the dragon blood oil before every class to protect the space. Students always comment on how safe and peaceful the energy feels.',
                 image_url: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80',
                 isDefault: true
             },
@@ -894,7 +1137,7 @@
                 id: 'test-5',
                 name: 'Zanele Khumalo',
                 title: 'Meditation Teacher',
-                quote: 'The ancestral communication candle helped me finally connect with my grandmother who passed. I felt her presence so strongly. Thank you Illuminati Black Rituals for creating such powerful tools.',
+                quote: 'The ancestral communication candle helped me finally connect with my grandmother who passed. I felt her presence so strongly.',
                 image_url: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&q=80',
                 isDefault: true
             }
@@ -904,14 +1147,16 @@
         let AppState = {
             currentPage: 'home',
             selectedProduct: null,
+            selectedRitualProduct: null,
+            currentConversation: null,
             customerData: null,
             products: [],
             testimonials: [],
             orders: [],
+            conversations: [],
             settings: {
                 shop_email: "illuminatiblackrituals@gmail.com",
-                shop_phone: "+27 XX XXX XXXX",
-                bank_details: "TymeBank Everyday Account: 5110 3334 333",
+                shop_phone: "27810792898",
                 footer_text: "© 2024 Illuminati Black Rituals - Premium Spiritual Products"
             },
             stats: {
@@ -1084,11 +1329,10 @@
                     ...doc.data()
                 }));
                 
-                // Calculate real stats
-                const uniqueCustomers = new Set(AppState.orders.map(o => o.email_address)).size;
+                const uniqueCustomers = new Set(AppState.orders.map(o => o.email)).size;
                 const totalRevenue = AppState.orders
                     .filter(o => o.status === 'completed' || o.status === 'paid')
-                    .reduce((sum, o) => sum + parseFloat(o.amount || 0), 0);
+                    .reduce((sum, o) => sum + parseFloat(o.amount_zar || 0), 0);
                 
                 AppState.stats.customers = uniqueCustomers;
                 AppState.stats.orders = AppState.orders.length;
@@ -1102,6 +1346,108 @@
                 }
             } catch (error) {
                 console.error('Error loading orders:', error);
+            }
+        }
+
+        async function loadConversations() {
+            try {
+                const snapshot = await db.collection('messages').orderBy('timestamp', 'desc').get();
+                const allMessages = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data()
+                }));
+                
+                // Group by email
+                const grouped = {};
+                allMessages.forEach(msg => {
+                    const key = msg.email;
+                    if (!grouped[key]) {
+                        grouped[key] = {
+                            email: msg.email,
+                            name: msg.name,
+                            phone: msg.phone,
+                            messages: [],
+                            lastMessage: msg.timestamp
+                        };
+                    }
+                    grouped[key].messages.push(msg);
+                });
+                
+                AppState.conversations = Object.values(grouped).sort((a, b) => 
+                    (b.lastMessage?.toDate ? b.lastMessage.toDate() : new Date(b.lastMessage)) - 
+                    (a.lastMessage?.toDate ? a.lastMessage.toDate() : new Date(a.lastMessage))
+                );
+                
+                displayConversations();
+            } catch (error) {
+                console.error('Error loading conversations:', error);
+            }
+        }
+
+        function displayConversations() {
+            const list = document.getElementById('conversations-list');
+            if (!list) return;
+            
+            if (AppState.conversations.length === 0) {
+                list.innerHTML = '<p class="text-gray-500 text-center py-8">No messages yet</p>';
+                return;
+            }
+            
+            list.innerHTML = AppState.conversations.map(conv => `
+                <div onclick="openConversation('${conv.email}')" class="p-4 rounded-xl bg-gray-50 hover:bg-yellow-50 border-2 border-transparent hover:border-yellow-500 cursor-pointer transition">
+                    <div class="font-bold text-gray-900">${conv.name}</div>
+                    <div class="text-xs text-gray-600">${conv.email}</div>
+                    <div class="text-xs text-gray-500 mt-1">${conv.messages.length} message(s)</div>
+                </div>
+            `).join('');
+        }
+
+        function openConversation(email) {
+            const conv = AppState.conversations.find(c => c.email === email);
+            if (!conv) return;
+            
+            AppState.currentConversation = conv;
+            document.getElementById('no-chat-selected').classList.add('hidden');
+            document.getElementById('chat-area').classList.remove('hidden');
+            document.getElementById('chat-customer-name').textContent = conv.name;
+            document.getElementById('chat-customer-email').textContent = conv.email;
+            
+            displayMessages(conv.messages);
+        }
+
+        function displayMessages(messages) {
+            const container = document.getElementById('messages-container');
+            container.innerHTML = messages.map(msg => `
+                <div class="message-bubble ${msg.is_admin ? 'sent' : 'received'}">
+                    <div class="text-sm">${msg.message}</div>
+                    <div class="text-xs opacity-70 mt-1">${msg.timestamp ? new Date(msg.timestamp.toDate ? msg.timestamp.toDate() : msg.timestamp).toLocaleString() : ''}</div>
+                </div>
+            `).join('');
+            
+            container.scrollTop = container.scrollHeight;
+        }
+
+        async function sendAdminMessage() {
+            const input = document.getElementById('admin-message-input');
+            const text = input.value.trim();
+            if (!text || !AppState.currentConversation) return;
+            
+            try {
+                await db.collection('messages').add({
+                    email: AppState.currentConversation.email,
+                    name: AppState.currentConversation.name,
+                    phone: AppState.currentConversation.phone,
+                    message: text,
+                    is_admin: true,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                
+                input.value = '';
+                await loadConversations();
+                openConversation(AppState.currentConversation.email);
+                showToast('✅ Message sent!');
+            } catch (error) {
+                showToast('❌ Failed to send', 'error');
             }
         }
 
@@ -1292,7 +1638,7 @@
                                 <span class="price-tag">R${product.price}</span>
                             </div>
                             
-                            <button onclick='directBuy(${JSON.stringify(product).replace(/'/g, "&#39;")})' class="btn-primary w-full mt-4">
+                            <button onclick='openPayPalCheckout(${JSON.stringify(product).replace(/'/g, "&#39;")})' class="btn-primary w-full mt-4">
                                 <i data-lucide="shopping-cart" class="w-4 h-4 inline mr-2"></i>Buy Now
                             </button>
                         </div>
@@ -1320,13 +1666,13 @@
                                 <div class="image-gallery">
                                     ${images.map((img, idx) => `
                                         <img src="${img}" onclick="document.getElementById('main-product-image').src='${img}'" 
-                                             alt="View ${idx + 1}" class="w-20 h-20 object-cover rounded-lg border-2 border-gray-300 hover:border-yellow-500 cursor-pointer transition">
+                                             alt="View ${idx + 1}">
                                     `).join('')}
                                 </div>
                             ` : ''}
                             
                             <div class="flex gap-4 mt-6">
-                                <button onclick="directBuy(${JSON.stringify(product).replace(/'/g, "&#39;")})" class="btn-primary flex-1 py-4">
+                                <button onclick="openPayPalCheckout(${JSON.stringify(product).replace(/'/g, "&#39;")})" class="btn-primary flex-1 py-4">
                                     <i data-lucide="shopping-cart" class="w-5 h-5 inline mr-2"></i>Buy Now - R${product.price}
                                 </button>
                                 <button onclick="closeProductModal()" class="btn-secondary px-8">
@@ -1352,7 +1698,7 @@
                                 <i data-lucide="lock" class="w-6 h-6"></i>
                                 <div>
                                     <p class="font-bold mb-1">Full Instructions After Payment</p>
-                                    <p class="text-xs">Complete your purchase to receive detailed ritual instructions and product support via call.</p>
+                                    <p class="text-xs">Complete your purchase to receive detailed ritual instructions via call.</p>
                                 </div>
                             </div>
                             
@@ -1371,12 +1717,6 @@
                                         Basic Usage Guide
                                     </h3>
                                     <p class="text-gray-700 leading-relaxed">${product.instructions}</p>
-                                    <div class="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
-                                        <p class="text-sm text-gray-700">
-                                            <i data-lucide="alert-circle" class="w-4 h-4 inline mr-1 text-yellow-600"></i>
-                                            <strong>Note:</strong> Full step-by-step ritual instructions and personalized guidance will be provided after purchase via phone consultation.
-                                        </p>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1436,13 +1776,14 @@
                     <div class="order-card ${isCompleted ? 'completed' : ''}">
                         <div class="flex justify-between items-start mb-4">
                             <div>
-                                <h4 class="text-lg font-bold text-gray-900 mb-1">${order.item_name || 'Product'}</h4>
-                                <p class="text-sm text-gray-600">Order ID: ${order.m_payment_id || order.id}</p>
+                                <h4 class="text-lg font-bold text-gray-900 mb-1">${order.product_name || 'Product'}</h4>
+                                <p class="text-sm text-gray-600">Order ID: ${order.id}</p>
                                 <p class="text-xs text-gray-500">${date.toLocaleString()}</p>
                             </div>
                             <div class="text-right">
-                                <div class="text-2xl font-bold text-yellow-600">R${parseFloat(order.amount || 0).toFixed(2)}</div>
-                                <span class="inline-block px-3 py-1 rounded-full text-xs font-bold ${
+                                <div class="text-2xl font-bold text-yellow-600">R${parseFloat(order.amount_zar || 0).toFixed(2)}</div>
+                                <div class="text-xs text-gray-500">($${parseFloat(order.amount_usd || 0).toFixed(2)} USD)</div>
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-bold mt-2 ${
                                     isCompleted ? 'bg-green-100 text-green-800' : 
                                     order.status === 'paid' ? 'bg-blue-100 text-blue-800' : 
                                     'bg-yellow-100 text-yellow-800'
@@ -1454,13 +1795,13 @@
                         
                         <div class="grid md:grid-cols-2 gap-4 mb-4 text-sm">
                             <div>
-                                <p class="text-gray-600 mb-1"><strong>Customer:</strong> ${order.name_first} ${order.name_last}</p>
-                                <p class="text-gray-600 mb-1"><strong>Email:</strong> ${order.email_address}</p>
-                                <p class="text-gray-600"><strong>Phone:</strong> ${order.cell_number}</p>
+                                <p class="text-gray-600 mb-1"><strong>Customer:</strong> ${order.name || 'N/A'}</p>
+                                <p class="text-gray-600 mb-1"><strong>Email:</strong> ${order.email || 'N/A'}</p>
+                                <p class="text-gray-600"><strong>Phone:</strong> ${order.phone || 'N/A'}</p>
                             </div>
                             <div>
-                                <p class="text-gray-600 mb-1"><strong>Product ID:</strong> ${order.custom_str1 || 'N/A'}</p>
-                                <p class="text-gray-600"><strong>Address:</strong> ${order.custom_str2 || 'N/A'}</p>
+                                <p class="text-gray-600 mb-1"><strong>City:</strong> ${order.city || 'N/A'}</p>
+                                <p class="text-gray-600"><strong>Address:</strong> ${order.address || 'N/A'}</p>
                             </div>
                         </div>
                         
@@ -1525,104 +1866,230 @@
             lucide.createIcons();
         }
 
-        function directBuy(product) {
+        function updateStats() {
+            document.getElementById('stat-products').textContent = AppState.stats.products;
+            document.getElementById('stat-customers').textContent = AppState.stats.customers;
+            document.getElementById('stat-orders').textContent = AppState.stats.orders;
+            document.getElementById('stat-revenue').textContent = 'R' + AppState.stats.revenue.toLocaleString();
+        }
+
+        // ===== PAYPAL INTEGRATION =====
+        function openPayPalCheckout(product) {
             AppState.selectedProduct = product;
             closeProductModal();
             
-            const info = document.getElementById('checkout-product-info');
+            const summary = document.getElementById('paypal-order-summary');
             const mainImage = product.images ? product.images[0] : product.image_url;
-            info.innerHTML = `
+            const usdPrice = zarToUsd(product.price);
+            
+            summary.innerHTML = `
                 <div class="flex gap-6 p-6 rounded-2xl bg-yellow-50 border-2 border-yellow-500">
                     <img src="${mainImage}" class="w-32 h-32 object-cover rounded-xl">
                     <div class="flex-1">
                         <h3 class="font-bold text-gray-900 text-2xl mb-2">${product.name}</h3>
                         <p class="text-gray-600 mb-3">${product.description}</p>
                         <div class="price-tag">R${product.price}</div>
+                        <div class="text-sm text-gray-600 mt-2">PayPal Amount: <strong>$${usdPrice} USD</strong></div>
                     </div>
                 </div>
             `;
             
-            showPage('checkout');
+            document.getElementById('paypal-modal').classList.remove('hidden');
+            renderPayPalButton('paypal-button-container', usdPrice, product.price, 'product', product);
+            lucide.createIcons();
         }
 
-        function updateStats() {
-            document.getElementById('stat-products').textContent = AppState.stats.products;
-            document.getElementById('stat-customers').textContent = AppState.stats.customers;
-            document.getElementById('stat-orders').textContent = AppState.stats.orders;
-            document.getElementById('stat-revenue').textContent = 'R ' + AppState.stats.revenue.toLocaleString();
+        function closePayPalModal() {
+            document.getElementById('paypal-modal').classList.add('hidden');
+            document.getElementById('paypal-button-container').innerHTML = '';
         }
 
-        // ===== PAYFAST PAYMENT =====
-        async function initiatePayFast(product, customerData) {
-            const amount = product.price;
-            const merchantPaymentId = 'BR-' + Date.now();
+        function openRegistrationModal() {
+            document.getElementById('registration-modal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeRegistrationModal() {
+            document.getElementById('registration-modal').classList.add('hidden');
+            document.getElementById('registration-paypal-button').innerHTML = '';
+        }
+
+        function openRitualPaymentModal() {
+            document.getElementById('ritual-modal').classList.remove('hidden');
             
-            const nameParts = customerData.name.trim().split(' ');
-            const firstName = nameParts[0];
-            const lastName = nameParts.slice(1).join(' ') || firstName;
-            const cleanPhone = customerData.phone.replace(/[\s\-\(\)]/g, '');
+            const grid = document.getElementById('ritual-products-grid');
+            const ritualProducts = AppState.products.filter(p => 
+                p.category === 'rituals' || 
+                p.category === 'Ritual Kits' || 
+                p.name.toLowerCase().includes('ritual')
+            );
             
-            const paymentData = {
-                'merchant_id': PAYFAST_MERCHANT_ID,
-                'merchant_key': PAYFAST_MERCHANT_KEY,
-                'return_url': PAYFAST_RETURN_URL,
-                'cancel_url': PAYFAST_CANCEL_URL,
-                'notify_url': 'https://zapk1.github.io/egnportal/payfast-notify',
-                'name_first': firstName,
-                'name_last': lastName,
-                'email_address': customerData.email,
-                'cell_number': cleanPhone,
-                'm_payment_id': merchantPaymentId,
-                'amount': amount.toFixed(2),
-                'item_name': product.name,
-                'item_description': product.description,
-                'custom_str1': product.id,
-                'custom_str2': customerData.address,
-                'custom_str3': customerData.city
-            };
+            grid.innerHTML = ritualProducts.map(p => {
+                const mainImage = p.images ? p.images[0] : p.image_url;
+                return `
+                    <div class="ritual-option" onclick="selectRitualProduct(${JSON.stringify(p).replace(/'/g, "&#39;")})">
+                        <img src="${mainImage}" class="w-full h-40 object-cover rounded-xl mb-4">
+                        <h4 class="font-bold text-gray-900 mb-2">${p.name}</h4>
+                        <div class="price-tag text-lg">R${p.price}</div>
+                    </div>
+                `;
+            }).join('');
+            
+            lucide.createIcons();
+        }
+
+        function closeRitualModal() {
+            document.getElementById('ritual-modal').classList.add('hidden');
+            document.getElementById('ritual-payment-section').classList.add('hidden');
+            document.getElementById('ritual-paypal-button').innerHTML = '';
+            AppState.selectedRitualProduct = null;
+        }
+
+        function selectRitualProduct(product) {
+            AppState.selectedRitualProduct = product;
+            document.getElementById('ritual-full-price').textContent = product.price;
+            document.getElementById('ritual-payment-section').classList.remove('hidden');
+            
+            document.querySelectorAll('.ritual-option').forEach(el => el.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            
+            lucide.createIcons();
+        }
+
+        function openContactModal() {
+            document.getElementById('contact-modal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeContactModal() {
+            document.getElementById('contact-modal').classList.add('hidden');
+        }
+
+        async function sendContactMessage() {
+            const name = document.getElementById('contact-name').value.trim();
+            const email = document.getElementById('contact-email').value.trim();
+            const phone = document.getElementById('contact-phone').value.trim();
+            const message = document.getElementById('contact-message').value.trim();
+            
+            if (!name || !email || !phone || !message) {
+                showToast('Please fill all fields', 'error');
+                return;
+            }
             
             try {
-                await db.collection('orders').add({
-                    ...paymentData,
-                    product_name: product.name,
-                    timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                    status: 'pending'
+                await db.collection('messages').add({
+                    name, email, phone, message,
+                    is_admin: false,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
                 });
-            } catch (err) {
-                console.error('Failed to log order:', err);
+                
+                showToast('✅ Message sent successfully!');
+                closeContactModal();
+                
+                document.getElementById('contact-name').value = '';
+                document.getElementById('contact-email').value = '';
+                document.getElementById('contact-phone').value = '';
+                document.getElementById('contact-message').value = '';
+            } catch (error) {
+                showToast('❌ Failed to send message', 'error');
             }
-            
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = PAYFAST_URL;
-            
-            for (let key in paymentData) {
-                const input = document.createElement('input');
-                input.type = 'hidden';
-                input.name = key;
-                input.value = paymentData[key];
-                form.appendChild(input);
-            }
-            
-            document.body.appendChild(form);
-            showToast('🔄 Redirecting to PayFast secure payment...', 'success');
-            
-            setTimeout(() => form.submit(), 1500);
         }
 
-        document.getElementById('checkout-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        function renderPayPalButton(containerId, usdAmount, zarAmount, type, extraData = null) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
             
-            AppState.customerData = {
-                name: document.getElementById('checkout-name').value.trim(),
-                email: document.getElementById('checkout-email').value.trim(),
-                phone: document.getElementById('checkout-phone').value.trim(),
-                city: document.getElementById('checkout-city').value.trim(),
-                address: document.getElementById('checkout-address').value.trim()
-            };
-            
-            if (confirm(`💳 Proceed to secure payment of R${AppState.selectedProduct.price} for ${AppState.selectedProduct.name}?\n\nYou will be redirected to PayFast.`)) {
-                initiatePayFast(AppState.selectedProduct, AppState.customerData);
+            paypal.Buttons({
+                style: {
+                    layout: 'vertical',
+                    color: 'black',
+                    shape: 'rect',
+                    label: 'pay',
+                    height: 55
+                },
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: usdAmount.toString(),
+                                currency_code: 'USD'
+                            },
+                            description: extraData ? extraData.name : 'Payment'
+                        }]
+                    });
+                },
+                onApprove: async function(data, actions) {
+                    return actions.order.capture().then(async function(details) {
+                        let orderData = {
+                            transaction_id: details.id,
+                            amount_usd: usdAmount,
+                            amount_zar: zarAmount,
+                            status: 'paid',
+                            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                            type: type
+                        };
+
+                        if (type === 'product') {
+                            orderData.name = document.getElementById('paypal-name').value;
+                            orderData.email = document.getElementById('paypal-email').value;
+                            orderData.phone = document.getElementById('paypal-phone').value;
+                            orderData.city = document.getElementById('paypal-city').value;
+                            orderData.address = document.getElementById('paypal-address').value;
+                            orderData.product_name = extraData.name;
+                            orderData.product_id = extraData.id;
+                        } else if (type === 'registration') {
+                            orderData.name = document.getElementById('reg-name').value;
+                            orderData.email = document.getElementById('reg-email').value;
+                            orderData.phone = document.getElementById('reg-phone').value;
+                            orderData.product_name = 'Member Registration';
+                        } else if (type === 'ritual') {
+                            orderData.name = document.getElementById('ritual-name').value;
+                            orderData.email = document.getElementById('ritual-email').value;
+                            orderData.phone = document.getElementById('ritual-phone').value;
+                            orderData.product_name = extraData.name;
+                            orderData.product_id = extraData.id;
+                            orderData.full_price_zar = extraData.price;
+                        }
+
+                        await db.collection('orders').add(orderData);
+                        
+                        closePayPalModal();
+                        closeRegistrationModal();
+                        closeRitualModal();
+                        document.getElementById('success-modal').classList.remove('hidden');
+                        lucide.createIcons();
+                    });
+                },
+                onError: function(err) {
+                    console.error('PayPal Error:', err);
+                    showToast('Payment failed. Please try again.', 'error');
+                }
+            }).render('#' + containerId);
+        }
+
+        // Registration amount conversion
+        document.getElementById('reg-amount').addEventListener('input', function() {
+            const zarAmount = parseFloat(this.value);
+            if (zarAmount >= 180) {
+                const usdAmount = zarToUsd(zarAmount);
+                document.getElementById('reg-conversion').textContent = `PayPal will charge: $${usdAmount} USD`;
+                renderPayPalButton('registration-paypal-button', usdAmount, zarAmount, 'registration');
+            } else {
+                document.getElementById('reg-conversion').textContent = '';
+                document.getElementById('registration-paypal-button').innerHTML = '';
+            }
+        });
+
+        // Ritual amount conversion
+        document.getElementById('ritual-amount').addEventListener('input', function() {
+            const zarAmount = parseFloat(this.value);
+            if (zarAmount > 0 && AppState.selectedRitualProduct) {
+                const usdAmount = zarToUsd(zarAmount);
+                document.getElementById('ritual-conversion').textContent = `PayPal will charge: $${usdAmount} USD`;
+                renderPayPalButton('ritual-paypal-button', usdAmount, zarAmount, 'ritual', AppState.selectedRitualProduct);
+            } else {
+                document.getElementById('ritual-conversion').textContent = '';
+                document.getElementById('ritual-paypal-button').innerHTML = '';
             }
         });
 
@@ -1642,6 +2109,10 @@
             
             if (pageId === 'admin') {
                 setTimeout(() => initCharts(), 100);
+            }
+            
+            if (pageId === 'messages') {
+                loadConversations();
             }
             
             lucide.createIcons();
@@ -1683,7 +2154,6 @@
         function saveSettings() {
             AppState.settings.shop_email = document.getElementById('shop-email').value;
             AppState.settings.shop_phone = document.getElementById('shop-phone').value;
-            AppState.settings.bank_details = document.getElementById('bank-details').value;
             AppState.settings.footer_text = document.getElementById('footer-text').value;
             
             document.getElementById('footer-copyright').textContent = AppState.settings.footer_text;
@@ -1695,17 +2165,6 @@
         }
 
         window.addEventListener('load', async function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const paymentStatus = urlParams.get('payment');
-            
-            if (paymentStatus === 'success') {
-                document.getElementById('success-modal').classList.remove('hidden');
-                window.history.replaceState({}, document.title, window.location.pathname);
-            } else if (paymentStatus === 'cancelled') {
-                showToast('❌ Payment cancelled', 'error');
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-            
             const savedSettings = localStorage.getItem('shop_settings');
             if (savedSettings) {
                 AppState.settings = {...AppState.settings, ...JSON.parse(savedSettings)};
